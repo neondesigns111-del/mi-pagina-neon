@@ -323,27 +323,25 @@ footer#contacto {
     <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
   </footer>
 
-  <script>
+<script>
   const productos = [
     {
       name: "BMW M Performance",
       description: "Velador LED con diseño de disco de freno BMW M incandescente.",
       price: 30000,
-     img src="bmw disco.webp"
+      img: "bmw disco.webp"
     },
     {
       name: "Brembo Racing",
       description: "Versión con cáliper Brembo rojo y disco incandescente.",
       price: 30000,
-      img src= "disco brembo.webp"
-      
+      img: "disco brembo.webp"
     },
-        {
     {
-      name: "Base",
-      description: "Base premium impresa en 3D, diseñada a medida para el velador de disco de freno iluminado. Su estructura ofrece estabilidad y soporte firme, ideal si no tenés pensado colgarlo en la pared. Con acabado pulido y líneas modernas, realza el diseño y distribuye de forma uniforme la luz LED, haciendo que el velador luzca espectacular en cualquier superficie. ",
-      price: 5000,
-      img src= "disco de freno con base.webp"
+      name: "Con Base",
+      description: "Base premium impresa en 3D, diseñada a medida para el velador de disco de freno iluminado. Su estructura ofrece estabilidad y soporte firme, ideal si no tenés pensado colgarlo en la pared. Con acabado pulido y líneas modernas, realza el diseño y distribuye de forma uniforme la luz LED, haciendo que el velador luzca espectacular en cualquier superficie.",
+      price: 35000,
+      img: "disco de freno con base.webp"
     }
   ];
 
@@ -353,6 +351,7 @@ footer#contacto {
   const price = document.getElementById('productPrice');
   const thumbsWrapper = document.getElementById('thumbsWrapper');
 
+  // Generar miniaturas
   productos.forEach((prod, index) => {
     const thumb = document.createElement('img');
     thumb.src = prod.img;
@@ -376,9 +375,11 @@ footer#contacto {
   function scrollThumbs(direction) {
     thumbsWrapper.scrollBy({ left: direction * 100, behavior: 'smooth' });
   }
-  </script>
+</script>
+
 </body>
 </html>
+
 
 
 
