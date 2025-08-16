@@ -398,53 +398,64 @@ nav a:hover {
     padding: 1rem 0.5rem;
   }
 }
+/* Contenedor general */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Que main ocupe el espacio restante */
+main.producto {
+  flex: 1;
+}
 
     
   </style>
 </head>
 <body>
-  <header>
-    <h1>Neón F1</h1>
-    <nav>
-      <a href="index.html">Catálogo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="Pasos.html">Pasos</a>
-      <a href="seguimiento.html">Seguimiento de pedido</a>
-    </nav>
-  </header>
+  <div class="page-wrapper">
+    <header>
+      <h1>Neón F1</h1>
+      <nav>
+        <a href="index.html">Catálogo</a>
+        <a href="faq.html">FAQ</a>
+        <a href="Pasos.html">Pasos</a>
+        <a href="seguimiento.html">Seguimiento de pedido</a>
+      </nav>
+    </header>
 
-  <section class="producto">
-    <div class="left-column">
-      <img src="img/circuitof1.png" alt="Circuito F1 Neón" class="main-image" id="mainImg" />
-      <!-- Carrusel de miniaturas -->
-      <div class="thumbs-carousel">
-        <button class="carousel-btn left" onclick="scrollThumbs(-1)" aria-label="Deslizar a la izquierda">&#10094;</button>
-        <div class="thumbs-wrapper" id="thumbsWrapper">
-          <!-- Miniaturas se generarán con JS -->
+    <main class="producto">
+      <div class="left-column">
+        <img src="img/circuitof1.png" alt="Circuito F1 Neón" class="main-image" id="mainImg" />
+        <div class="thumbs-carousel">
+          <button class="carousel-btn left" onclick="scrollThumbs(-1)" aria-label="Deslizar a la izquierda">&#10094;</button>
+          <div class="thumbs-wrapper" id="thumbsWrapper"></div>
+          <button class="carousel-btn right" onclick="scrollThumbs(1)" aria-label="Deslizar a la derecha">&#10095;</button>
         </div>
-        <button class="carousel-btn right" onclick="scrollThumbs(1)" aria-label="Deslizar a la derecha">&#10095;</button>
       </div>
-    </div>
-    <div class="right-column">
-      <h2 id="circuitTitle">Spa-Francorchamps</h2>
-      <p id="circuitDesc">Uno de los circuitos más icónicos de la Fórmula 1, conocido por sus curvas rápidas y cambios de elevación. Ideal para los verdaderos fanáticos del automovilismo.</p>
-      <div class="price" id="circuitPrice">$18.000 ARS</div>
-      <div class="buttons">
-        <a href="https://wa.me/5491151171205?text=Quiero%20comprar%20el%20Circuito%20F1%20Neón" target="_blank" class="btn-whatsapp">Consultar por WhatsApp</a>
-        <a href="https://www.mercadopago.com.co" class="btn-mercadopago">Pagar con Mercado Pago</a>
+      <div class="right-column">
+        <h2 id="circuitTitle">Spa-Francorchamps</h2>
+        <p id="circuitDesc">Uno de los circuitos más icónicos de la Fórmula 1, conocido por sus curvas rápidas y cambios de elevación. Ideal para los verdaderos fanáticos del automovilismo.</p>
+        <div class="price" id="circuitPrice">$18.000 ARS</div>
+        <div class="buttons">
+          <a href="https://wa.me/5491151171205?text=Quiero%20comprar%20el%20Circuito%20F1%20Neón" target="_blank" class="btn-whatsapp">Consultar por WhatsApp</a>
+          <a href="https://www.mercadopago.com.co" class="btn-mercadopago">Pagar con Mercado Pago</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </main>
 
-  <footer id="contacto">
-    <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
-    <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
-  </footer>
+    <footer id="contacto">
+      <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
+      <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
+    </footer>
+  </div>
 
   <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalImgAlt">
     <img src="" alt="Imagen Ampliada" id="modalImg" />
   </div>
-  
+</body>
+
   <script>
   // Circuitos disponibles
   const circuits = [
@@ -532,4 +543,5 @@ nav a:hover {
   // Mostrar primer circuito por defecto
   selectCircuit(0);
 </script>
+
 
