@@ -8,9 +8,6 @@
   <style>
     
     /* AGREGO el color-tooltip que faltaba */
-   
-  
-    /* AGREGO el color-tooltip que faltaba */
     #contador-flotante {
   position: fixed;
   bottom: 20px;
@@ -23,6 +20,62 @@
   font-size: 14px;
   z-index: 9999;
   box-shadow: 0 0 10px #00ffcc88;
+}
+
+  #cupon-flotante {
+  position: fixed;
+  transition: top 0.2s ease, left 0.2s ease;
+  top: 50%;
+  left: 50%;
+  background-color: #ff00cc;
+  color: white;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  animation: flotar 1s infinite alternate;
+  box-shadow: 0 0 20px #ff00cc;
+}
+
+@keyframes flotar {
+  from { transform: translate(-50%, -50%) }
+  to   { transform: translate(-50%, -60%) }
+}
+
+#modal-cupon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#modal-contenido {
+  background: #111;
+  border: 2px solid #ff00cc;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  color: #fff;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  font-family: Orbitron, sans-serif;
+  box-shadow: 0 0 30px #ff00cc;
+}
+
+#cerrar-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
 }
 
 
@@ -586,7 +639,16 @@ article.card h3 {
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
-
+<div id="cupon-flotante" style="display: none;">🎁</div>
+<div id="modal-cupon" style="display:none;">
+  <div id="modal-contenido">
+    <button id="cerrar-modal">×</button>
+    <p>¡Tenés 15% de descuento en un producto a elección!</p>
+  </div>
+</div>
+<div id="contador-flotante" style="display: none;">
+  ⏳ Cupón válido por <span id="contador-cupon-flotante">24h 00m 00s</span>
+</div>
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
   <button id="btn-verde" data-color="verde"></button>
@@ -828,6 +890,5 @@ if (!cuponMostrado && !cuponAtrapado) {
 
 </body>
 </html>
-
 
 
