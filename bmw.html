@@ -381,6 +381,26 @@
 }
 
 }
+.boton-comprar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #ff0057, #ff7b00);
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(255, 0, 87, 0.8);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+.boton-comprar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 123, 0, 1);
+}
 
   </style>
 </head>
@@ -393,6 +413,9 @@
       <a href="Pasos.html">Pasos</a>
     </nav>
   </header>
+<a href="Pasos.html" class="boton-comprar">
+  ¿No sabés cómo comprar?
+</a>
 
   <main>
     <section class="producto">
@@ -544,5 +567,6 @@
   </script>
 </body>
 </html>
+
 
 
