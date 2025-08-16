@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circuito F1 Neón - Diseño Temático Carretera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #111;
+      color: #eee;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: url('https://motorshow.com.br/wp-content/uploads/sites/2/2025/03/hamilton01.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+header {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--neon);
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: var(--neon);
+  text-shadow: 0 0 10px var(--neon);
+  user-select: none;
+}
+
+nav a {
+  margin-left: 1.5rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--neon);
+}
+
+nav a {
+  margin-left: 1.5rem;
+  color: #ccc; /* color base un poco claro */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover {
+  color: #ff3b3b;
+  text-shadow:
+    0 0 5px #ff3b3b,
+    0 0 10px #ff3b3b,
+    0 0 20px #ff3b3b,
+    0 0 40px #ff3b3b;
+}
+
+    .producto {
+      max-width: 1200px;
+      margin: 3rem auto;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 20px #ff3b3b55;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      position: relative;
+    }
+    .producto::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: linear-gradient(to bottom, #ff000020 0%, transparent 40%);
+      border-radius: 20px;
+      z-index: 0;
+    }
+    .producto > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .left-column {
+      flex: 1 1 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+.main-image {
+  max-width: 100%;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 2px solid #222; /* borde sutil y elegante */
+  box-shadow: 0 0 5px rgba(255, 59, 59, 0.2); /* sombra suave */
+}
+
+.main-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.25); /* apenas perceptible */
+}
+
+
+    /* Carrusel miniaturas */
+ .thumbs-carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+  animation: fadeSlideIn 0.8s ease-in-out;
+}
+
+.thumbs-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 5px 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex-grow: 1;
+}
+
+.thumbs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbs-wrapper img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, opacity 0.3s ease, border 0.3s ease;
+  filter: none;
+}
+
+.thumbs-wrapper img:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+  border-color: #ff3b3b88;
+}
+
+.thumbs-wrapper img.selected {
+  opacity: 1;
+  border: 2px solid #ff3b3b;
+  transform: scale(1.08);
+  box-shadow: none;
+}
+
+.carousel-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #ff3b3b;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  padding: 0 6px;
+}
+.carousel-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+@keyframes fadeSlideIn {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+
+    .right-column {
+      flex: 1 1 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .right-column h2 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 0 0 15px #ff3b3b;
+      margin-bottom: 1rem;
+    }
+    .right-column p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #ffcccc;
+      margin-bottom: 1.5rem;
+    }
+    .price {
+      font-size: 2rem;
+      color: #ff3b3b;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px #ff3b3b88;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .buttons a {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      padding: 0.8rem;
+      border-radius: 25px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-whatsapp {
+      background: #25d366;
+      box-shadow: 0 0 12px #25d36688;
+    }
+    .btn-whatsapp:hover {
+      background: #1ca851;
+      box-shadow: 0 0 20px #1ca851;
+    }
+    .btn-mercadopago {
+      background: #009ee3;
+      box-shadow: 0 0 12px #009ee3aa;
+    }
+    .btn-mercadopago:hover {
+      background: #0077bb;
+      box-shadow: 0 0 20px #0077bb;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 0 50px #ff3b3b;
+      animation: zoomIn 0.4s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Footer mejorado */
+    footer#contacto {
+      background-color: #000; /* fondo negro sólido */
+      color: #ff3b3b;         /* rojo neón */
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: inset 0 0 20px #e1e1e100; /* brillo interno */
+      text-shadow: 0 0 8px #ff3b3b, 0 0 15px #ff3b3b88; /* neón */
+      user-select: none;
+    }
+    footer#contacto p {
+      margin: 0.3rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .producto {
+        flex-direction: column;
+        padding: 1.5rem;
+      }
+      .right-column h2 {
+        font-size: 2rem;
+      }
+      .buttons a {
+        width: 100%;
+      }
+      .thumbs-carousel {
+        max-width: 100%;
+      }
+    }
+   /* --- Responsive desde 768px hacia abajo --- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    margin-left: 0; /* removemos margen para evitar pegado */
+    font-size: 1.1rem;
+  }
+
+  .producto {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .left-column,
+  .right-column {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .right-column h2 {
+    font-size: 2rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons a {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .thumbs-carousel {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .thumbs-wrapper {
+    gap: 8px;
+  }
+}
+
+/* --- Más pequeño aún, móvil pequeño --- */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  nav {
+    gap: 1rem;
+  }
+
+  nav a {
+    font-size: 1rem;
+    padding: 0.3rem 0;
+  }
+
+  .right-column h2 {
+    font-size: 1.6rem;
+  }
+
+  .price {
+    font-size: 1.6rem;
+  }
+
+  footer#contacto {
+    font-size: 0.85rem;
+    padding: 1rem 0.5rem;
+  }
+}
+
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Neón F1</h1>
+    <nav>
+      <a href="index.html">Catálogo</a>
+      <a href="faq.html">FAQ</a>
+      <a href="Pasos.html">Pasos</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+    </nav>
+  </header>
+
+  <section class="producto">
+    <div class="left-column">
+      <img src="img/circuitof1.png" alt="Circuito F1 Neón" class="main-image" id="mainImg" />
+      <!-- Carrusel de miniaturas -->
+      <div class="thumbs-carousel">
+        <button class="carousel-btn left" onclick="scrollThumbs(-1)" aria-label="Deslizar a la izquierda">&#10094;</button>
+        <div class="thumbs-wrapper" id="thumbsWrapper">
+          <!-- Miniaturas se generarán con JS -->
+        </div>
+        <button class="carousel-btn right" onclick="scrollThumbs(1)" aria-label="Deslizar a la derecha">&#10095;</button>
+      </div>
+    </div>
+    <div class="right-column">
+      <h2 id="circuitTitle">Spa-Francorchamps</h2>
+      <p id="circuitDesc">Uno de los circuitos más icónicos de la Fórmula 1, conocido por sus curvas rápidas y cambios de elevación. Ideal para los verdaderos fanáticos del automovilismo.</p>
+      <div class="price" id="circuitPrice">$18.000 ARS</div>
+      <div class="buttons">
+        <a href="https://wa.me/5491151171205?text=Quiero%20comprar%20el%20Circuito%20F1%20Neón" target="_blank" class="btn-whatsapp">Consultar por WhatsApp</a>
+        <a href="https://www.mercadopago.com.co" class="btn-mercadopago">Pagar con Mercado Pago</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
+    <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalImgAlt">
+    <img src="" alt="Imagen Ampliada" id="modalImg" />
+  </div>
+  
+  <script>
+  // Circuitos disponibles
+  const circuits = [
+    {
+      name: "Spa-Francorchamps",
+      description: "Uno de los circuitos más icónicos de la Fórmula 1.",
+      price: 18000,
+      img: "img/spa francochamps.jpg"
+    },
+    {
+      name: "Monaco",
+      description: "El circuito urbano más famoso y glamoroso del calendario.",
+      price: 18500,
+      img: "img/circuitof1.png"
+    },
+    {
+      name: "Monza",
+      description: "Templo de la velocidad, amado por los tifosi.",
+      price: 17000,
+      img: "img/monza.png"
+    }
+  ];
+
+  const tieneCupon = localStorage.getItem('cupon-obtenido') === 'true';
+
+  const mainImg = document.getElementById('mainImg');
+  const modalImg = document.getElementById('modalImg');
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('circuitTitle');
+  const desc = document.getElementById('circuitDesc');
+  const price = document.getElementById('circuitPrice');
+  const thumbsWrapper = document.getElementById('thumbsWrapper');
+
+  // Generar miniaturas dinámicamente
+  circuits.forEach((circuit, index) => {
+    const thumb = document.createElement('img');
+    thumb.src = circuit.img;
+    thumb.alt = `Miniatura circuito ${circuit.name}`;
+    thumb.dataset.index = index;
+    thumb.onclick = () => selectCircuit(index);
+    if (index === 0) thumb.classList.add('selected');
+    thumbsWrapper.appendChild(thumb);
+  });
+
+  // Seleccionar circuito
+  function selectCircuit(index) {
+    const circuit = circuits[index];
+    mainImg.src = circuit.img;
+    modalImg.src = circuit.img;
+    title.textContent = circuit.name;
+    desc.textContent = circuit.description;
+
+    if (tieneCupon) {
+      const precioConDescuento = Math.floor(circuit.price * 0.85);
+      price.innerHTML = `
+        <span style="text-decoration: line-through;">$${circuit.price.toLocaleString("es-AR")} ARS</span>
+        <span style="color: #0ff; font-weight: bold;"> → $${precioConDescuento.toLocaleString("es-AR")} ARS (25% OFF)</span>
+      `;
+    } else {
+      price.textContent = `$${circuit.price.toLocaleString("es-AR")} ARS`;
+    }
+
+    document.querySelectorAll('.thumbs-wrapper img').forEach(img => img.classList.remove('selected'));
+    document.querySelectorAll('.thumbs-wrapper img')[index].classList.add('selected');
+  }
+
+  // Modal de imagen
+  mainImg.onclick = () => {
+    modalImg.src = mainImg.src;
+    modal.classList.add('active');
+  };
+  modal.onclick = () => {
+    modal.classList.remove('active');
+  };
+
+  // Scroll de miniaturas
+  function scrollThumbs(direction) {
+    const scrollAmount = 100;
+    thumbsWrapper.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+
+  // Mostrar primer circuito por defecto
+  selectCircuit(0);
+</script>

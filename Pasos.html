@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Cómo Comprar? - Diseños Neón</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --neon: #00fff7;
+      --text-light: #f0f0f0;
+      --bg-dark: #0f0f12;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+.fondo-espacio {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #0d0d0d 0%, #000000 80%);
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Estrellas pequeñas */
+.fondo-espacio::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: transparent;
+  box-shadow:
+    50px 100px #00fff7,
+    150px 200px #00fff7,
+    300px 120px #7affff,
+    400px 250px #00fff7,
+    500px 90px #7affff,
+    600px 150px #00fff7,
+    700px 220px #7affff,
+    800px 110px #00fff7,
+    900px 180px #7affff;
+  animation: moverEstrellas 40s linear infinite;
+  opacity: 0.8;
+}
+
+/* Estrellas más grandes y brillantes */
+.fondo-espacio::after {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background: transparent;
+  box-shadow:
+    100px 300px #00fff7,
+    250px 400px #7affff,
+    350px 320px #00fff7,
+    450px 450px #7affff,
+    550px 390px #00fff7,
+    650px 420px #7affff;
+  animation: moverEstrellas 60s linear reverse infinite;
+  opacity: 0.6;
+}
+
+@keyframes moverEstrellas {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(150px, 150px);
+  }
+}
+
+
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 10px var(--neon);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      color: var(--neon);
+      text-shadow: 0 0 10px var(--neon);
+      user-select: none;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--neon);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 4rem 1rem 6rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: var(--neon);
+      text-shadow: 0 0 10px var(--neon);
+      margin-bottom: 1.2rem;
+    }
+
+    .sub {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pasos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .paso {
+      background: rgba(0, 255, 247, 0.05);
+      border: 1px solid rgba(0, 255, 247, 0.15);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 18px rgba(0, 255, 247, 0.07);
+      transition: transform 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .paso:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
+    }
+
+    .paso .numero {
+      font-size: 2rem;
+      color: var(--neon);
+      margin-bottom: 0.8rem;
+    }
+
+    .paso h3 {
+      color: var(--neon);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .paso p {
+      font-size: 0.95rem;
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .btn-wsp {
+      margin-top: 3rem;
+      display: inline-block;
+      background: var(--neon);
+      color: #000;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .btn-wsp:hover {
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    footer {
+      background: #111;
+      color: #777;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      box-shadow: inset 0 1px 4px var(--neon);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .sub {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fondo-espacio"></div>
+
+
+  <header>
+    <div class="logo">Diseños Neón</div>
+    <nav>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="Pasos.html">Pasos</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>¿Cómo hacer tu pedido?</h1>
+    <p class="sub">
+      Ya sea un diseño de circuito F1, un personaje como Spider-Man, o un cartel personalizado con tu frase o logo, el proceso es simple, rápido y 100% online.
+    </p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="numero">1</div>
+        <h3>Elegí tu tipo de cartel</h3>
+        <p>Podés elegir entre diseños de personajes, circuitos de F1,disco de freno iluminado, enviar tu propio diseño, etc.</p>
+      </div>
+      <div class="paso">
+        <div class="numero">2</div>
+        <h3>hacer el pedido</h3>
+        <p>Nos envias un WhatsApp atravez de el boton consultar al WhatsApp especificando tu ubicacion (para darte un valor de envio aproximado) y el producto que queres.</p>
+      </div>
+      <div class="paso">
+        <div class="numero">3</div>
+        <h3>Configurá o contanos tu idea</h3>
+        <p>Si es personalizado, completás el simulador con texto y color o nos escribís con tu idea.</p>
+      </div>
+      <div class="paso">
+        <div class="numero">4</div>
+        <h3>Realizá el pago</h3>
+        <p>Transferencia por Mercado Pago (te damos el alias) y confirmás el pedido.</p>
+      </div>
+  
+      <div class="paso">
+        <div class="numero">5</div>
+        <h3>Producción y envío</h3>
+        <p>Fabricamos tu diseño en 2 a 5 días y lo enviamos a tu domicilio por correo, el envio corre por cuenta del comprador.</p>
+      </div>
+          <div class="paso">
+        <div class="numero">6</div>
+        <h3>Seguimiento de envío</h3>
+        <p>Te vamos a dar el numero de seguimiento de envio para que sepas el estado en tiempo real de tu pedido, para ver el seguimiento necesitas ir a la seccion de seguimiento, poner el numero, y al tocar ver estado te manda a la pagina del correo donde vas a tener que poner el codigo, una vez echo todo esto va apoder ver en que estado esta su Pedido.</p>
+      </div>
+    </div>
+    
+</script>
+
+    <a href="https://wa.me/5491151171205" target="_blank" class="btn-wsp">¿Tenés dudas? Hablá con nosotros por WhatsApp</a>
+  </main>
+
+  <footer>
+    © 2025 Diseños Neón — Todos los derechos reservados.
+  </footer>
+
+</body>
+</html>

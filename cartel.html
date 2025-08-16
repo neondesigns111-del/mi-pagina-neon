@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carteles para Eventos y Negocios - Diseños Neón</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <style>
+   /* ✅ Corrección: prevenir scroll horizontal */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --neon-main: #00fff7;
+      --neon-light: #7affff;
+      --bg-dark: #0f0f12;
+      --text-light: #f0f0f0;
+      --shadow-glow: 0 0 10px var(--neon-light), 0 0 20px var(--neon-main);
+    }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark), #1b1b1f);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+        max-width: 100vw;
+  overflow-x: hidden !important;
+    }
+
+header {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--neon);
+}
+header h1 {
+  font-size: 1.6rem;
+  color: var(--neon-main);
+  text-shadow: 0 0 10px var(--neon-main);
+  margin: 0;
+}
+
+header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+header nav a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: var(--neon-main);
+}
+
+
+
+
+
+
+    main {
+      flex: 1;
+      padding: 2rem 1rem 4rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      color: var(--neon-main);
+      text-shadow: var(--shadow-glow);
+      margin-bottom: 0.3rem;
+    }
+
+    p.intro {
+      text-align: center;
+      font-size: 1.15rem;
+      margin: 0 auto 2rem;
+      max-width: 800px;
+      color: #ccc;
+      user-select: text;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: rgba(0, 255, 247, 0.05);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 0 15px rgba(0, 255, 247, 0.2);
+      text-align: center;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+
+    .card:hover, .card:focus-within {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
+      outline: none;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    .card h2 {
+      color: var(--neon-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* Previsualización */
+    section.preview {
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      background: rgba(0, 255, 247, 0.05);
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 18px rgba(0, 255, 247, 0.2);
+      user-select: none;
+    }
+
+    section.preview h2 {
+      color: var(--neon-main);
+      text-shadow: var(--shadow-glow);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .preview-config {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+      margin-bottom: 1.5rem;
+      user-select: text;
+    }
+
+    .preview-config label {
+      color: #aadce6;
+      font-weight: 600;
+      align-self: center;
+      min-width: 80px;
+    }
+
+    .preview-config input[type="text"],
+    .preview-config select {
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      min-width: 150px;
+      font-family: 'Orbitron', sans-serif;
+      background: #111;
+      color: var(--text-light);
+      box-shadow:
+        inset 0 0 8px rgba(0, 255, 247, 0.3);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .preview-config input[type="text"]:focus,
+    .preview-config select:focus {
+      outline: none;
+      box-shadow:
+        0 0 12px var(--neon-main);
+    }
+
+    .preview-box {
+      height: 160px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
+      user-select: none;
+      position: relative;
+    }
+
+    #previewText {
+      font-size: 3.5rem;
+      color: var(--neon-main);
+      font-weight: 400;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow:
+        0 0 4px rgba(0, 255, 247, 0.4),
+        0 0 10px rgba(0, 255, 247, 0.3),
+        0 0 18px rgba(0, 255, 247, 0.2); 
+      user-select: text;
+      word-break: break-word;
+      text-align: center;
+      max-width: 100%;
+      white-space: normal;
+      cursor: default;
+      -webkit-text-stroke: 0.35px #000;
+    }
+
+    /* Campo diseño propio */
+    section.custom-design {
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      background: rgba(0, 255, 247, 0.05);
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 18px rgba(0, 255, 247, 0.2);
+      user-select: text;
+    }
+
+    section.custom-design h3 {
+      color: var(--neon-main);
+      text-shadow: var(--shadow-glow);
+      margin-bottom: 0.7rem;
+      text-align: center;
+    }
+
+    section.custom-design p {
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #bbb;
+    }
+
+    section.custom-design input[type="file"],
+    section.custom-design textarea {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: none;
+      padding: 0.6rem 1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      background: #111;
+      color: var(--text-light);
+      box-shadow:
+        inset 0 0 8px rgba(0, 255, 247, 0.3);
+      resize: vertical;
+    }
+
+    section.custom-design textarea {
+      min-height: 100px;
+    }
+
+    .btn-wsp {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
+      color: white;
+      padding: 0.8rem 2.5rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+      text-decoration: none;
+      margin: 0 auto;
+      display: block;
+      max-width: 280px;
+    }
+
+    .btn-wsp:hover, .btn-wsp:focus {
+      box-shadow:
+        0 0 25px var(--neon-light),
+        0 0 45px var(--neon-main);
+      outline: none;
+    }
+:root {
+  --neon: #00fff7;
+}
+
+:root {
+  --neon: #00d5cc; /* más suave que #00fff7 */
+  --neon-shadow: 0 0 4px #00d5cc, 0 0 8px #00d5cc;
+}
+
+footer {
+  background: #0a0a0a;
+  color: #aaa;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  font-size: 0.9rem;
+  margin-top: auto;
+  box-shadow: inset 0 1px 2px rgba(0, 255, 247, 0.05);
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+.contacto-info {
+  background: rgba(0, 255, 247, 0.06);
+  border: 2px solid var(--neon);
+  border-radius: 20px; /* más fino */
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px; /* más ancho */
+  box-shadow: 0 0 14px rgba(0, 213, 204, 0.25);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.contacto-info:hover {
+  box-shadow: 0 0 25px rgba(0, 213, 204, 0.4);
+  transform: translateY(-2px);
+}
+
+.contacto-info h2 {
+  color: #fff;
+  text-shadow: var(--neon-shadow);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  padding: 0 1.5rem;
+}
+
+.contacto-grid p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: center;
+  color: #e0e0e0;
+  text-shadow: 0 0 2px #000;
+}
+
+.contacto-info a {
+  color: var(--neon);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.contacto-info a:hover {
+  color: #fff;
+  text-shadow: 0 0 6px var(--neon), 0 0 10px var(--neon);
+}
+
+
+
+
+    /* Fondos para preview */
+    .preview-box.ladrillo {
+      background-image: url('https://d22fxaf9t8d39k.cloudfront.net/8a2436f2f311e673dcbf00dca651997500293462b78b7ee0bf174f976563f14e136013.png');
+    }
+    .preview-box.pared-blanca {
+      background-color: #ddd;
+      background-image: none;
+    }
+    .preview-box.pared-gris {
+      background-color: #444;
+      background-image: none;
+    }
+
+
+
+    .info-extra {
+      background: rgba(0, 255, 247, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 247, 0.1);
+      margin: 2rem auto 4rem;
+      max-width: 900px;
+    }
+    .info-extra h2 {
+      color: var(--neon-main);
+      text-align: center;
+      margin-bottom: 1rem;
+      text-shadow: var(--shadow-glow);
+    }
+    .info-extra ul {
+      list-style: none;
+      padding-left: 1rem;
+    }
+    .info-extra li {
+      margin-bottom: 0.8rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .info-extra li::before {
+      content: '✔';
+      color: var(--neon-main);
+      position: absolute;
+      left: 0;
+    }
+    .info-extra .sub {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .faq {
+      background: #0d0d0f;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 0 12px rgba(0,255,247,0.1);
+    }
+    .faq h3 {
+      color: var(--neon-main);
+      margin-bottom: 0.5rem;
+    }
+    .faq p {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden !important;
+  }
+}
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      header nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      header nav a {
+        font-size: 1.05rem;
+      }
+
+      main {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+      }
+
+      .product-images {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .product-images .main-image img {
+        width: 90vw;
+        max-width: 320px;
+      }
+
+      .thumbnails {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .product-details {
+        max-width: 90%;
+        text-align: center;
+        align-items: center;
+      }
+
+      .product-details h2 {
+        font-size: 1.5rem;
+      }
+
+      .product-details p {
+        font-size: 1rem;
+      }
+
+      .product-details button {
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      footer {
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+
+      footer .footer-links {
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .modal img {
+        width: 95vw;
+        max-height: 80vh;
+        object-fit: contain;
+      }
+
+      /* ✅ Corrección: preview-config en mobile */
+      .preview-config {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .preview-config label,
+      .preview-config input,
+      .preview-config select {
+        width: 100%;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Carteles Neon</h1>
+    <nav>
+      <a href="index.html">Catálogo</a>
+      <a href="faq.html">FAQ</a>
+      <a href="Pasos.html">Pasos</a>
+    </nav>
+  </header>
+
+
+  <main>
+    <h1>Carteles para Eventos y Negocios</h1>
+    <p class="intro">
+      Diseños personalizados de carteles con luz neón pensados especialmente para tu negocio, local, fiesta, cumpleaños, casamiento o evento importante.<br>
+      Elegí entre un cartel simple con solo texto o uno con diseño completo que represente tu marca o celebración.
+    </p>
+
+    <div class="grid" aria-label="Tipos de carteles">
+      <div class="card" tabindex="0">
+        <img src="img/ejemplo.png" alt="Cartel solo texto para negocio" />
+        <h2>Cartel Simple</h2>
+        <p>Ideal para quienes solo desean el nombre del local, fiesta o evento en luz neón, sin diseño adicional. Elegí fuente, color y tamaño.</p>
+      </div>
+
+      <div class="card" tabindex="0">
+        <img src="img/ejemplo con diseño.png" alt="Cartel con diseño para negocio" />
+        <h2>Cartel con Diseño</h2>
+        <p>Contanos tu idea y lo hacemos realidad. Agregamos íconos, fondos, logos o creamos un diseño completo que represente tu evento o marca.</p>
+      </div>
+    </div>
+
+    <section class="preview" aria-label="Simulador de previsualización de cartel">
+      <h2>Previsualizá el color de tu Cartel simple
+      <div class="preview-config">
+        <label for="textoPreview">Texto:</label>
+        <input type="text" id="textoPreview" placeholder="Mi Negocio" maxlength="30" aria-describedby="descTexto" />
+        
+        <label for="colorPreview">Color de luz:</label>
+        <select id="colorPreview" aria-describedby="descColor">
+          <option value="#ff0057">Rojo</option>
+          <option value="#00fff7" selected>Cyan</option>
+          <option value="#00ff88">Verde</option>
+          <option value="#ffaa00">Naranja</option>
+        </select>
+
+        <label for="fondoPreview">Fondo:</label>
+        <select id="fondoPreview" aria-describedby="descFondo">
+          <option value="ladrillo" selected>Ladrillos oscuros</option>
+          <option value="pared-blanca">Pared blanca</option>
+          <option value="pared-gris">Pared gris</option>
+        </select>
+      </div>
+      <div class="preview-box ladrillo" id="previewBox" aria-live="polite" aria-atomic="true" role="region">
+        <div id="previewText">Mi Negocio</div>
+      </div>
+    </section>
+
+    
+    <section class="custom-design" aria-label="Envío de diseño personalizado">
+      <h3>¿Tenés tu diseño o necesitás uno?</h3>
+      <p>Subí tu logo o contanos tu idea y creamos el cartel ideal para vos.</p>
+      <input type="file" accept="image/*" aria-label="Subir archivo de diseño" />
+      <textarea placeholder="Contanos tu idea..." aria-label="Descripción de diseño"></textarea>
+      <a href="#" id="btnWsp" class="btn-wsp" role="button">Encargar por WhatsApp</a>
+    </section>
+
+    <section class="info-extra">
+      <h2>¿Qué incluye tu cartel?</h2>
+      <ul>
+        <li>Estructura en plastico de impresora 3d.</li>
+        <li>Luz LED flexible tipo neón (varios colores a elección).</li>
+        <li>Fuente de alimentación 12V segura y silenciosa.</li>
+        <li>facil instalacion, conectas el transformador y ya esta listo </li>
+      </ul>
+
+      <div class="faq">
+        <h3>¿Cómo comprar?</h3>
+        <p>1. Previsualizá tu diseño o cargá tu idea.</p>
+        <p>2. Hacé clic en "Enviar por WhatsApp" para consultarnos directamente.</p>
+        <p>3. Te pasamos el presupuesto exacto y opciones de pago.</p>
+      </div>
+
+      <div class="faq">
+        <h3>Preguntas frecuentes</h3>
+        <p><strong>¿Cuánto tarda?</strong> De 4 a 10 días hábiles según complejidad.</p>
+        <p><strong>¿Envían a todo el país?</strong> Sí, por correo con seguimiento.</p>
+        <p><strong>¿Puedo pedir varios carteles?</strong> Sí, hacemos descuentos por cantidad.</p>
+         <p><strong>¿el precio varia si pido un diseño complejo?</strong> Sí, el precio depende de la complejidad.</p>
+      </div>
+    </section>
+  </main>
+
+<footer>
+  <p>© 2025 Diseños Neón — Todos los derechos reservados.</p>
+  <section class="contacto-info">
+    <h2>📬 Contacto</h2>
+    <div class="contacto-grid">
+      <p><strong>📞 WhatsApp:</strong><br><a href="https://wa.me/54 911 5117 1205" target="_blank">+54 911 5117 1205</a></p>
+      <p><strong>📧 Email:</strong><br><a href="mailto:neondesigns111@gmail.com">neondesigns111@gmail.com</a></p>
+      <p><strong>📸 Instagram:</strong><br><a href="https://www.instagram.com/neondesigns111" target="_blank">@neondesigns111</a></p>
+      <p><strong>🎵 TikTok:</strong><br><a href="https://www.tiktok.com/@neondesigns1" target="_blank">@neondesigns1</a></p>
+    </div>
+  </section>
+</footer>
+
+
+<script>
+  const textoInput = document.getElementById('textoPreview');
+  const colorSelect = document.getElementById('colorPreview');
+  const fondoSelect = document.getElementById('fondoPreview');
+  const previewText = document.getElementById('previewText');
+  const previewBox = document.getElementById('previewBox');
+  const btnWsp = document.getElementById('btnWsp');
+  const textarea = document.querySelector('textarea');
+
+  function actualizarPreview() {
+    // Texto
+    previewText.textContent = textoInput.value.trim() || 'Mi Negocio';
+
+    // Color de luz neón
+    previewText.style.color = colorSelect.value;
+    previewText.style.textShadow = `
+      0 0 6px ${colorSelect.value},
+      0 0 15px ${colorSelect.value},
+      0 0 25px ${colorSelect.value}
+    `;
+
+    // Fondo
+    previewBox.className = 'preview-box ' + fondoSelect.value;
+  }
+
+  textoInput.addEventListener('input', actualizarPreview);
+  colorSelect.addEventListener('change', actualizarPreview);
+  fondoSelect.addEventListener('change', actualizarPreview);
+
+  actualizarPreview();
+
+  btnWsp.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Armar mensaje con texto y descripción
+    const texto = textoInput.value.trim() || 'Mi Negocio';
+    const idea = textarea.value.trim() || 'No agregó descripción';
+    const mensaje = encodeURIComponent(`Hola, quiero un cartel personalizado.\nTexto: ${texto}\nDescripción: ${idea}`);
+    // Cambiar el número por tu número real sin espacios ni símbolos
+    const telefono = '5491123456789';
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>

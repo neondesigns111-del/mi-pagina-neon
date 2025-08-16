@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento de Pedido - Neón Designs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-image: url('');
+      background-size: cover;
+      background-position: center;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 0 10px #0ff;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      user-select: none;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      font-size: 1rem;
+    }
+
+    nav a:hover {
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+    }
+
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .seguimiento {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .seguimiento h2 {
+      font-size: 2rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+      text-align: center;
+    }
+
+    .seguimiento label {
+      font-size: 1rem;
+      color: #ccf;
+      margin-bottom: 0.5rem;
+    }
+
+    .seguimiento input {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+    }
+
+    .seguimiento button {
+      background: #0ff;
+      color: #000;
+      font-weight: bold;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      box-shadow: 0 0 15px ;
+    }
+
+    .seguimiento button:hover {
+      background: #00cfcf;
+      box-shadow: 0 0 25px #0ff;
+    }
+
+    .resultado {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 1rem;
+      color: #0ff;
+      word-break: break-word;
+    }
+
+    footer#contacto {
+      flex-shrink: 0;
+      background-color: #000;
+      color: #0ff;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.95rem;
+      font-weight: bold;
+      text-shadow: 0 0 8px #0ff, 0 0 15px ;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .logo { font-size: 1.4rem; }
+      nav a { font-size: 0.9rem; }
+      .seguimiento {
+        padding: 1.5rem;
+        max-width: 95%;
+      }
+      .seguimiento h2 { font-size: 1.6rem; }
+      .seguimiento input, .seguimiento button { font-size: 0.95rem; padding: 0.6rem; }
+      footer#contacto { font-size: 0.85rem; padding: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Neón Designs</div>
+    <nav>
+      <a href="index.html">Catálogo</a>
+      <a href="faq.html">FAQ</a>
+      <a href="Pasos.html">Pasos</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="seguimiento">
+      <h2>Seguimiento de tu Pedido</h2>
+      <label for="trackingNumber">Ingresa tu número de seguimiento:</label>
+      <input type="text" id="trackingNumber" placeholder="Ej: AA123456789AR" />
+      <button onclick="abrirCorreo()">Ver Estado</button>
+      <div class="resultado" id="resultado"></div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
+    <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function abrirCorreo() {
+      const numero = document.getElementById('trackingNumber').value.trim();
+      const resultado = document.getElementById('resultado');
+      if(!numero) {
+        resultado.textContent = 'Por favor, ingresa un número de seguimiento válido.';
+        return;
+      }
+      const url = `https://www.correoargentino.com.ar/seguimiento-envios?tracking=${encodeURIComponent(numero)}`;
+      window.open(url, '_blank');
+      resultado.textContent = `Abriendo el estado de tu pedido: ${numero}`;
+    }
+  </script>
+</body>
+</html>
