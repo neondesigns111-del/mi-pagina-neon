@@ -634,9 +634,29 @@ article.card h3 {
     <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
     <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
 </article>
-<p>Visitas a esta página: 
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=TU_USUARIO.TU_REPO" alt="contador de visitas">
-</p>
+<p>Visitas únicas: <span id="contador">0</span></p>
+
+<script>
+  async function actualizarContador() {
+    let urlBase = "https://api.countapi.xyz";
+    let namespace = "diseñosneon";   // poné un nombre único para tu proyecto
+    let key = "visitas";
+
+    // Si el usuario ya visitó antes en este navegador, no se suma de nuevo
+    if (!localStorage.getItem("yaVisito")) {
+      let response = await fetch(`${urlBase}/hit/${namespace}/${key}`);
+      let data = await response.json();
+      document.getElementById("contador").innerText = data.value;
+      localStorage.setItem("yaVisito", "true");
+    } else {
+      let response = await fetch(`${urlBase}/get/${namespace}/${key}`);
+      let data = await response.json();
+      document.getElementById("contador").innerText = data.value;
+    }
+  }
+
+  actualizarContador();
+</script>
 
 
 </article>
