@@ -638,55 +638,7 @@ article.card h3 {
 
 </article>
 </main>
-  <!-- ... -->
-<p>Usuarios únicos (este navegador cuenta 1 vez): <span id="contador">—</span></p>
 
-<script>
-(function () {
-  const NS = 'disenosneon';        // ¡sin ñ!
-  const KEY = 'visitas';
-  const STORAGE_KEY = `visited_${NS}_${KEY}_v1`;
-  const BASE = 'https://api.countapi.xyz';
-
-  function render(val) {
-    var el = document.getElementById('contador');
-    if (el) el.textContent = (val ?? 0);
-  }
-
-  async function getJson(url) {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return res.json();
-  }
-
-  async function updateCounter() {
-    try {
-      const ns = encodeURIComponent(NS);
-      const key = encodeURIComponent(KEY);
-
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        // Primera visita desde este navegador → suma +1 y marca como visitado
-        const data = await getJson(`${BASE}/hit/${ns}/${key}`);
-        localStorage.setItem(STORAGE_KEY, '1');
-        render(data.value);
-      } else {
-        // Ya visitó → solo lee el valor (no suma)
-        const data = await getJson(`${BASE}/get/${ns}/${key}`);
-        render(data.value);
-      }
-    } catch (e) {
-      console.error('CountAPI error', e);
-      render('0');
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateCounter);
-  } else {
-    updateCounter();
-  }
-})();
-</script>
 
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
@@ -706,7 +658,111 @@ article.card h3 {
   <button id="btn-verde" data-color="verde"></button>
   <button id="btn-rojo" data-color="rojo"></button>
 </div>
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Contador de Visitas</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 5rem;
+            /* Ajusta este valor según necesites */
+        }
+
+        .contador {
+            font-size: 2rem;
+            text-align: center;
+            /* Centra el contador horizontalmente */
+            margin: 20px;
+        }
+
+        nav,
+        footer {
+            text-align: center;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Contador de Visitas PHP</strong></li>
+        </ul>
+        <ul>
+            <li><a href="https://www.configuroweb.com/" role="button">Para más desarrollos ConfiguroWeb</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Bienvenido a Nuestra Página</h2>
+                    <h3>Contador de Visitas</h3>
+                </hgroup>
+                <p class="contador">
+                    <?php
+                    // Ruta al archivo que almacena el contador
+                    $archivoContador = "contador.txt";
+
+                    // Comprobar si el archivo existe y es legible
+                    if (is_readable($archivoContador)) {
+                        // Leer el valor actual del contador
+                        $contador = file_get_contents($archivoContador);
+
+                        // Incrementar el contador
+                        $contador++;
+
+                        // Abrir el archivo para escritura
+                        $fp = fopen($archivoContador, "w");
+
+                        // Escribir el nuevo valor del contador en el archivo
+                        fwrite($fp, $contador);
+
+                        // Cerrar el archivo
+                        fclose($fp);
+
+                        // Mostrar el contador de visitas
+                        echo "Número de visitas: " . $contador;
+                    } else {
+                        echo "El archivo de contador no existe o no se puede leer.";
+                    }
+
+                    ?>
+                </p>
+                <figure>
+                    <img src="https://source.unsplash.com/random/400x300" alt="Imagen aleatoria" />
+                    <figcaption><a href="https://unsplash.com" target="_blank">Imagen de Unsplash</a></figcaption>
+                </figure>
+                <h3>¡Gracias por tu visita!</h3>
+                <p>Esperamos que disfrutes tu estadía en nuestra página.</p>
+            </section>
+        </div>
+    </main>
+    <footer class="container">
+        <small><a href="#">Política de privacidad</a> • <a href="#">Términos de uso</a></small>
+    </footer>
+</body>
+
+</html>
 <div id="color-tooltip"></div>
 
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
