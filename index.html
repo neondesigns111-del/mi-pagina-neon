@@ -634,34 +634,59 @@ article.card h3 {
     <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
     <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
 </article>
-<p>Visitas únicas: <span id="contador">0</span></p>
-
-<script>
-  async function actualizarContador() {
-    let urlBase = "https://api.countapi.xyz";
-    let namespace = "diseñosneon";   // poné un nombre único para tu proyecto
-    let key = "visitas";
-
-    // Si el usuario ya visitó antes en este navegador, no se suma de nuevo
-    if (!localStorage.getItem("yaVisito")) {
-      let response = await fetch(`${urlBase}/hit/${namespace}/${key}`);
-      let data = await response.json();
-      document.getElementById("contador").innerText = data.value;
-      localStorage.setItem("yaVisito", "true");
-    } else {
-      let response = await fetch(`${urlBase}/get/${namespace}/${key}`);
-      let data = await response.json();
-      document.getElementById("contador").innerText = data.value;
-    }
-  }
-
-  actualizarContador();
-</script>
 
 
 </article>
 </main>
   <!-- ... -->
+<p>Usuarios únicos (este navegador cuenta 1 vez): <span id="contador">—</span></p>
+
+<script>
+(function () {
+  const NS = 'disenosneon';        // ¡sin ñ!
+  const KEY = 'visitas';
+  const STORAGE_KEY = `visited_${NS}_${KEY}_v1`;
+  const BASE = 'https://api.countapi.xyz';
+
+  function render(val) {
+    var el = document.getElementById('contador');
+    if (el) el.textContent = (val ?? 0);
+  }
+
+  async function getJson(url) {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+
+  async function updateCounter() {
+    try {
+      const ns = encodeURIComponent(NS);
+      const key = encodeURIComponent(KEY);
+
+      if (!localStorage.getItem(STORAGE_KEY)) {
+        // Primera visita desde este navegador → suma +1 y marca como visitado
+        const data = await getJson(`${BASE}/hit/${ns}/${key}`);
+        localStorage.setItem(STORAGE_KEY, '1');
+        render(data.value);
+      } else {
+        // Ya visitó → solo lee el valor (no suma)
+        const data = await getJson(`${BASE}/get/${ns}/${key}`);
+        render(data.value);
+      }
+    } catch (e) {
+      console.error('CountAPI error', e);
+      render('0');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateCounter);
+  } else {
+    updateCounter();
+  }
+})();
+</script>
 
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
