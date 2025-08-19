@@ -548,6 +548,22 @@ footer p {
         width: 100%;
       }
     }
+@media (max-width: 768px) {
+  /* Títulos principales */
+  h1, 
+  .contacto-info h2, 
+  .info-extra h2, 
+  #previewText, 
+  section.preview h2, 
+  section.custom-design h3 {
+    text-shadow: 
+      0 0 1px var(--neon-main),
+      0 0 3px var(--neon-main),
+      0 0 6px var(--neon-light),
+      0 0 12px var(--neon-light); /* brillo limpio y legible */
+    font-size: 2rem; /* reduce tamaño si quieres */
+  }
+}
 
 
   </style>
@@ -706,6 +722,7 @@ footer p {
 
 </body>
 </html>
+
 
 
 
