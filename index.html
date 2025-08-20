@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,16 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Diseños Neón - Catálogo Completo</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
-  
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLMPE91HKN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-SBC005GC21');
-  </script>
-  
   <style>
     
     /* AGREGO el color-tooltip que faltaba */
@@ -95,6 +84,32 @@
     margin: 0; padding: 0; box-sizing: border-box;
   }
   
+   /* Paletas con CSS variables para cada tema */
+  :root {
+    --neon-main: #00fff7;       /* Celeste neón */
+    --neon-light: #7affff;
+    --neon-bg-dark: #0a0a10;
+    --neon-bg-light: #1c1c36;
+    --text-color: #e0e0e0;
+    --shadow-color: rgba(0, 255, 247, 0.8);
+  }
+  :root[data-theme="verde"] {
+    --neon-main: #00ff6a;
+    --neon-light: #7affb2;
+    --neon-bg-dark: #081207;
+    --neon-bg-light: #153a12;
+    --text-color: #d6fcdc;
+    --shadow-color: rgba(0, 255, 106, 0.8);
+  }
+  :root[data-theme="rojo"] {
+    --neon-main: #ff0044;
+    --neon-light: #ff7a99;
+    --neon-bg-dark: #12040a;
+    --neon-bg-light: #361b28;
+    --text-color: #f4d6dc;
+    --shadow-color: rgba(255, 0, 68, 0.8);
+  }
+
 
   body {
     font-family: 'Orbitron', sans-serif;
@@ -157,16 +172,22 @@ nav a:hover {
 
   section.hero h1 {
     font-size: 4rem;
-     color: #0ff;
+    color: var(--neon-main);
+    text-shadow:
+      0 0 8px var(--neon-main),
+      0 0 25px var(--neon-light),
+      0 0 40px var(--neon-light),
+      0 0 60px var(--neon-main);
+    animation: flicker 3s linear infinite alternate;
     margin-bottom: 0.5rem;
   }
 
   section.hero p {
-    color: #00FFFF;
+    color: var(--neon-light);
     font-size: 1.5rem;
     max-width: 600px;
     line-height: 1.4;
-  
+    text-shadow: 0 0 10px var(--neon-light);
   }
 
   @keyframes flicker {
@@ -397,7 +418,7 @@ article.card h3 {
 /* Ajuste para pantallas pequeñas */
 @media (max-width: 768px) {
   section.hero h1 {
-      font-size: 2.5rem;
+    font-size: 2rem;
     text-shadow:
       0 0 2px #00ffff,
       0 0 5px #00cccc;
@@ -422,6 +443,20 @@ section.hero p {
     text-shadow: 0 0 2px #00cccc;
   }
 }
+    main.catalog {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    article.card {
+      max-width: 90vw;
+    }
+    a.btn-vermas {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.3rem;
+    }
+  }
+ 
   /* Responsive */
   @media (max-width: 600px) {
     
@@ -458,22 +493,24 @@ section.hero p {
       transform: translate(calc(var(--dir-x) * 30px), calc(var(--dir-y) * -30px)) scale(0);
     }
   }
-/* Botón toggle */
+   /* Mostrar siempre el botón toggle, fijo en la pantalla */
+/* Mostrar siempre el botón toggle, fijo en la pantalla */
 #toggle-palette {
   position: fixed;
   top: 80px;
   left: 16px;
   font-size: 22px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   border-radius: 50%;
   padding: 8px;
-  z-index: 10001; /* encima del selector */
+  z-index: 9999;
   cursor: pointer;
+  display: block; /* Siempre visible */
 }
 
-/* Selector oculto por defecto */
+/* Selector oculto por defecto en todas las pantallas */
 #palette-selector {
   display: none;
   position: fixed;
@@ -481,28 +518,28 @@ section.hero p {
   left: 16px;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   padding: 10px;
   border-radius: 8px;
-  z-index: 10000;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  z-index: 9998;
+  gap: 8px;
+  transition: transform 0.2s ease;
 }
 
-/* Mostrar cuando está activo */
+/* Cuando tiene clase visible, mostrar selector */
 #palette-selector.visible {
   display: flex;
 }
 
-/* Botones de colores */
+/* Botones de colores (igual que antes) */
 #palette-selector button {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  outline: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  outline-offset: 2px;
+  transition: transform 0.2s ease;
 }
 
 #btn-celeste { background-color: #00ffff; }
@@ -512,13 +549,13 @@ section.hero p {
 #palette-selector button:hover,
 #palette-selector button[aria-selected="true"] {
   transform: scale(1.2);
-  box-shadow: 0 0 10px currentColor;
+  box-shadow: 0 0 10px #0ff;
 }
 
-/* Tooltip */
+/* Opcional: tooltip ajustes para que no tapen nada */
 #color-tooltip {
   position: fixed;
-  top: 160px;
+  top: 180px;
   left: 16px;
   background: var(--neon-bg-light);
   color: var(--neon-main);
@@ -530,22 +567,26 @@ section.hero p {
   box-shadow: 0 0 12px var(--neon-main);
   opacity: 0;
   pointer-events: none;
+  user-select: none;
   transition: opacity 0.5s ease;
   z-index: 10002;
 }
-
 #color-tooltip.show {
   opacity: 1;
 }
-
-/* Ajustes móviles */
 @media (max-width: 768px) {
-  #toggle-palette { top: 110px; }
-  #palette-selector { top: 150px !important; }
-  #color-tooltip { top: 190px !important; }
-}
-  
+  #toggle-palette {
+    top: 110px; /* baja el botón toggle */
+  }
 
+  #palette-selector {
+    top: 150px !important; /* baja el selector de paletas */
+  }
+
+  #color-tooltip {
+    top: 190px !important; /* baja el tooltip del color */
+  }
+}
 
   </style>
 </head>
@@ -566,17 +607,17 @@ section.hero p {
   <h1>Diseños Neón</h1>
   <p>Tu espacio, iluminado con estilo y personalidad</p>
 </section>
-  <main id="catalogo" class="catalog">
-  <article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
-    <img src="WhatsApp Image 2025-08-16 at 2.50.12 PM (1).jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
-    <h3 id="circuito-title">Disco de freno iluminado</h3>
-    <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
-    <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-</article>
-
+<main id="catalogo" class="catalog">
+  <article class="card fade-in" tabindex="0" aria-labelledby="pelota-title" aria-describedby="pelota-desc">
+    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón con nombre personalizado" loading="lazy" />
+    <h3 id="pelota-title">Linea M de BMW</h3>
+    <p id="pelota-desc">La emblemática línea BMW M representa la máxima expresión de rendimiento y competición de la marca. Desde sus orígenes en los circuitos hasta los modelos de calle, la M combina potencia, precisión y diseño icónico.</p>
+    <a href="bmw.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+  </article> 
+    
   <!-- Tarjeta: Personajes Neón -->
   <article class="card fade-in" tabindex="0" aria-labelledby="personajes-title" aria-describedby="personajes-desc">
-    <img src="spidderman.jpg" alt="Diseños de personajes con luz neón" loading="lazy" />
+    <img src="img/spidderman.jpg" alt="Diseños de personajes con luz neón" loading="lazy" />
     <h3 id="personajes-title">Personajes Neón</h3>
     <p id="personajes-desc" style="min-height: 4.5em;">Spider-Man, Batman, Superman y otros héroes con luz neón. Elegí tu favorito y decorá tu espacio con estilo.</p>
     <a href="personajes.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
@@ -584,14 +625,14 @@ section.hero p {
 
 
   <article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
-    <img src="WhatsApp Image 2025-08-17 at 7.44.06 PM.jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
+    <img src="img/circuitof1.png" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
     <h3 id="circuito-title">Circuito F1 Neón</h3>
-    <p id="circuito-desc">Diseño automovilístico con luz intensa, ideal para fanáticos de la velocidad.</p>
+    <p id="circuito-desc">Diseño automovilístico con luz cyan intensa, ideal para fanáticos de la velocidad.</p>
     <a href="circuito.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
   </article>
 
   <article class="card fade-in" tabindex="0" aria-labelledby="cartel-title" aria-describedby="cartel-desc" style="animation-delay: 0.3s;">
-    <img src="cartel custom.png" alt="Cartel luminoso personalizado con luz cálida cyan" loading="lazy" />
+    <img src="img/cartel custom.png" alt="Cartel luminoso personalizado con luz cálida cyan" loading="lazy" />
     <h3 id="cartel-title">Carteles para Eventos y Negocios (personalizables)</h3>
     <p id="cartel-desc">Diseños personalizados de carteles con luz neón pensados especialmente para tu negocio, local, fiesta, cumpleaños, casamiento o evento importante.</p>
     <a href="cartel.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
@@ -603,19 +644,18 @@ section.hero p {
   <p id="nube-desc">Diseño con forma de nube cargada, luces envolventes y efecto tormenta. Ideal para ambientes modernos o espacios creativos.</p>
   <a href="nube.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
 </article>
-  
 
-  <article class="card fade-in" tabindex="0" aria-labelledby="pelota-title" aria-describedby="pelota-desc">
-    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón con nombre personalizado" loading="lazy" />
-    <h3 id="pelota-title">Linea M de BMW</h3>
-    <p id="pelota-desc">La emblemática línea BMW M representa la máxima expresión de rendimiento y competición de la marca. Desde sus orígenes en los circuitos hasta los modelos de calle, la M combina potencia, precisión y diseño icónico.</p>
-    <a href="bmw.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-  </article> 
+<article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
+    <img src="bmw disco.webp" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
+    <h3 id="circuito-title">Disco de freno iluminado</h3>
+    <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
+    <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+</article>
 
 
 </article>
 </main>
-
+  <!-- ... -->
 
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
@@ -641,93 +681,234 @@ section.hero p {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Partículas de fondo
-  const particlesContainer = document.getElementById("particles");
-  if (particlesContainer) {
-    const totalParticles = 70;
-    for (let i = 0; i < totalParticles; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      const size = Math.random() * 4 + 1.5;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.top = `${Math.random() * 100}vh`;
-      p.style.left = `${Math.random() * 100}vw`;
-      p.style.animationDuration = `${15 + Math.random() * 10}s`;
-      p.style.animationDelay = `${Math.random() * 15}s`;
-      particlesContainer.appendChild(p);
-    }
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const cupon = document.getElementById("cupon-flotante");
+    const modal = document.getElementById("modal-cupon");
+    const cerrarModalBtn = document.getElementById("cerrar-modal");
+    const contadorFlotante = document.getElementById("contador-flotante");
+    const textoContador = document.getElementById("contador-cupon-flotante");
+    const DURACION_CUPON_MS = 86400000;
 
-  // Animación fade-in de tarjetas
-  const fadeEls = document.querySelectorAll('.fade-in');
-  function handleScrollFade() {
-    const windowHeight = window.innerHeight;
-    fadeEls.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < windowHeight * 0.85) {
-        el.classList.add('visible');
+    const particlesContainer = document.getElementById("particles");
+    if (particlesContainer) {
+      const totalParticles = 70;
+      for (let i = 0; i < totalParticles; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const size = Math.random() * 4 + 1.5;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.top = `${Math.random() * 100}vh`;
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.animationDuration = `${15 + Math.random() * 10}s`;
+        p.style.animationDelay = `${Math.random() * 15}s`;
+        particlesContainer.appendChild(p);
       }
-    });
-  }
-  window.addEventListener('scroll', handleScrollFade);
-  window.addEventListener('load', handleScrollFade);
+    }
 
- document.addEventListener("DOMContentLoaded", () => {
+    function getEstadoCupon() {
+      const data = JSON.parse(localStorage.getItem("cuponData"));
+      return data && data.inicio ? data : null;
+    }
+
+    function guardarEstadoCupon(data) {
+      localStorage.setItem("cuponData", JSON.stringify(data));
+    }
+
+    function resetCupon() {
+      localStorage.removeItem("cuponData");
+      location.reload();
+    }
+
+function mostrarCupon() {
+  cupon.style.display = "block";
+  iniciarMovimientoSuaveCupon();
+
+  // Guardamos que ya se mostró para que no vuelva a aparecer
+  localStorage.setItem('cuponMostrado', 'true');
+
+  // Desaparece solo a los 5 segundos
+  setTimeout(() => {
+    cupon.style.display = "none";
+  }, 5000);
+}
+
+const cuponMostrado = localStorage.getItem('cuponMostrado');
+const cuponAtrapado = getEstadoCupon(); // función que vos ya tenés para saber si atrapó cupón
+
+if (!cuponMostrado && !cuponAtrapado) {
+  setTimeout(mostrarCupon, 3000);
+} else if (cuponAtrapado) {
+  iniciarContador();
+}
+
+
+    function mostrarModal() {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        modal.style.opacity = 1;
+      }, 50);
+    }
+
+    function ocultarModal() {
+      modal.style.opacity = 0;
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
+
+    function iniciarContador() {
+      const estado = getEstadoCupon();
+      if (!estado) return;
+      function actualizarContador() {
+        const ahora = Date.now();
+        const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
+        if (diferencia <= 0) {
+          contadorFlotante.style.display = "none";
+          return;
+        }
+        const horas = Math.floor(diferencia / 3600000);
+        const minutos = Math.floor((diferencia % 3600000) / 60000);
+        const segundos = Math.floor((diferencia % 60000) / 1000);
+        textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
+      }
+      contadorFlotante.style.display = "block";
+      actualizarContador();
+      setInterval(actualizarContador, 1000);
+    }
+
+    cupon.addEventListener("click", () => {
+      cupon.style.display = "none";
+      mostrarModal();
+      guardarEstadoCupon({ inicio: Date.now() });
+      iniciarContador();
+    });
+
+    cerrarModalBtn.addEventListener("click", ocultarModal);
+
+    if (!getEstadoCupon()) {
+      setTimeout(mostrarCupon, 3000);
+    } else {
+      iniciarContador();
+    }
+
+    window.resetCupon = resetCupon;
+
+    // Animación fade-in de tarjetas
+    const fadeEls = document.querySelectorAll('.fade-in');
+    function handleScrollFade() {
+      const windowHeight = window.innerHeight;
+      fadeEls.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < windowHeight * 0.85) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', handleScrollFade);
+    window.addEventListener('load', handleScrollFade);
+
+    // Paleta de color
+    const selector = document.getElementById('palette-selector');
+    const buttons = selector ? selector.querySelectorAll('button') : [];
+    const tooltip = document.getElementById('color-tooltip');
+
+    function setTheme(color) {
+      document.documentElement.setAttribute('data-theme', color);
+      buttons.forEach(btn => {
+        const selected = btn.dataset.color === color;
+        btn.setAttribute('aria-selected', selected);
+        btn.tabIndex = selected ? 0 : -1;
+      });
+      showTooltip(color);
+    }
+
+    function showTooltip(colorName) {
+      if (!tooltip) return;
+      tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+      tooltip.classList.add('show');
+      clearTimeout(tooltip.hideTimeout);
+      tooltip.hideTimeout = setTimeout(() => {
+        tooltip.classList.remove('show');
+      }, 1500);
+    }
+
+    const temaGuardado = localStorage.getItem('selectedTheme');
+    if (temaGuardado) setTheme(temaGuardado);
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTheme(btn.dataset.color);
+        localStorage.setItem('selectedTheme', btn.dataset.color);
+      });
+      btn.addEventListener('keydown', e => {
+        let index = Array.from(buttons).indexOf(e.target);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          let next = (index + 1) % buttons.length;
+          buttons[next].focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let prev = (index - 1 + buttons.length) % buttons.length;
+          buttons[prev].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setTheme(e.target.dataset.color);
+          localStorage.setItem('selectedTheme', e.target.dataset.color);
+        }
+      });
+    });
+
+    // Función para movimiento suave del cupón
+    function iniciarMovimientoSuaveCupon() {
+      cupon.style.position = 'fixed';
+      let posX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let posY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      cupon.style.left = `${posX}px`;
+      cupon.style.top = `${posY}px`;
+
+      let targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      const speed = 100; // píxeles por segundo
+
+      function moveStep(timestamp) {
+        if (!cupon.lastTimestamp) cupon.lastTimestamp = timestamp;
+        const delta = (timestamp - cupon.lastTimestamp) / 1000;
+        cupon.lastTimestamp = timestamp;
+
+        const dx = targetX - posX;
+        const dy = targetY - posY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 1) {
+          targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+          targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+        } else {
+          const moveX = (dx / dist) * speed * delta;
+          const moveY = (dy / dist) * speed * delta;
+          posX += moveX;
+          posY += moveY;
+          cupon.style.left = `${posX}px`;
+          cupon.style.top = `${posY}px`;
+        }
+
+        requestAnimationFrame(moveStep);
+      }
+
+      requestAnimationFrame(moveStep);
+    }
+  });
+
   const toggleBtn = document.getElementById('toggle-palette');
   const paletteSelector = document.getElementById('palette-selector');
-  const buttons = paletteSelector.querySelectorAll('button');
-  const tooltip = document.getElementById('color-tooltip');
 
-  function setTheme(color) {
-    document.documentElement.setAttribute('data-theme', color);
-    buttons.forEach(btn => {
-      btn.setAttribute('aria-selected', btn.dataset.color === color);
-      btn.tabIndex = btn.dataset.color === color ? 0 : -1;
+  if (toggleBtn && paletteSelector) {
+    toggleBtn.addEventListener('click', () => {
+      paletteSelector.classList.toggle('visible');
     });
-    showTooltip(color);
-    localStorage.setItem('selectedTheme', color);
   }
-
-  function showTooltip(color) {
-    tooltip.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-    tooltip.classList.add('show');
-    clearTimeout(tooltip.hideTimeout);
-    tooltip.hideTimeout = setTimeout(() => tooltip.classList.remove('show'), 1500);
-  }
-
-  // Cargar tema guardado
-  const saved = localStorage.getItem('selectedTheme');
-  if (saved) setTheme(saved);
-
-  // Click en botones de colores
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => setTheme(btn.dataset.color));
-    btn.addEventListener('keydown', e => {
-      let index = Array.from(buttons).indexOf(e.target);
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        buttons[(index+1)%buttons.length].focus();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        buttons[(index-1+buttons.length)%buttons.length].focus();
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setTheme(e.target.dataset.color);
-      }
-    });
-  });
-
-  // Toggle selector
-  toggleBtn.addEventListener('click', () => {
-    paletteSelector.classList.toggle('visible');
-  });
-});
-
 </script>
 
 </body>
 </html>
-
 
