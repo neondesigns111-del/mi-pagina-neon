@@ -5,23 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Diseños Neón - Catálogo Completo</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
-  
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLMPE91HKN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-SBC005GC21');
-  </script>
-  
   <style>
-
+    
     /* AGREGO el color-tooltip que faltaba */
-@@ -95,6 +84,32 @@
+    #contador-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0 0 10px #00ffcc88;
+}
+
+  #cupon-flotante {
+  position: fixed;
+  transition: top 0.2s ease, left 0.2s ease;
+  top: 50%;
+  left: 50%;
+  background-color: #ff00cc;
+  color: white;
+  font-size: 30px;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  animation: flotar 1s infinite alternate;
+  box-shadow: 0 0 20px #ff00cc;
+}
+
+@keyframes flotar {
+  from { transform: translate(-50%, -50%) }
+  to   { transform: translate(-50%, -60%) }
+}
+
+#modal-cupon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#modal-contenido {
+  background: #111;
+  border: 2px solid #ff00cc;
+  padding: 30px;
+  text-align: center;
+  border-radius: 20px;
+  color: #fff;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  font-family: Orbitron, sans-serif;
+  box-shadow: 0 0 30px #ff00cc;
+}
+
+#cerrar-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+
+  /* Reset */
+  *, *::before, *::after {
     margin: 0; padding: 0; box-sizing: border-box;
   }
-
+  
    /* Paletas con CSS variables para cada tema */
   :root {
     --neon-main: #00fff7;       /* Celeste neón */
@@ -51,11 +113,65 @@
 
   body {
     font-family: 'Orbitron', sans-serif;
-@@ -157,16 +172,22 @@
+    background: linear-gradient(135deg, var(--neon-bg-dark), var(--neon-bg-light));
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+
+:root {
+  --neon: #00fff7;
+  --bg-dark: #0f0f12;
+  --text-light: #f0f0f0;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--neon);
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: var(--neon);
+  text-shadow: 0 0 10px var(--neon);
+  user-select: none;
+}
+
+nav a {
+  margin-left: 1.5rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--neon);
+}
+
+  /* Hero */
+  section.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    user-select: none;
+  }
 
   section.hero h1 {
     font-size: 4rem;
-     color: #0ff;
     color: var(--neon-main);
     text-shadow:
       0 0 8px var(--neon-main),
@@ -67,26 +183,263 @@
   }
 
   section.hero p {
-    color: #00FFFF;
     color: var(--neon-light);
     font-size: 1.5rem;
     max-width: 600px;
     line-height: 1.4;
-  
     text-shadow: 0 0 10px var(--neon-light);
   }
 
   @keyframes flicker {
-@@ -397,7 +418,7 @@
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      text-shadow:
+        0 0 8px var(--neon-main),
+        0 0 25px var(--neon-light),
+        0 0 40px var(--neon-light),
+        0 0 60px var(--neon-main);
+    }
+    20%, 22%, 24%, 55% {
+      opacity: 0.7;
+      text-shadow: none;
+    }
+  }
+
+  /* Catalogo cards */
+  main.catalog {
+    max-width: 1200px;
+    margin: 4rem auto 2rem;
+    padding: 0 1.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+article.card {
+  background: rgba(0, 255, 247, 0.06); /* Más tenue */
+  box-shadow:
+    0 0 8px rgba(0, 255, 247, 0.4),
+    inset 0 0 25px rgba(122, 255, 255, 0.3);
+  padding: 1.5rem 1.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  perspective: 700px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  user-select: none;
+}
+
+article.card:hover,
+article.card:focus-within {
+  box-shadow:
+    0 0 20px rgba(122, 255, 255, 0.5),
+    inset 0 0 40px rgba(0, 255, 247, 0.35);
+  transform: scale(1.03) rotateX(5deg) rotateY(7deg);
+}
+
+article.card img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 20px;
+  box-shadow:
+    0 0 18px rgba(0, 255, 247, 0.35);
+  margin-bottom: 1.25rem;
+  user-select: none;
+  transition: box-shadow 0.3s ease;
+}
+article.card:hover img {
+  box-shadow:
+    0 0 30px rgba(122, 255, 255, 0.4);
+}
+
+article.card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--neon-main);
+  text-shadow: 0 0 6px rgba(0, 255, 247, 0.6);
+}
+
+
+  article.card p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #a0f9ff;
+    margin-bottom: 1.5rem;
+    min-height: 4.5em;
+    text-align: center;
+  }
+
+  a.btn-vermas {
+    background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.8rem 2.2rem;
+    border-radius: 25px;
+    box-shadow:
+      0 0 25px var(--neon-light),
+      0 0 45px var(--neon-main);
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  a.btn-vermas:hover,
+  a.btn-vermas:focus {
+    box-shadow:
+      0 0 45px var(--neon-light),
+      0 0 75px var(--neon-main);
+    transform: scale(1.15);
+    outline: none;
+  }
+.navbar {
+  background: #000;
+  padding: 1rem;
+  text-align: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap; /* Permite que se acomoden sin romper */
+  justify-content: center;
+  gap: 8rem; /* espacio entre ítems */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  margin: 0.4rem 0;
+}
+
+.nav-list a {
+  color: #00d5cc;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #fff;
+  text-shadow: 0 0 6px var(--neon);
+}
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--neon-bg-light);
+    color: #999;
+    box-shadow: inset 0 1px 3px var(--neon-main);
+    font-size: 0.9rem;
+    user-select: none;
+    border-radius: 0 0 25px 25px;
+    margin-top: 3rem;
+  }
+
+  /* Scroll animation fade in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Particulas animadas */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--neon-main);
+    filter: drop-shadow(0 0 5px var(--neon-light));
+    opacity: 0.8;
+    animation: drift 15s linear infinite;
+  }
+  @keyframes drift {
+    0% {
+      transform: translate(0,0);
+    }
+    100% {
+      transform: translate(20vw, 20vh);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    header {
+      padding: 1rem 2rem;
+    }
+      header h1 {
+    filter: brightness(0.6);
+    text-shadow: 0 0 6px #0ff;
+  }
+    main.catalog {
+      max-width: 100%;
+      margin: 3rem auto 2rem;
+      gap: 1.8rem;
+      padding: 0 1rem 3rem;
+    }
+    article.card {
+      max-width: 340px;
+      margin: 0 auto;
+    }
+  }
+@media (max-width: 600px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 9rem; /* más aire entre ellos en vertical */
+  }
+
+  .nav-list a {
+    font-size: 1.1rem;
+    padding: 0.9rem 0;
+  }
+}
+
+  @media (max-width: 600px) {
+    header {
+      padding: 1rem 0.1rem;
+    }
 /* Ajuste para pantallas pequeñas */
 @media (max-width: 768px) {
   section.hero h1 {
-      font-size: 2.5rem;
     font-size: 2rem;
     text-shadow:
       0 0 2px #00ffff,
       0 0 5px #00cccc;
-@@ -422,6 +443,20 @@
+    -webkit-text-stroke: 0.3px #00cccc;
+  }
+}
+
+/* PARRAFO HERO */
+section.hero p {
+  font-size: 1.1rem;
+  max-width: 90vw;
+  color: #fff;
+  text-shadow: 0 0 3px #00cccc;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+/* Ajuste párrafo móvil */
+@media (max-width: 768px) {
+  section.hero p {
+    font-size: 1rem;
     text-shadow: 0 0 2px #00cccc;
   }
 }
@@ -106,12 +459,40 @@
  
   /* Responsive */
   @media (max-width: 600px) {
-
-@@ -458,51 +493,53 @@
+    
+  }
+   #btn-cupon {
+    position: fixed;
+    bottom: 120px;
+    right: 16px;
+    font-size: 36px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10000;
+    display: none;
+  }
+  .estrella-particle {
+    position: fixed;
+    background: var(--neon-main);
+    filter: drop-shadow(0 0 5px var(--neon-light));
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: chispas-mov 1.2s linear forwards;
+    width: 4px;
+    height: 4px;
+    z-index: 9999;
+  }
+  @keyframes chispas-mov {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
       transform: translate(calc(var(--dir-x) * 30px), calc(var(--dir-y) * -30px)) scale(0);
     }
   }
-/* Botón toggle */
    /* Mostrar siempre el botón toggle, fijo en la pantalla */
 /* Mostrar siempre el botón toggle, fijo en la pantalla */
 #toggle-palette {
@@ -119,19 +500,16 @@
   top: 80px;
   left: 16px;
   font-size: 22px;
-  background: rgba(0,0,0,0.5);
   background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   border-radius: 50%;
   padding: 8px;
-  z-index: 10001; /* encima del selector */
   z-index: 9999;
   cursor: pointer;
   display: block; /* Siempre visible */
 }
 
-/* Selector oculto por defecto */
 /* Selector oculto por defecto en todas las pantallas */
 #palette-selector {
   display: none;
@@ -140,25 +518,19 @@
   left: 16px;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 8px;
-  background: rgba(0,0,0,0.8);
   background: rgba(0, 0, 0, 0.8);
   padding: 10px;
   border-radius: 8px;
-  z-index: 10000;
-  transition: transform 0.2s ease, opacity 0.2s ease;
   z-index: 9998;
   gap: 8px;
   transition: transform 0.2s ease;
 }
 
-/* Mostrar cuando está activo */
 /* Cuando tiene clase visible, mostrar selector */
 #palette-selector.visible {
   display: flex;
 }
 
-/* Botones de colores */
 /* Botones de colores (igual que antes) */
 #palette-selector button {
   width: 30px;
@@ -166,31 +538,32 @@
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  outline: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   outline-offset: 2px;
   transition: transform 0.2s ease;
 }
 
 #btn-celeste { background-color: #00ffff; }
-@@ -512,13 +549,13 @@
+#btn-verde { background-color: #00ff00; }
+#btn-rojo { background-color: #ff0000; }
+
 #palette-selector button:hover,
 #palette-selector button[aria-selected="true"] {
   transform: scale(1.2);
-  box-shadow: 0 0 10px currentColor;
   box-shadow: 0 0 10px #0ff;
 }
 
-/* Tooltip */
 /* Opcional: tooltip ajustes para que no tapen nada */
 #color-tooltip {
   position: fixed;
-  top: 160px;
   top: 180px;
   left: 16px;
   background: var(--neon-bg-light);
   color: var(--neon-main);
-@@ -530,22 +567,26 @@
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 4px 10px;
+  border-radius: 12px;
   box-shadow: 0 0 12px var(--neon-main);
   opacity: 0;
   pointer-events: none;
@@ -198,18 +571,10 @@
   transition: opacity 0.5s ease;
   z-index: 10002;
 }
-
 #color-tooltip.show {
   opacity: 1;
 }
-
-/* Ajustes móviles */
 @media (max-width: 768px) {
-  #toggle-palette { top: 110px; }
-  #palette-selector { top: 150px !important; }
-  #color-tooltip { top: 190px !important; }
-}
-  
   #toggle-palette {
     top: 110px; /* baja el botón toggle */
   }
@@ -225,18 +590,23 @@
 
   </style>
 </head>
-@@ -566,32 +607,32 @@
+<body>
+<div id="particles" aria-hidden="true"></div>
+<header>
+  <div class="logo">Diseños Neón</div>
+  <nav>
+    <a href="#catalogo">Catálogo</a>
+    <a href="faq.html">FAQ</a>
+    <a href="Pasos.html">Pasos</a>
+    <a href="https://www.instagram.com/neondesigns111" target="_blank">Instagram</a>
+    <a href="https://www.tiktok.com/@neondesigns1" target="_blank">TikTok</a>
+    <a href="seguimiento.html">Seguimiento de pedido</a>
+  </nav>
+</header>
+<section class="hero">
   <h1>Diseños Neón</h1>
   <p>Tu espacio, iluminado con estilo y personalidad</p>
 </section>
-  <main id="catalogo" class="catalog">
-  <article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
-    <img src="WhatsApp Image 2025-08-16 at 2.50.12 PM (1).jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
-    <h3 id="circuito-title">Disco de freno iluminado</h3>
-    <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
-    <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-</article>
-
 <main id="catalogo" class="catalog">
   <article class="card fade-in" tabindex="0" aria-labelledby="pelota-title" aria-describedby="pelota-desc">
     <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón con nombre personalizado" loading="lazy" />
@@ -247,7 +617,6 @@
     
   <!-- Tarjeta: Personajes Neón -->
   <article class="card fade-in" tabindex="0" aria-labelledby="personajes-title" aria-describedby="personajes-desc">
-    <img src="spidderman.jpg" alt="Diseños de personajes con luz neón" loading="lazy" />
     <img src="img/spidderman.jpg" alt="Diseños de personajes con luz neón" loading="lazy" />
     <h3 id="personajes-title">Personajes Neón</h3>
     <p id="personajes-desc" style="min-height: 4.5em;">Spider-Man, Batman, Superman y otros héroes con luz neón. Elegí tu favorito y decorá tu espacio con estilo.</p>
@@ -256,32 +625,26 @@
 
 
   <article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
-    <img src="WhatsApp Image 2025-08-17 at 7.44.06 PM.jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
     <img src="img/circuitof1.png" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
     <h3 id="circuito-title">Circuito F1 Neón</h3>
-    <p id="circuito-desc">Diseño automovilístico con luz intensa, ideal para fanáticos de la velocidad.</p>
     <p id="circuito-desc">Diseño automovilístico con luz cyan intensa, ideal para fanáticos de la velocidad.</p>
     <a href="circuito.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
   </article>
 
   <article class="card fade-in" tabindex="0" aria-labelledby="cartel-title" aria-describedby="cartel-desc" style="animation-delay: 0.3s;">
-    <img src="cartel custom.png" alt="Cartel luminoso personalizado con luz cálida cyan" loading="lazy" />
     <img src="img/cartel custom.png" alt="Cartel luminoso personalizado con luz cálida cyan" loading="lazy" />
     <h3 id="cartel-title">Carteles para Eventos y Negocios (personalizables)</h3>
     <p id="cartel-desc">Diseños personalizados de carteles con luz neón pensados especialmente para tu negocio, local, fiesta, cumpleaños, casamiento o evento importante.</p>
     <a href="cartel.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-@@ -603,19 +644,18 @@ <h3 id="nube-title">Nube Neón Decorativa</h3>
+  </article>
+
+  <article class="card fade-in" tabindex="0" aria-labelledby="nube-title" aria-describedby="nube-desc" style="animation-delay: 0.45s;">
+  <img src="https://www.ledyilighting.com/wp-content/uploads/2023/08/Thunder-Cloud.jpg" alt="Diseño de nube con luz neón intensa" loading="lazy" />
+  <h3 id="nube-title">Nube Neón Decorativa</h3>
   <p id="nube-desc">Diseño con forma de nube cargada, luces envolventes y efecto tormenta. Ideal para ambientes modernos o espacios creativos.</p>
   <a href="nube.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
 </article>
-  
 
-  <article class="card fade-in" tabindex="0" aria-labelledby="pelota-title" aria-describedby="pelota-desc">
-    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón con nombre personalizado" loading="lazy" />
-    <h3 id="pelota-title">Linea M de BMW</h3>
-    <p id="pelota-desc">La emblemática línea BMW M representa la máxima expresión de rendimiento y competición de la marca. Desde sus orígenes en los circuitos hasta los modelos de calle, la M combina potencia, precisión y diseño icónico.</p>
-    <a href="bmw.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-  </article> 
 <article class="card fade-in" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
     <img src="bmw disco.webp" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
     <h3 id="circuito-title">Disco de freno iluminado</h3>
@@ -292,31 +655,32 @@
 
 </article>
 </main>
-
   <!-- ... -->
 
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
-@@ -641,93 +681,234 @@ <h3 id="pelota-title">Linea M de BMW</h3>
+</footer>
+<div id="cupon-flotante" style="display: none;">🎁</div>
+<div id="modal-cupon" style="display:none;">
+  <div id="modal-contenido">
+    <button id="cerrar-modal">×</button>
+    <p>¡Tenés 15% de descuento en un producto a elección!</p>
+  </div>
+</div>
+<div id="contador-flotante" style="display: none;">
+  ⏳ Cupón válido por <span id="contador-cupon-flotante">24h 00m 00s</span>
+</div>
+<div id="palette-selector">
+  <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
+  <button id="btn-verde" data-color="verde"></button>
+  <button id="btn-rojo" data-color="rojo"></button>
+</div>
+
+<div id="color-tooltip"></div>
+
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Partículas de fondo
-  const particlesContainer = document.getElementById("particles");
-  if (particlesContainer) {
-    const totalParticles = 70;
-    for (let i = 0; i < totalParticles; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      const size = Math.random() * 4 + 1.5;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.top = `${Math.random() * 100}vh`;
-      p.style.left = `${Math.random() * 100}vw`;
-      p.style.animationDuration = `${15 + Math.random() * 10}s`;
-      p.style.animationDelay = `${Math.random() * 15}s`;
-      particlesContainer.appendChild(p);
   document.addEventListener("DOMContentLoaded", () => {
     const cupon = document.getElementById("cupon-flotante");
     const modal = document.getElementById("modal-cupon");
@@ -346,16 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = JSON.parse(localStorage.getItem("cuponData"));
       return data && data.inicio ? data : null;
     }
-  }
 
-  // Animación fade-in de tarjetas
-  const fadeEls = document.querySelectorAll('.fade-in');
-  function handleScrollFade() {
-    const windowHeight = window.innerHeight;
-    fadeEls.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < windowHeight * 0.85) {
-        el.classList.add('visible');
     function guardarEstadoCupon(data) {
       localStorage.setItem("cuponData", JSON.stringify(data));
     }
@@ -428,15 +783,7 @@ if (!cuponMostrado && !cuponAtrapado) {
       guardarEstadoCupon({ inicio: Date.now() });
       iniciarContador();
     });
-  }
-  window.addEventListener('scroll', handleScrollFade);
-  window.addEventListener('load', handleScrollFade);
 
- document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById('toggle-palette');
-  const paletteSelector = document.getElementById('palette-selector');
-  const buttons = paletteSelector.querySelectorAll('button');
-  const tooltip = document.getElementById('color-tooltip');
     cerrarModalBtn.addEventListener("click", ocultarModal);
 
     if (!getEstadoCupon()) {
@@ -489,11 +836,7 @@ if (!cuponMostrado && !cuponAtrapado) {
     const temaGuardado = localStorage.getItem('selectedTheme');
     if (temaGuardado) setTheme(temaGuardado);
 
-  function setTheme(color) {
-    document.documentElement.setAttribute('data-theme', color);
     buttons.forEach(btn => {
-      btn.setAttribute('aria-selected', btn.dataset.color === color);
-      btn.tabIndex = btn.dataset.color === color ? 0 : -1;
       btn.addEventListener('click', () => {
         setTheme(btn.dataset.color);
         localStorage.setItem('selectedTheme', btn.dataset.color);
@@ -515,35 +858,6 @@ if (!cuponMostrado && !cuponAtrapado) {
         }
       });
     });
-    showTooltip(color);
-    localStorage.setItem('selectedTheme', color);
-  }
-
-  function showTooltip(color) {
-    tooltip.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-    tooltip.classList.add('show');
-    clearTimeout(tooltip.hideTimeout);
-    tooltip.hideTimeout = setTimeout(() => tooltip.classList.remove('show'), 1500);
-  }
-
-  // Cargar tema guardado
-  const saved = localStorage.getItem('selectedTheme');
-  if (saved) setTheme(saved);
-
-  // Click en botones de colores
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => setTheme(btn.dataset.color));
-    btn.addEventListener('keydown', e => {
-      let index = Array.from(buttons).indexOf(e.target);
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        buttons[(index+1)%buttons.length].focus();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        buttons[(index-1+buttons.length)%buttons.length].focus();
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setTheme(e.target.dataset.color);
 
     // Función para movimiento suave del cupón
     function iniciarMovimientoSuaveCupon() {
@@ -580,16 +894,10 @@ if (!cuponMostrado && !cuponAtrapado) {
 
         requestAnimationFrame(moveStep);
       }
-    });
-  });
 
-  // Toggle selector
-  toggleBtn.addEventListener('click', () => {
-    paletteSelector.classList.toggle('visible');
       requestAnimationFrame(moveStep);
     }
   });
-});
 
   const toggleBtn = document.getElementById('toggle-palette');
   const paletteSelector = document.getElementById('palette-selector');
@@ -603,3 +911,4 @@ if (!cuponMostrado && !cuponAtrapado) {
 
 </body>
 </html>
+
