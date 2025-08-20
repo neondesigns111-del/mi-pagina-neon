@@ -449,120 +449,135 @@ footer p {
       margin-bottom: 1rem;
     }
     @media (max-width: 768px) {
+  /* Prevención scroll horizontal */
   html, body {
     max-width: 100vw;
     overflow-x: hidden !important;
   }
-}
 
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 1rem;
-      }
+  /* Header */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
 
-      header h1 {
-        font-size: 1.3rem;
-      }
+  header h1 {
+    font-size: 1.3rem;
+    text-shadow:
+      0 0 1px var(--neon-main),
+      0 0 3px var(--neon-main),
+      0 0 6px var(--neon-light); /* brillo limpio */
+  }
 
-      header nav {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 1rem;
-      }
+  header nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
 
-      header nav a {
-        font-size: 1.05rem;
-      }
+  header nav a {
+    font-size: 1.05rem;
+  }
 
-      main {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        padding: 1rem;
-      }
+  /* Main y productos */
+  main {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
 
-      .product-images {
-        flex-direction: column;
-        align-items: center;
-      }
+  .product-images {
+    flex-direction: column;
+    align-items: center;
+  }
 
-      .product-images .main-image img {
-        width: 90vw;
-        max-width: 320px;
-      }
+  .product-images .main-image img {
+    width: 90vw;
+    max-width: 320px;
+  }
 
-      .thumbnails {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
+  .thumbnails {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-      .product-details {
-        max-width: 90%;
-        text-align: center;
-        align-items: center;
-      }
+  .product-details {
+    max-width: 90%;
+    text-align: center;
+    align-items: center;
+  }
 
-      .product-details h2 {
-        font-size: 1.5rem;
-      }
+  .product-details h2 {
+    font-size: 1.5rem;
+  }
 
-      .product-details p {
-        font-size: 1rem;
-      }
+  .product-details p {
+    font-size: 1rem;
+  }
 
-      .product-details button {
-        width: 100%;
-        font-size: 1rem;
-      }
+  .product-details button {
+    width: 100%;
+    font-size: 1rem;
+  }
 
-      footer {
-        padding: 2rem 1rem;
-        text-align: center;
-      }
+  /* Footer */
+  footer {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
 
-      footer .footer-links {
-        flex-direction: column;
-        gap: 1.2rem;
-      }
+  footer .footer-links {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 
-      .modal img {
-        width: 95vw;
-        max-height: 80vh;
-        object-fit: contain;
-      }
+  .modal img {
+    width: 95vw;
+    max-height: 80vh;
+    object-fit: contain;
+  }
 
-      /* ✅ Corrección: preview-config en mobile */
-      .preview-config {
-        flex-direction: column;
-        align-items: stretch;
-      }
+  /* Preview-config */
+  .preview-config {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-      .preview-config label,
-      .preview-config input,
-      .preview-config select {
-        width: 100%;
-      }
-    }
-@media (max-width: 768px) {
-  /* Títulos principales */
+  .preview-config label,
+  .preview-config input,
+  .preview-config select {
+    width: 100%;
+  }
+
+  /* Títulos principales con brillo limpio (sin nube) */
   h1, 
   .contacto-info h2, 
   .info-extra h2, 
   #previewText, 
   section.preview h2, 
-  section.custom-design h3 {
-    text-shadow: 
+  section.custom-design h3,
+  .card h2,
+  .faq h3 {
+    text-shadow:
       0 0 1px var(--neon-main),
       0 0 3px var(--neon-main),
-      0 0 6px var(--neon-light),
-      0 0 12px var(--neon-light); /* brillo limpio y legible */
-    font-size: 2rem; /* reduce tamaño si quieres */
+      0 0 6px var(--neon-light); /* brillo legible */
   }
+
+  /* Ajuste de tamaños específicos */
+  h1 { font-size: 2rem; }
+  .contacto-info h2 { font-size: 1.6rem; }
+  .info-extra h2 { font-size: 1.6rem; }
+  #previewText { font-size: 2.5rem; }
+  section.preview h2 { font-size: 1.5rem; }
+  section.custom-design h3 { font-size: 1.4rem; }
+  .card h2 { font-size: 1.3rem; }
+  .faq h3 { font-size: 1.2rem; }
 }
 
 
@@ -722,6 +737,7 @@ footer p {
 
 </body>
 </html>
+
 
 
 
