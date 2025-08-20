@@ -95,7 +95,7 @@
     margin: 0; padding: 0; box-sizing: border-box;
   }
   
-   /* Paletas con CSS variables para cada tema */
+  /* Paletas con CSS variables para cada tema */
   :root {
     --neon-main: #00fff7;       /* Celeste neón */
     --neon-light: #7affff;
@@ -120,7 +120,6 @@
     --text-color: #f4d6dc;
     --shadow-color: rgba(255, 0, 68, 0.8);
   }
-
 
   body {
     font-family: 'Orbitron', sans-serif;
@@ -485,18 +484,35 @@ section.hero p {
     }
   }
 
+   /* Mostrar siempre el botón toggle, fijo en la pantalla */
+/* Mostrar siempre el botón toggle, fijo en la pantalla */
+#toggle-palette {
+  position: fixed;
+  top: 80px;
+  left: 16px;
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  z-index: 9999;
+  cursor: pointer;
+  display: block; /* Siempre visible */
+}
+
 /* Selector oculto por defecto en todas las pantallas */
 #palette-selector {
   display: none;
   position: fixed;
-  top: 20vh; /* adaptable a altura de pantalla */
+  top: 120px;
   left: 16px;
   flex-direction: row;
   flex-wrap: wrap;
   background: rgba(0, 0, 0, 0.8);
   padding: 10px;
   border-radius: 8px;
-  z-index: 2000; /* encima del footer */
+  z-index: 9998;
   gap: 8px;
   transition: transform 0.2s ease;
 }
@@ -506,7 +522,7 @@ section.hero p {
   display: flex;
 }
 
-/* Botones de colores */
+/* Botones de colores (igual que antes) */
 #palette-selector button {
   width: 30px;
   height: 30px;
@@ -514,7 +530,7 @@ section.hero p {
   border: none;
   cursor: pointer;
   outline-offset: 2px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 #btn-celeste { background-color: #00ffff; }
@@ -527,10 +543,10 @@ section.hero p {
   box-shadow: 0 0 10px #0ff;
 }
 
-/* Tooltip de color */
+/* Opcional: tooltip ajustes para que no tapen nada */
 #color-tooltip {
   position: fixed;
-  top: 23vh; /* adaptable */
+  top: 180px;
   left: 16px;
   background: var(--neon-bg-light);
   color: var(--neon-main);
@@ -544,26 +560,23 @@ section.hero p {
   pointer-events: none;
   user-select: none;
   transition: opacity 0.5s ease;
-  z-index: 2002;
+  z-index: 10002;
 }
-
 #color-tooltip.show {
   opacity: 1;
 }
-
-/* Toggle de paleta (botón que abre/cierra) */
-#toggle-palette {
-  position: fixed;
-  top: 15vh;
-  left: 16px;
-  z-index: 2001;
-}
-
-/* Media query para móviles */
 @media (max-width: 768px) {
-  #toggle-palette { top: 10vh; }
-  #palette-selector { top: 15vh; }
-  #color-tooltip { top: 18vh; }
+  #toggle-palette {
+    top: 110px; /* baja el botón toggle */
+  }
+
+  #palette-selector {
+    top: 150px !important; /* baja el selector de paletas */
+  }
+
+  #color-tooltip {
+    top: 190px !important; /* baja el tooltip del color */
+  }
 }
 
 
@@ -650,13 +663,15 @@ section.hero p {
 <div id="contador-flotante" style="display: none;">
   ⏳ Cupón válido por <span id="contador-cupon-flotante">24h 00m 00s</span>
 </div>
-  <div id="palette-selector">
-    <button id="btn-celeste"></button>
-    <button id="btn-verde"></button>
-    <button id="btn-rojo"></button>
-  </div>
+<div id="palette-selector">
+  <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
+  <button id="btn-verde" data-color="verde"></button>
+  <button id="btn-rojo" data-color="rojo"></button>
+</div>
 
-  <div id="color-tooltip"></div>
+<div id="color-tooltip"></div>
+
+<button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
