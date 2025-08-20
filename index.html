@@ -95,31 +95,6 @@
     margin: 0; padding: 0; box-sizing: border-box;
   }
   
-  /* Paletas con CSS variables para cada tema */
-  :root {
-    --neon-main: #00fff7;       /* Celeste neón */
-    --neon-light: #7affff;
-    --neon-bg-dark: #0a0a10;
-    --neon-bg-light: #1c1c36;
-    --text-color: #e0e0e0;
-    --shadow-color: rgba(0, 255, 247, 0.8);
-  }
-  :root[data-theme="verde"] {
-    --neon-main: #00ff6a;
-    --neon-light: #7affb2;
-    --neon-bg-dark: #081207;
-    --neon-bg-light: #153a12;
-    --text-color: #d6fcdc;
-    --shadow-color: rgba(0, 255, 106, 0.8);
-  }
-  :root[data-theme="rojo"] {
-    --neon-main: #ff0044;
-    --neon-light: #ff7a99;
-    --neon-bg-dark: #12040a;
-    --neon-bg-light: #361b28;
-    --text-color: #f4d6dc;
-    --shadow-color: rgba(255, 0, 68, 0.8);
-  }
 
   body {
     font-family: 'Orbitron', sans-serif;
@@ -483,25 +458,22 @@ section.hero p {
       transform: translate(calc(var(--dir-x) * 30px), calc(var(--dir-y) * -30px)) scale(0);
     }
   }
-
-   /* Mostrar siempre el botón toggle, fijo en la pantalla */
-/* Mostrar siempre el botón toggle, fijo en la pantalla */
+/* Botón toggle */
 #toggle-palette {
   position: fixed;
   top: 80px;
   left: 16px;
   font-size: 22px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   color: white;
   border: none;
   border-radius: 50%;
   padding: 8px;
-  z-index: 9999;
+  z-index: 10001; /* encima del selector */
   cursor: pointer;
-  display: block; /* Siempre visible */
 }
 
-/* Selector oculto por defecto en todas las pantallas */
+/* Selector oculto por defecto */
 #palette-selector {
   display: none;
   position: fixed;
@@ -509,28 +481,28 @@ section.hero p {
   left: 16px;
   flex-direction: row;
   flex-wrap: wrap;
-  background: rgba(0, 0, 0, 0.8);
+  gap: 8px;
+  background: rgba(0,0,0,0.8);
   padding: 10px;
   border-radius: 8px;
-  z-index: 9998;
-  gap: 8px;
-  transition: transform 0.2s ease;
+  z-index: 10000;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Cuando tiene clase visible, mostrar selector */
+/* Mostrar cuando está activo */
 #palette-selector.visible {
   display: flex;
 }
 
-/* Botones de colores (igual que antes) */
+/* Botones de colores */
 #palette-selector button {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  outline-offset: 2px;
-  transition: transform 0.2s ease;
+  outline: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #btn-celeste { background-color: #00ffff; }
@@ -540,13 +512,13 @@ section.hero p {
 #palette-selector button:hover,
 #palette-selector button[aria-selected="true"] {
   transform: scale(1.2);
-  box-shadow: 0 0 10px #0ff;
+  box-shadow: 0 0 10px currentColor;
 }
 
-/* Opcional: tooltip ajustes para que no tapen nada */
+/* Tooltip */
 #color-tooltip {
   position: fixed;
-  top: 180px;
+  top: 160px;
   left: 16px;
   background: var(--neon-bg-light);
   color: var(--neon-main);
@@ -558,26 +530,21 @@ section.hero p {
   box-shadow: 0 0 12px var(--neon-main);
   opacity: 0;
   pointer-events: none;
-  user-select: none;
   transition: opacity 0.5s ease;
   z-index: 10002;
 }
+
 #color-tooltip.show {
   opacity: 1;
 }
+
+/* Ajustes móviles */
 @media (max-width: 768px) {
-  #toggle-palette {
-    top: 110px; /* baja el botón toggle */
-  }
-
-  #palette-selector {
-    top: 150px !important; /* baja el selector de paletas */
-  }
-
-  #color-tooltip {
-    top: 190px !important; /* baja el tooltip del color */
-  }
+  #toggle-palette { top: 110px; }
+  #palette-selector { top: 150px !important; }
+  #color-tooltip { top: 190px !important; }
 }
+  
 
 
   </style>
@@ -707,66 +674,56 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('scroll', handleScrollFade);
   window.addEventListener('load', handleScrollFade);
 
-  // Paleta de color
-  const selector = document.getElementById('palette-selector');
-  const buttons = selector ? selector.querySelectorAll('button') : [];
+ document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById('toggle-palette');
+  const paletteSelector = document.getElementById('palette-selector');
+  const buttons = paletteSelector.querySelectorAll('button');
   const tooltip = document.getElementById('color-tooltip');
 
   function setTheme(color) {
     document.documentElement.setAttribute('data-theme', color);
     buttons.forEach(btn => {
-      const selected = btn.dataset.color === color;
-      btn.setAttribute('aria-selected', selected);
-      btn.tabIndex = selected ? 0 : -1;
+      btn.setAttribute('aria-selected', btn.dataset.color === color);
+      btn.tabIndex = btn.dataset.color === color ? 0 : -1;
     });
     showTooltip(color);
+    localStorage.setItem('selectedTheme', color);
   }
 
-  function showTooltip(colorName) {
-    if (!tooltip) return;
-    tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+  function showTooltip(color) {
+    tooltip.textContent = color.charAt(0).toUpperCase() + color.slice(1);
     tooltip.classList.add('show');
     clearTimeout(tooltip.hideTimeout);
-    tooltip.hideTimeout = setTimeout(() => {
-      tooltip.classList.remove('show');
-    }, 1500);
+    tooltip.hideTimeout = setTimeout(() => tooltip.classList.remove('show'), 1500);
   }
 
-  const temaGuardado = localStorage.getItem('selectedTheme');
-  if (temaGuardado) setTheme(temaGuardado);
+  // Cargar tema guardado
+  const saved = localStorage.getItem('selectedTheme');
+  if (saved) setTheme(saved);
 
+  // Click en botones de colores
   buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setTheme(btn.dataset.color);
-      localStorage.setItem('selectedTheme', btn.dataset.color);
-    });
+    btn.addEventListener('click', () => setTheme(btn.dataset.color));
     btn.addEventListener('keydown', e => {
       let index = Array.from(buttons).indexOf(e.target);
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
-        let next = (index + 1) % buttons.length;
-        buttons[next].focus();
+        buttons[(index+1)%buttons.length].focus();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
-        let prev = (index - 1 + buttons.length) % buttons.length;
-        buttons[prev].focus();
+        buttons[(index-1+buttons.length)%buttons.length].focus();
       } else if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         setTheme(e.target.dataset.color);
-        localStorage.setItem('selectedTheme', e.target.dataset.color);
       }
     });
   });
-});
 
-// Toggle del selector de paleta
-const toggleBtn = document.getElementById('toggle-palette');
-const paletteSelector = document.getElementById('palette-selector');
-if (toggleBtn && paletteSelector) {
+  // Toggle selector
   toggleBtn.addEventListener('click', () => {
     paletteSelector.classList.toggle('visible');
   });
-}
+});
 
 </script>
 
