@@ -428,11 +428,13 @@ article.card h3 {
 /* Ajuste para pantallas pequeñas */
 @media (max-width: 768px) {
   section.hero h1 {
-    font-size: 2rem;
+    font-size: 2.2rem; /* más chico */
+    color: var(--neon-main);
     text-shadow:
-      0 0 2px #00ffff,
-      0 0 5px #00cccc;
-    -webkit-text-stroke: 0.3px #00cccc;
+      0 0 3px var(--neon-main),
+      0 0 8px var(--neon-light); /* mucho menos glow */
+    animation: none; /* sin flicker para no encandilar en celu */
+    filter: brightness(0.8); /* baja la intensidad */
   }
 }
 
