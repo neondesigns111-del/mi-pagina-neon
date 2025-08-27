@@ -575,6 +575,53 @@ footer p {
   .card h2 { font-size: 1.3rem; }
   .faq h3 { font-size: 1.2rem; }
 }
+/* ======= Ajustes SOLO para móviles ======= */
+@media (max-width: 768px) {
+  :root {
+    --neon-main: #4ef6ef;   /* celeste más suave */
+    --neon-light: #a2ffff;  /* menos saturado */
+    --text-light: #f8fdfd;  /* blanco legible */
+    --shadow-glow: 0 0 3px var(--neon-light), 0 0 8px var(--neon-main); /* glow reducido */
+  }
+
+  /* Título hero */
+  section.hero h1 {
+    font-size: 2.2rem;
+    text-shadow:
+      0 0 3px var(--neon-main),
+      0 0 6px var(--neon-light);
+    animation: none;       /* quitamos flicker en mobile */
+    filter: brightness(0.85);
+  }
+
+  /* Texto hero */
+  section.hero p {
+    font-size: 1rem;
+    text-shadow: 0 0 2px var(--neon-light);
+    color: #ffffff;
+  }
+
+  /* Cards títulos */
+  article.card h3 {
+    font-size: 1.5rem;
+    text-shadow:
+      0 0 2px var(--neon-main),
+      0 0 5px var(--neon-light);
+  }
+
+  /* Cards párrafos */
+  article.card p {
+    font-size: 1rem;
+    color: #e6ffff;
+    text-shadow: 0 0 2px var(--neon-light);
+  }
+
+  /* Footer */
+  footer {
+    color: #cccccc;
+    text-shadow: 0 0 2px var(--neon-main);
+  }
+}
 
 
   </style>
@@ -733,6 +780,7 @@ footer p {
 
 </body>
 </html>
+
 
 
 
