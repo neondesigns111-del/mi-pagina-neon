@@ -279,31 +279,40 @@ article.card h3 {
     min-height: 4.5em;
     text-align: center;
   }
+  a.btn-vermas  {
+  background-color: #fff;
+  border: 0 solid #e2e8f0;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  color: #0d172a;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1rem 1.6rem;
+  text-align: center;
+  text-decoration: none #0d172a solid;
+  text-decoration-thickness: auto;
+  transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
 
-  a.btn-vermas {
-    background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.8rem 2.2rem;
-    border-radius: 25px;
-    box-shadow:
-      0 0 25px var(--neon-light),
-      0 0 45px var(--neon-main);
-    border: none;
-    text-decoration: none;
-    text-align: center;
-    user-select: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.button-81:hover {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .button-81 {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
   }
-  a.btn-vermas:hover,
-  a.btn-vermas:focus {
-    box-shadow:
-      0 0 45px var(--neon-light),
-      0 0 75px var(--neon-main);
-    transform: scale(1.15);
-    outline: none;
-  }
+}
 .navbar {
   background: #000;
   padding: 1rem;
