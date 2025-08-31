@@ -16,77 +16,52 @@
     gtag('config', 'G-PLMPE91HKN');
   </script>
   <style>
-    /* Tarjeta de descuento */
-    #cupon {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: linear-gradient(135deg, var(--neon-main), var(--neon-accent));
-      border: 2px solid var(--neon-light);
-      border-radius: 20px;
-      padding: 30px 40px;
-      z-index: 9999;
-      box-shadow: 0 0 20px var(--neon-main), 0 0 40px var(--neon-accent);
-      color: #fff;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      animation: fadeIn 0.5s ease;
-    }
+   /* Estilos del modal */
+.cupon-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+.cupon-content {
+  background: #0f0f12;
+  border: 2px solid #00fff7;
+  color: #f0f0f0;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 20px #00fff7;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #00fff7;
+}
+.close-btn:hover { color: #ff3c3c; }
 
-    #cupon h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-main);
-    }
-
-    #cupon p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-      text-shadow: 0 0 3px #fff, 0 0 8px var(--neon-light);
-    }
-
-    #cupon .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #fff;
-      font-weight: bold;
-      text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-accent);
-    }
-
-    #cupon .contador {
-      font-size: 1.1rem;
-      background: rgba(0,0,0,0.3);
-      padding: 8px 12px;
-      border-radius: 10px;
-      display: inline-block;
-      text-shadow: 0 0 5px #fff;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translate(-50%, -60%);}
-      to {opacity: 1; transform: translate(-50%, -50%);}
-    }
-
-    /* Contador flotante abajo a la derecha */
-    #contador-flotante {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.6);
-      color: var(--neon-main);
-      border: 2px solid var(--neon-main);
-      border-radius: 15px;
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      box-shadow: 0 0 10px var(--neon-main), 0 0 20px var(--neon-accent);
-      z-index: 9998;
-      text-shadow: 0 0 5px var(--neon-light);
-    }
+/* Contador flotante */
+.cupon-float {
+  display: none;
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: #0f0f12;
+  color: #00fff7;
+  border: 2px solid #00fff7;
+  padding: 0.8rem 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-family: Orbitron, sans-serif;
+  box-shadow: 0 0 10px #00fff7;
+}
 
 #modal-cupon {
   position: fixed;
@@ -713,17 +688,18 @@ section.hero p {
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
-  <!-- Tarjeta de descuento -->
-  <div id="cupon">
+  <!-- Tarjeta modal del cupón -->
+<div id="cuponModal" class="cupon-modal">
+  <div class="cupon-content">
     <span class="close-btn">&times;</span>
-    <h2>¡20% de descuento!</h2>
-    <p>Elige un producto y aplica tu descuento durante 24 horas</p>
-    <div class="contador" id="contador">24:00:00</div>
+    <h2>🎉 ¡Oferta Especial!</h2>
+    <p>Tenés un <strong>20% de descuento</strong> en un producto a elección.</p>
+    <p id="cupon-timer">Tiempo restante: 24:00:00</p>
   </div>
-    <!-- Contador flotante -->
-  <div id="contador-flotante" style="display:none;">
-    ⏳ Promo: <span id="contador2">24:00:00</span>
-  </div>
+</div>
+
+<!-- Contador flotante -->
+<div id="cuponFloat" class="cupon-float"></div>
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
   <button id="btn-verde" data-color="verde"></button>
@@ -881,6 +857,55 @@ section.hero p {
       paletteSelector.classList.toggle('visible');
     });
   }
+  (function(){
+  const modal = document.getElementById("cuponModal");
+  const closeBtn = document.querySelector(".close-btn");
+  const timerEl = document.getElementById("cupon-timer");
+  const floatEl = document.getElementById("cuponFloat");
+
+  // 24hs en ms
+  const DURATION = 24 * 60 * 60 * 1000;
+
+  function getEndTime(){
+    let end = localStorage.getItem("cuponEndTime");
+    if(!end){
+      end = Date.now() + DURATION;
+      localStorage.setItem("cuponEndTime", end);
+    }
+    return parseInt(end);
+  }
+
+  function updateTimer(){
+    const now = Date.now();
+    const diff = endTime - now;
+    if(diff <= 0){
+      localStorage.removeItem("cuponEndTime");
+      modal.style.display = "none";
+      floatEl.style.display = "none";
+      clearInterval(interval);
+      return;
+    }
+    const h = Math.floor(diff / (1000*60*60));
+    const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const s = Math.floor((diff % (1000*60)) / 1000);
+    const text = `Tiempo restante: ${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+    timerEl.textContent = text;
+    floatEl.textContent = text;
+  }
+
+  const endTime = getEndTime();
+
+  // Mostrar modal solo si el usuario no lo cerró manualmente
+  if(Date.now() < endTime){
+    modal.style.display = "flex";
+    floatEl.style.display = "block";
+  }
+
+  closeBtn.onclick = () => { modal.style.display = "none"; };
+
+  const interval = setInterval(updateTimer, 1000);
+  updateTimer();
+})();
 </script>
 
 
