@@ -58,8 +58,9 @@
   font-weight: bold; padding: 10px 20px; border-radius: 10px; cursor: pointer;
   font-family: 'Orbitron', sans-serif;
 }
-    /* AGREGO el color-tooltip que faltaba */
-    #contador-flotante {
+
+/* --- Contador flotante --- */
+#contador-flotante {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -71,6 +72,7 @@
   font-size: 14px;
   z-index: 9999;
   box-shadow: 0 0 10px #00ffcc88;
+  display: none;
 }
 
   #cupon-flotante {
@@ -661,12 +663,13 @@ section.hero p {
   <p>Tu espacio, iluminado con estilo y personalidad</p>
 </section>
 <main id="catalogo" class="catalog">
-  <article class="card fade-in" tabindex="0" aria-labelledby="pelota-title" aria-describedby="pelota-desc">
-    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón con nombre personalizado" loading="lazy" />
-    <h3 id="pelota-title">Linea M de BMW</h3>
-    <p id="pelota-desc">La emblemática línea BMW M representa la máxima expresión de rendimiento y competición de la marca. Desde sus orígenes en los circuitos hasta los modelos de calle, la M combina potencia, precisión y diseño icónico.</p>
+  <article class="card" data-precio="10000">
+    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón" />
+    <h3>Linea M de BMW</h3>
+    <p>La emblemática línea BMW M representa la máxima expresión de rendimiento y competición.</p>
+    <p>Precio: <span class="precio-original">10000</span> <span class="precio-con-descuento" style="display:none;"></span></p>
     <a href="bmw.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
-  </article> 
+  </article>
     
   <!-- Tarjeta: Personajes Neón -->
   <article class="card fade-in" tabindex="0" aria-labelledby="personajes-title" aria-describedby="personajes-desc">
