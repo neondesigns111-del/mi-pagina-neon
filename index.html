@@ -913,54 +913,6 @@ if (!cuponMostrado && !cuponAtrapado) {
       });
     });
 
-    // Función para movimiento suave del cupón
-    function iniciarMovimientoSuaveCupon() {
-      cupon.style.position = 'fixed';
-      let posX = Math.random() * (window.innerWidth - cupon.offsetWidth);
-      let posY = Math.random() * (window.innerHeight - cupon.offsetHeight);
-      cupon.style.left = `${posX}px`;
-      cupon.style.top = `${posY}px`;
-
-      let targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
-      let targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
-      const speed = 100; // píxeles por segundo
-
-      function moveStep(timestamp) {
-        if (!cupon.lastTimestamp) cupon.lastTimestamp = timestamp;
-        const delta = (timestamp - cupon.lastTimestamp) / 1000;
-        cupon.lastTimestamp = timestamp;
-
-        const dx = targetX - posX;
-        const dy = targetY - posY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 1) {
-          targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
-          targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
-        } else {
-          const moveX = (dx / dist) * speed * delta;
-          const moveY = (dy / dist) * speed * delta;
-          posX += moveX;
-          posY += moveY;
-          cupon.style.left = `${posX}px`;
-          cupon.style.top = `${posY}px`;
-        }
-
-        requestAnimationFrame(moveStep);
-      }
-
-      requestAnimationFrame(moveStep);
-    }
-  });
-
-  const toggleBtn = document.getElementById('toggle-palette');
-  const paletteSelector = document.getElementById('palette-selector');
-
-  if (toggleBtn && paletteSelector) {
-    toggleBtn.addEventListener('click', () => {
-      paletteSelector.classList.toggle('visible');
-    });
-  }
   const cupon = document.getElementById('cupon');
     const closeBtn = document.querySelector('.close-btn');
     const contadorElem = document.getElementById('contador');
@@ -1018,51 +970,6 @@ if (!cuponMostrado && !cuponAtrapado) {
     closeBtn.addEventListener('click', () => {
       cupon.style.display = 'none';
     });
-  </script>
-
-</body>
-</html>
-Y en las secciones (donde están los precios)
-Ponés solo este script final en cada página, igual que antes, y el contador flotante también se mostrará porque lo controla localStorage:
-
-html
-Copiar código
-<script>
-  const precios = document.querySelectorAll('.precio'); // clase de tus precios
-  const storageKey = 'cuponExpira';
-  const descuento = 0.20;
-
-  const cuponGuardado = localStorage.getItem(storageKey);
-  const ahora = new Date().getTime();
-
-  if(cuponGuardado && ahora < parseInt(cuponGuardado)) {
-    precios.forEach(precioEl => {
-      const precioOriginal = parseFloat(precioEl.dataset.precio);
-      const precioConDescuento = (precioOriginal * (1 - descuento)).toFixed(2);
-      precioEl.innerHTML = `<s>$${precioOriginal}</s> $${precioConDescuento}`;
-    });
-
-    // mostrar contador flotante también en secciones
-    const contadorFlotante = document.createElement("div");
-    contadorFlotante.id = "contador-flotante";
-    contadorFlotante.innerHTML = `⏳ Promo: <span id="contador2">00:00:00</span>`;
-    document.body.appendChild(contadorFlotante);
-
-    const expira = parseInt(cuponGuardado);
-    const intervalo = setInterval(() => {
-      const distancia = expira - new Date().getTime();
-      if(distancia <= 0){
-        clearInterval(intervalo);
-        contadorFlotante.remove();
-        return;
-      }
-      const h = Math.floor(distancia/(1000*60*60));
-      const m = Math.floor((distancia%(1000*60*60))/(1000*60));
-      const s = Math.floor((distancia%(1000*60))/1000);
-      document.getElementById("contador2").textContent = 
-        `${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
-    },1000);
-  }
 </script>
 
 </body>
