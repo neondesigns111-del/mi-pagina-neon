@@ -16,7 +16,7 @@
     gtag('config', 'G-PLMPE91HKN');
   </script>
   <style>
-      /* Tarjeta de descuento */
+    /* Tarjeta de descuento */
     #cupon {
       position: fixed;
       top: 50%;
@@ -72,11 +72,21 @@
       to {opacity: 1; transform: translate(-50%, -50%);}
     }
 
-
-@keyframes flotar {
-  from { transform: translate(-50%, -50%) }
-  to   { transform: translate(-50%, -60%) }
-}
+    /* Contador flotante abajo a la derecha */
+    #contador-flotante {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.6);
+      color: var(--neon-main);
+      border: 2px solid var(--neon-main);
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      box-shadow: 0 0 10px var(--neon-main), 0 0 20px var(--neon-accent);
+      z-index: 9998;
+      text-shadow: 0 0 5px var(--neon-light);
+    }
 
 #modal-cupon {
   position: fixed;
