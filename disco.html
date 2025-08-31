@@ -297,28 +297,93 @@ footer#contacto {
     font-size: 0.95rem;
   }
 }
-    .boton-comprar {
-
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(90deg, #ff0057, #ff7b00);
-  color: #fff;
+.precio-titulo {
   font-family: 'Orbitron', sans-serif;
-  font-size: 14px;
-  padding: 12px 18px;
+  font-size: 1.2rem;
+  color: #ff4d4d;
+  margin: 10px 0;
+  text-shadow: 0 0 6px #ff1a1a;
+}
+
+.price-options {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.price-card {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ff450055;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+.price-card h4 {
+  margin-bottom: 0.5rem;
+}
+.price-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff4500;
+  text-shadow: 0 0 8px #ff450088;
+}
+.price-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff4500aa;
+}
+.price-card.active {
+  border-color: #ff4500;
+  box-shadow: 0 0 20px #ff4500cc;
+}
+
+/* Botones con íconos */
+.buttons a {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 0.9rem;
   border-radius: 25px;
+  font-weight: bold;
+  color: white;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(255, 0, 87, 0.8);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  z-index: 1000;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+.buttons a .icon {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
 }
 
-.boton-comprar:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(255, 123, 0, 1);
+/* WhatsApp */
+.btn-whatsapp {
+  background: #25d366;
+  box-shadow: 0 0 15px #25d366aa;
+}
+.btn-whatsapp:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #25d366;
 }
 
+/* Mercado Pago */
+.btn-mercadopago {
+  background: #009ee3;
+  box-shadow: 0 0 15px #009ee3aa;
+}
+.btn-mercadopago:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #009ee3;
+}
   </style>
 </head>
 <body>
@@ -340,34 +405,40 @@ footer#contacto {
         <button class="carousel-btn right" onclick="scrollThumbs(1)">&#10095;</button>
       </div>
     </div>
-    <div class="right-column">
-      <h2 id="productTitle">BMW M Performance</h2>
-      <p id="productDesc">Velador LED con diseño de disco de freno BMW M incandescente, simulando el calor de frenado real. Ideal para fanáticos del motorsport y la decoración automotriz.</p>
-  <h3 style="font-family: 'Orbitron', sans-serif; font-size:1rem; color:#ff4d4d; margin:5px 0; text-shadow:0 0 6px #ff1a1a;">
-  💰 Precio
-</h3>
-<p style="font-size:0.95rem; color:#fff; margin:0; line-height:1.4; text-shadow:0 0 4px #ff1a1a;">
-  🔹 <strong>Sin base:</strong> $30.000 <br>
-  🔹 <strong>Con base:</strong> $35.000
-</p>
+<!-- Sección derecha con precios -->
+<div class="right-column">
+  <h2 id="productTitle">BMW M Performance</h2>
+  <p id="productDesc">
+    Velador LED con diseño de disco de freno BMW M incandescente, simulando el calor de frenado real. 
+    Ideal para fanáticos del motorsport y la decoración automotriz.
+  </p>
 
-      <div class="buttons">
-        <a href="https://wa.me/5491151171205?text=Hola quiero un disco de freno iluminado"lass="btn-whatsapp">Encargar por WhatsApp</a>
-        <a href="https://www.mercadopago.com.ar/" class="btn-mercadopago">Pagar con Mercado Pago</a>
-      </div>
+  <h3 class="precio-titulo">💰 Precio</h3>
+  <div class="price-options">
+    <div class="price-card active" data-precio="30000">
+      <h4>🔹 Sin base</h4>
+      <p>$30.000</p>
     </div>
-  </section>
-<div class="product" data-price="12000">
-  <h3>Producto LED F1</h3>
-  <p>Precio: $<span class="original-price">12000</span></p>
-  <p class="discount-price"></p>
+    <div class="price-card" data-precio="35000">
+      <h4>🔹 Con base</h4>
+      <p>$35.000</p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <a href="https://wa.me/5491151171205?text=Hola quiero un disco de freno iluminado" 
+       class="btn-whatsapp">
+       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" class="icon">
+       Encargar por WhatsApp
+    </a>
+
+    <a href="https://www.mercadopago.com.ar/" class="btn-mercadopago">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mercadopago.svg" alt="MP" class="icon">
+      Pagar con Mercado Pago
+    </a>
+  </div>
 </div>
 
-<div class="product" data-price="8000">
-  <h3>Producto LED Marvel</h3>
-  <p>Precio: $<span class="original-price">8000</span></p>
-  <p class="discount-price"></p>
-</div>
   <footer id="contacto">
     <p>Contacto: neondesigns111@gmail.com | +54 9 11 5117 1205</p>
     <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
@@ -443,10 +514,18 @@ footer#contacto {
   function scrollThumbs(direction) {
     thumbsWrapper.scrollBy({ left: direction * 100, behavior: 'smooth' });
   }
+  // Selección de precios con base/sin base
+document.querySelectorAll(".price-card").forEach(card => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".price-card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+  });
+});
 </script>
 
 </body>
 </html>
+
 
 
 
