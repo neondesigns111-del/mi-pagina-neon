@@ -24,6 +24,12 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.coupon-modal.show {
+  display: flex;
+  opacity: 1;
 }
 .coupon-content {
   background: #111;
@@ -35,33 +41,21 @@
   box-shadow: 0 0 20px #0ff;
   max-width: 400px;
   position: relative;
+  transform: scale(0.8);
+  transition: transform 0.5s ease;
 }
-.coupon-content h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+.coupon-modal.show .coupon-content {
+  transform: scale(1);
 }
-.coupon-content p {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-}
+.coupon-content h2 { font-size: 2rem; margin-bottom: 10px; }
+.coupon-content p { font-size: 1.1rem; margin-bottom: 15px; }
 .coupon-content .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  color: #0ff;
-  font-size: 1.5rem;
-  cursor: pointer;
+  position: absolute; top: 10px; right: 15px; background: none; border: none;
+  color: #0ff; font-size: 1.5rem; cursor: pointer;
 }
 .coupon-content button {
-  background: #0ff;
-  border: none;
-  color: #111;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  cursor: pointer;
+  background: #0ff; border: none; color: #111;
+  font-weight: bold; padding: 10px 20px; border-radius: 10px; cursor: pointer;
   font-family: 'Orbitron', sans-serif;
 }
     /* AGREGO el color-tooltip que faltaba */
@@ -714,8 +708,6 @@ section.hero p {
 
 </article>
 </main>
-  <!-- ... -->
-<!-- HTML -->
 <div id="welcome-coupon" class="coupon-modal">
   <div class="coupon-content">
     <h2>¡Bienvenido!</h2>
@@ -872,37 +864,71 @@ claimBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Contador
+// Modal y cupón
+const modal = document.getElementById('welcome-coupon');
+const closeBtn = document.getElementById('close-coupon');
+const claimBtn = document.getElementById('claim-coupon');
+const timerEl = document.getElementById('coupon-timer');
+
+// Mostrar modal si no atrapó el cupón
+if(!localStorage.getItem('welcomeCoupon')) {
+  modal.classList.add('show');
+}
+
+// Cerrar modal
+closeBtn.addEventListener('click', () => modal.classList.remove('show'));
+
+// Atrapar cupón
+claimBtn.addEventListener('click', () => {
+  localStorage.setItem('welcomeCoupon', 'claimed');
+  const expiry = new Date().getTime() + 24*60*60*1000;
+  localStorage.setItem('welcomeCouponExpiry', expiry);
+  modal.classList.remove('show');
+  alert('¡Cupón activado! El descuento se aplicará en tus productos.');
+  updateAllProducts();
+});
+
+// Contador de 24h
 function updateTimer() {
   const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(!expiry) return;
+  if(!expiry) { timerEl.textContent = '24:00:00'; return; }
   const now = new Date().getTime();
   const distance = expiry - now;
-  if(distance <= 0) {
-    timerEl.textContent = '00:00:00';
+  if(distance <=0){
+    timerEl.textContent='00:00:00';
     localStorage.removeItem('welcomeCoupon');
     localStorage.removeItem('welcomeCouponExpiry');
     return;
   }
-  const hours = Math.floor(distance / (1000*60*60));
-  const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-  const seconds = Math.floor((distance % (1000*60))/1000);
-  timerEl.textContent = 
-    String(hours).padStart(2,'0') + ':' + 
-    String(minutes).padStart(2,'0') + ':' + 
-    String(seconds).padStart(2,'0');
+  const h = Math.floor(distance/(1000*60*60));
+  const m = Math.floor((distance%(1000*60*60))/(1000*60));
+  const s = Math.floor((distance%(1000*60))/1000);
+  timerEl.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
-setInterval(updateTimer, 1000);
+setInterval(updateTimer,1000);
+updateTimer();
 
-// Detectar si cupón activo
-function getCoupon() {
+// Función para aplicar cupón a los productos
+function applyCoupon(product, discount=0.2){
+  const priceEl = product.querySelector('.original-price');
+  const discountEl = product.querySelector('.discount-price');
+  const originalPrice = parseFloat(product.dataset.price);
+  const discountedPrice = originalPrice*(1-discount);
+  priceEl.style.textDecoration='line-through';
+  discountEl.textContent='Con descuento: $'+discountedPrice.toFixed(2);
+}
+
+// Actualizar todos los productos si cupón activo
+function updateAllProducts(){
   const claimed = localStorage.getItem('welcomeCoupon');
   const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(claimed && expiry && new Date().getTime() < expiry) {
-    return 'BIENVENIDA20';
+  if(claimed && expiry && new Date().getTime() < expiry){
+    document.querySelectorAll('.product').forEach(p => applyCoupon(p));
   }
-  return null;
 }
+
+// Ejecutar al cargar la página
+updateAllProducts();
 </script>
 
 </body>
