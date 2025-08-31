@@ -720,6 +720,10 @@ section.hero p {
     <p>Elige un producto y aplica tu descuento durante 24 horas</p>
     <div class="contador" id="contador">24:00:00</div>
   </div>
+    <!-- Contador flotante -->
+  <div id="contador-flotante" style="display:none;">
+    ⏳ Promo: <span id="contador2">24:00:00</span>
+  </div>
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
   <button id="btn-verde" data-color="verde"></button>
@@ -957,13 +961,16 @@ if (!cuponMostrado && !cuponAtrapado) {
       paletteSelector.classList.toggle('visible');
     });
   }
-      const cupon = document.getElementById('cupon');
+  const cupon = document.getElementById('cupon');
     const closeBtn = document.querySelector('.close-btn');
     const contadorElem = document.getElementById('contador');
-    const descuento = 0.20; // 20%
+    const contadorFlotante = document.getElementById('contador-flotante');
+    const contador2 = document.getElementById('contador2');
     const storageKey = 'cuponExpira';
 
     function iniciarContador(expira) {
+      contadorFlotante.style.display = "block"; // mostrar contador flotante
+
       const intervalo = setInterval(() => {
         const ahora = new Date().getTime();
         const distancia = expira - ahora;
@@ -971,6 +978,7 @@ if (!cuponMostrado && !cuponAtrapado) {
         if(distancia <= 0) {
           clearInterval(intervalo);
           contadorElem.parentElement.style.display = 'none';
+          contadorFlotante.style.display = 'none';
           localStorage.removeItem(storageKey);
           return;
         }
@@ -979,7 +987,9 @@ if (!cuponMostrado && !cuponAtrapado) {
         const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
         const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-        contadorElem.textContent = `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
+        const tiempoStr = `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
+        contadorElem.textContent = tiempoStr;
+        contador2.textContent = tiempoStr;
       }, 1000);
     }
 
@@ -1008,6 +1018,51 @@ if (!cuponMostrado && !cuponAtrapado) {
     closeBtn.addEventListener('click', () => {
       cupon.style.display = 'none';
     });
+  </script>
+
+</body>
+</html>
+Y en las secciones (donde están los precios)
+Ponés solo este script final en cada página, igual que antes, y el contador flotante también se mostrará porque lo controla localStorage:
+
+html
+Copiar código
+<script>
+  const precios = document.querySelectorAll('.precio'); // clase de tus precios
+  const storageKey = 'cuponExpira';
+  const descuento = 0.20;
+
+  const cuponGuardado = localStorage.getItem(storageKey);
+  const ahora = new Date().getTime();
+
+  if(cuponGuardado && ahora < parseInt(cuponGuardado)) {
+    precios.forEach(precioEl => {
+      const precioOriginal = parseFloat(precioEl.dataset.precio);
+      const precioConDescuento = (precioOriginal * (1 - descuento)).toFixed(2);
+      precioEl.innerHTML = `<s>$${precioOriginal}</s> $${precioConDescuento}`;
+    });
+
+    // mostrar contador flotante también en secciones
+    const contadorFlotante = document.createElement("div");
+    contadorFlotante.id = "contador-flotante";
+    contadorFlotante.innerHTML = `⏳ Promo: <span id="contador2">00:00:00</span>`;
+    document.body.appendChild(contadorFlotante);
+
+    const expira = parseInt(cuponGuardado);
+    const intervalo = setInterval(() => {
+      const distancia = expira - new Date().getTime();
+      if(distancia <= 0){
+        clearInterval(intervalo);
+        contadorFlotante.remove();
+        return;
+      }
+      const h = Math.floor(distancia/(1000*60*60));
+      const m = Math.floor((distancia%(1000*60*60))/(1000*60));
+      const s = Math.floor((distancia%(1000*60))/1000);
+      document.getElementById("contador2").textContent = 
+        `${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+    },1000);
+  }
 </script>
 
 </body>
