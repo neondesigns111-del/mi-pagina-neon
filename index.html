@@ -747,6 +747,13 @@ section.hero p {
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const cupon = document.getElementById("cupon-flotante");
+    const modal = document.getElementById("modal-cupon");
+    const cerrarModalBtn = document.getElementById("cerrar-modal");
+    const contadorFlotante = document.getElementById("contador-flotante");
+    const textoContador = document.getElementById("contador-cupon-flotante");
+    const DURACION_CUPON_MS = 86400000;
+
     const particlesContainer = document.getElementById("particles");
     if (particlesContainer) {
       const totalParticles = 70;
@@ -764,7 +771,93 @@ section.hero p {
       }
     }
 
-  
+    function getEstadoCupon() {
+      const data = JSON.parse(localStorage.getItem("cuponData"));
+      return data && data.inicio ? data : null;
+    }
+
+    function guardarEstadoCupon(data) {
+      localStorage.setItem("cuponData", JSON.stringify(data));
+    }
+
+    function resetCupon() {
+      localStorage.removeItem("cuponData");
+      location.reload();
+    }
+
+function mostrarCupon() {
+  cupon.style.display = "block";
+  iniciarMovimientoSuaveCupon();
+
+  // Guardamos que ya se mostró para que no vuelva a aparecer
+  localStorage.setItem('cuponMostrado', 'true');
+
+  // Desaparece solo a los 5 segundos
+  setTimeout(() => {
+    cupon.style.display = "none";
+  }, 5000);
+}
+
+const cuponMostrado = localStorage.getItem('cuponMostrado');
+const cuponAtrapado = getEstadoCupon(); // función que vos ya tenés para saber si atrapó cupón
+
+if (!cuponMostrado && !cuponAtrapado) {
+  setTimeout(mostrarCupon, 3000);
+} else if (cuponAtrapado) {
+  iniciarContador();
+}
+
+
+    function mostrarModal() {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        modal.style.opacity = 1;
+      }, 50);
+    }
+
+    function ocultarModal() {
+      modal.style.opacity = 0;
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
+
+    function iniciarContador() {
+      const estado = getEstadoCupon();
+      if (!estado) return;
+      function actualizarContador() {
+        const ahora = Date.now();
+        const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
+        if (diferencia <= 0) {
+          contadorFlotante.style.display = "none";
+          return;
+        }
+        const horas = Math.floor(diferencia / 3600000);
+        const minutos = Math.floor((diferencia % 3600000) / 60000);
+        const segundos = Math.floor((diferencia % 60000) / 1000);
+        textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
+      }
+      contadorFlotante.style.display = "block";
+      actualizarContador();
+      setInterval(actualizarContador, 1000);
+    }
+
+    cupon.addEventListener("click", () => {
+      cupon.style.display = "none";
+      mostrarModal();
+      guardarEstadoCupon({ inicio: Date.now() });
+      iniciarContador();
+    });
+
+    cerrarModalBtn.addEventListener("click", ocultarModal);
+
+    if (!getEstadoCupon()) {
+      setTimeout(mostrarCupon, 3000);
+    } else {
+      iniciarContador();
+    }
+
+    window.resetCupon = resetCupon;
 
     // Animación fade-in de tarjetas
     const fadeEls = document.querySelectorAll('.fade-in');
@@ -831,7 +924,45 @@ section.hero p {
       });
     });
 
-   
+    // Función para movimiento suave del cupón
+    function iniciarMovimientoSuaveCupon() {
+      cupon.style.position = 'fixed';
+      let posX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let posY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      cupon.style.left = `${posX}px`;
+      cupon.style.top = `${posY}px`;
+
+      let targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      const speed = 100; // píxeles por segundo
+
+      function moveStep(timestamp) {
+        if (!cupon.lastTimestamp) cupon.lastTimestamp = timestamp;
+        const delta = (timestamp - cupon.lastTimestamp) / 1000;
+        cupon.lastTimestamp = timestamp;
+
+        const dx = targetX - posX;
+        const dy = targetY - posY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 1) {
+          targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+          targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+        } else {
+          const moveX = (dx / dist) * speed * delta;
+          const moveY = (dy / dist) * speed * delta;
+          posX += moveX;
+          posY += moveY;
+          cupon.style.left = `${posX}px`;
+          cupon.style.top = `${posY}px`;
+        }
+
+        requestAnimationFrame(moveStep);
+      }
+
+      requestAnimationFrame(moveStep);
+    }
+  });
 
   const toggleBtn = document.getElementById('toggle-palette');
   const paletteSelector = document.getElementById('palette-selector');
@@ -841,71 +972,6 @@ section.hero p {
       paletteSelector.classList.toggle('visible');
     });
   }
-    // Modal y cupón
-const modal = document.getElementById('welcome-coupon');
-const closeBtn = document.getElementById('close-coupon');
-const claimBtn = document.getElementById('claim-coupon');
-const timerEl = document.getElementById('coupon-timer');
-
-// Mostrar modal si no atrapó el cupón
-if(!localStorage.getItem('welcomeCoupon')) {
-  modal.classList.add('show');
-}
-
-// Cerrar modal
-closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-
-// Atrapar cupón
-claimBtn.addEventListener('click', () => {
-  localStorage.setItem('welcomeCoupon', 'claimed');
-  const expiry = new Date().getTime() + 24*60*60*1000;
-  localStorage.setItem('welcomeCouponExpiry', expiry);
-  modal.classList.remove('show');
-  alert('¡Cupón activado! El descuento se aplicará en tus productos.');
-  updateAllProducts();
-});
-
-// Contador de 24h
-function updateTimer() {
-  const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(!expiry) { timerEl.textContent = '24:00:00'; return; }
-  const now = new Date().getTime();
-  const distance = expiry - now;
-  if(distance <=0){
-    timerEl.textContent='00:00:00';
-    localStorage.removeItem('welcomeCoupon');
-    localStorage.removeItem('welcomeCouponExpiry');
-    return;
-  }
-  const h = Math.floor(distance/(1000*60*60));
-  const m = Math.floor((distance%(1000*60*60))/(1000*60));
-  const s = Math.floor((distance%(1000*60))/1000);
-  timerEl.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-setInterval(updateTimer,1000);
-updateTimer();
-
-// Función para aplicar cupón a los productos
-function applyCoupon(product, discount=0.2){
-  const priceEl = product.querySelector('.original-price');
-  const discountEl = product.querySelector('.discount-price');
-  const originalPrice = parseFloat(product.dataset.price);
-  const discountedPrice = originalPrice*(1-discount);
-  priceEl.style.textDecoration='line-through';
-  discountEl.textContent='Con descuento: $'+discountedPrice.toFixed(2);
-}
-
-// Actualizar todos los productos si cupón activo
-function updateAllProducts(){
-  const claimed = localStorage.getItem('welcomeCoupon');
-  const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(claimed && expiry && new Date().getTime() < expiry){
-    document.querySelectorAll('.product').forEach(p => applyCoupon(p));
-  }
-}
-
-// Ejecutar al cargar la página
-updateAllProducts();
 </script>
 
 </body>
