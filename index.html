@@ -704,69 +704,250 @@ section.hero p {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const cupon = document.getElementById("cupon-flotante");
+    const modal = document.getElementById("modal-cupon");
+    const cerrarModalBtn = document.getElementById("cerrar-modal");
+    const contadorFlotante = document.getElementById("contador-flotante");
+    const textoContador = document.getElementById("contador-cupon-flotante");
+    const DURACION_CUPON_MS = 86400000;
 
-  /* ---------- CUPÓN ---------- */
-  const cuponTarjeta = document.getElementById("cupon-tarjeta");
-  const cerrarCupon = document.getElementById("cerrar-cupon");
-  const contadorCupon = document.getElementById("contador-cupon");
-  const contadorFijoText = document.getElementById("contador-fijo-text");
-  const DURACION = 24 * 60 * 60 * 1000; // 24 horas
-
-  let estado = JSON.parse(localStorage.getItem("cuponData"));
-  if (!estado) {
-    estado = { inicio: Date.now() };
-    localStorage.setItem("cuponData", JSON.stringify(estado));
-  }
-
-  function actualizarContador() {
-    const ahora = Date.now();
-    const dif = DURACION - (ahora - estado.inicio);
-
-    if (dif <= 0) {
-      contadorCupon.textContent = "Expirado";
-      contadorFijoText.textContent = "Descuento expirado";
-      cuponTarjeta.style.display = "none";
-      localStorage.removeItem("cuponData");
-      return;
+    const particlesContainer = document.getElementById("particles");
+    if (particlesContainer) {
+      const totalParticles = 70;
+      for (let i = 0; i < totalParticles; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const size = Math.random() * 4 + 1.5;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.top = `${Math.random() * 100}vh`;
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.animationDuration = `${15 + Math.random() * 10}s`;
+        p.style.animationDelay = `${Math.random() * 15}s`;
+        particlesContainer.appendChild(p);
+      }
     }
 
-    const horas = Math.floor(dif / 3600000);
-    const minutos = Math.floor((dif % 3600000) / 60000);
-    const segundos = Math.floor((dif % 60000) / 1000);
-    const texto = `${horas}h ${minutos}m ${segundos}s`;
+    function getEstadoCupon() {
+      const data = JSON.parse(localStorage.getItem("cuponData"));
+      return data && data.inicio ? data : null;
+    }
 
-    contadorCupon.textContent = texto;
-    contadorFijoText.textContent = texto;
-  }
+    function guardarEstadoCupon(data) {
+      localStorage.setItem("cuponData", JSON.stringify(data));
+    }
 
-  cuponTarjeta.style.display = "block";
-  actualizarContador();
-  setInterval(actualizarContador, 1000);
+    function resetCupon() {
+      localStorage.removeItem("cuponData");
+      location.reload();
+    }
 
-  cerrarCupon.addEventListener("click", () => {
-    cuponTarjeta.style.display = "none";
+function mostrarCupon() {
+  cupon.style.display = "block";
+  iniciarMovimientoSuaveCupon();
+
+  // Guardamos que ya se mostró para que no vuelva a aparecer
+  localStorage.setItem('cuponMostrado', 'true');
+
+  // Desaparece solo a los 5 segundos
+  setTimeout(() => {
+    cupon.style.display = "none";
+  }, 5000);
+}
+
+const cuponMostrado = localStorage.getItem('cuponMostrado');
+const cuponAtrapado = getEstadoCupon(); // función que vos ya tenés para saber si atrapó cupón
+
+if (!cuponMostrado && !cuponAtrapado) {
+  setTimeout(mostrarCupon, 3000);
+} else if (cuponAtrapado) {
+  iniciarContador();
+}
+
+
+    function mostrarModal() {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        modal.style.opacity = 1;
+      }, 50);
+    }
+
+    function ocultarModal() {
+      modal.style.opacity = 0;
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
+
+    function iniciarContador() {
+      const estado = getEstadoCupon();
+      if (!estado) return;
+      function actualizarContador() {
+        const ahora = Date.now();
+        const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
+        if (diferencia <= 0) {
+          contadorFlotante.style.display = "none";
+          return;
+        }
+        const horas = Math.floor(diferencia / 3600000);
+        const minutos = Math.floor((diferencia % 3600000) / 60000);
+        const segundos = Math.floor((diferencia % 60000) / 1000);
+        textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
+      }
+      contadorFlotante.style.display = "block";
+      actualizarContador();
+      setInterval(actualizarContador, 1000);
+    }
+
+    cupon.addEventListener("click", () => {
+      cupon.style.display = "none";
+      mostrarModal();
+      guardarEstadoCupon({ inicio: Date.now() });
+      iniciarContador();
+    });
+
+    cerrarModalBtn.addEventListener("click", ocultarModal);
+
+    if (!getEstadoCupon()) {
+      setTimeout(mostrarCupon, 3000);
+    } else {
+      iniciarContador();
+    }
+
+    window.resetCupon = resetCupon;
+
+    // Animación fade-in de tarjetas
+    const fadeEls = document.querySelectorAll('.fade-in');
+    function handleScrollFade() {
+      const windowHeight = window.innerHeight;
+      fadeEls.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < windowHeight * 0.85) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', handleScrollFade);
+    window.addEventListener('load', handleScrollFade);
+
+    // Paleta de color
+    const selector = document.getElementById('palette-selector');
+    const buttons = selector ? selector.querySelectorAll('button') : [];
+    const tooltip = document.getElementById('color-tooltip');
+
+    function setTheme(color) {
+      document.documentElement.setAttribute('data-theme', color);
+      buttons.forEach(btn => {
+        const selected = btn.dataset.color === color;
+        btn.setAttribute('aria-selected', selected);
+        btn.tabIndex = selected ? 0 : -1;
+      });
+      showTooltip(color);
+    }
+
+    function showTooltip(colorName) {
+      if (!tooltip) return;
+      tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+      tooltip.classList.add('show');
+      clearTimeout(tooltip.hideTimeout);
+      tooltip.hideTimeout = setTimeout(() => {
+        tooltip.classList.remove('show');
+      }, 1500);
+    }
+
+    const temaGuardado = localStorage.getItem('selectedTheme');
+    if (temaGuardado) setTheme(temaGuardado);
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTheme(btn.dataset.color);
+        localStorage.setItem('selectedTheme', btn.dataset.color);
+      });
+      btn.addEventListener('keydown', e => {
+        let index = Array.from(buttons).indexOf(e.target);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          let next = (index + 1) % buttons.length;
+          buttons[next].focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let prev = (index - 1 + buttons.length) % buttons.length;
+          buttons[prev].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setTheme(e.target.dataset.color);
+          localStorage.setItem('selectedTheme', e.target.dataset.color);
+        }
+      });
+    });
+
+    // Función para movimiento suave del cupón
+    function iniciarMovimientoSuaveCupon() {
+      cupon.style.position = 'fixed';
+      let posX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let posY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      cupon.style.left = `${posX}px`;
+      cupon.style.top = `${posY}px`;
+
+      let targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      const speed = 100; // píxeles por segundo
+
+      function moveStep(timestamp) {
+        if (!cupon.lastTimestamp) cupon.lastTimestamp = timestamp;
+        const delta = (timestamp - cupon.lastTimestamp) / 1000;
+        cupon.lastTimestamp = timestamp;
+
+        const dx = targetX - posX;
+        const dy = targetY - posY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 1) {
+          targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+          targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+        } else {
+          const moveX = (dx / dist) * speed * delta;
+          const moveY = (dy / dist) * speed * delta;
+          posX += moveX;
+          posY += moveY;
+          cupon.style.left = `${posX}px`;
+          cupon.style.top = `${posY}px`;
+        }
+
+        requestAnimationFrame(moveStep);
+      }
+
+      requestAnimationFrame(moveStep);
+    }
   });
 
-  /* ---------- FADE-IN DE TARJETAS ---------- */
-  const fadeEls = document.querySelectorAll(".fade-in");
-  function handleScrollFade() {
-    const windowHeight = window.innerHeight;
-    fadeEls.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < windowHeight * 0.85) el.classList.add("visible");
+  const toggleBtn = document.getElementById('toggle-palette');
+  const paletteSelector = document.getElementById('palette-selector');
+
+  if (toggleBtn && paletteSelector) {
+    toggleBtn.addEventListener('click', () => {
+      paletteSelector.classList.toggle('visible');
     });
   }
-  window.addEventListener("scroll", handleScrollFade);
-  window.addEventListener("load", handleScrollFade);
+</script>
 
-  /* ---------- PARTICULAS ---------- */
+</body>
+</html>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const contadorFlotante = document.getElementById("contador-flotante");
+  const textoContador = document.getElementById("contador-cupon-flotante");
+  const DURACION_CUPON_MS = 86400000; // 24hs
+
+  // --- Partículas de fondo ---
   const particlesContainer = document.getElementById("particles");
   if (particlesContainer) {
     const totalParticles = 70;
     for (let i = 0; i < totalParticles; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
+      const p = document.createElement("div");
+      p.classList.add("particle");
       const size = Math.random() * 4 + 1.5;
       p.style.width = `${size}px`;
       p.style.height = `${size}px`;
@@ -778,16 +959,77 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ---------- SELECTOR DE PALETA ---------- */
-  const selector = document.getElementById('palette-selector');
-  const buttons = selector ? selector.querySelectorAll('button') : [];
-  const tooltip = document.getElementById('color-tooltip');
+  // --- Estado del cupón ---
+  function getEstadoCupon() {
+    const data = JSON.parse(localStorage.getItem("cuponData"));
+    return data && data.inicio ? data : null;
+  }
+
+  function guardarEstadoCupon(data) {
+    localStorage.setItem("cuponData", JSON.stringify(data));
+  }
+
+  function resetCupon() {
+    localStorage.removeItem("cuponData");
+    location.reload();
+  }
+
+  // --- Contador flotante ---
+  function iniciarContador() {
+    const estado = getEstadoCupon();
+    if (!estado) return;
+
+    function actualizarContador() {
+      const ahora = Date.now();
+      const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
+      if (diferencia <= 0) {
+        contadorFlotante.style.display = "none";
+        return;
+      }
+      const horas = Math.floor(diferencia / 3600000);
+      const minutos = Math.floor((diferencia % 3600000) / 60000);
+      const segundos = Math.floor((diferencia % 60000) / 1000);
+      textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
+    }
+
+    contadorFlotante.style.display = "block";
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  }
+
+  if (!getEstadoCupon()) {
+    guardarEstadoCupon({ inicio: Date.now() });
+    iniciarContador();
+  } else {
+    iniciarContador();
+  }
+
+  window.resetCupon = resetCupon;
+
+  // --- Fade-in de tarjetas ---
+  const fadeEls = document.querySelectorAll(".fade-in");
+  function handleScrollFade() {
+    const windowHeight = window.innerHeight;
+    fadeEls.forEach((el) => {
+      const top = el.getBoundingClientRect().top;
+      if (top < windowHeight * 0.85) {
+        el.classList.add("visible");
+      }
+    });
+  }
+  window.addEventListener("scroll", handleScrollFade);
+  window.addEventListener("load", handleScrollFade);
+
+  // --- Paleta de color ---
+  const selector = document.getElementById("palette-selector");
+  const buttons = selector ? selector.querySelectorAll("button") : [];
+  const tooltip = document.getElementById("color-tooltip");
 
   function setTheme(color) {
-    document.documentElement.setAttribute('data-theme', color);
-    buttons.forEach(btn => {
+    document.documentElement.setAttribute("data-theme", color);
+    buttons.forEach((btn) => {
       const selected = btn.dataset.color === color;
-      btn.setAttribute('aria-selected', selected);
+      btn.setAttribute("aria-selected", selected);
       btn.tabIndex = selected ? 0 : -1;
     });
     showTooltip(color);
@@ -795,51 +1037,116 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showTooltip(colorName) {
     if (!tooltip) return;
-    tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
-    tooltip.classList.add('show');
+    tooltip.textContent =
+      colorName.charAt(0).toUpperCase() + colorName.slice(1);
+    tooltip.classList.add("show");
     clearTimeout(tooltip.hideTimeout);
     tooltip.hideTimeout = setTimeout(() => {
-      tooltip.classList.remove('show');
+      tooltip.classList.remove("show");
     }, 1500);
   }
 
-  const temaGuardado = localStorage.getItem('selectedTheme');
+  const temaGuardado = localStorage.getItem("selectedTheme");
   if (temaGuardado) setTheme(temaGuardado);
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
       setTheme(btn.dataset.color);
-      localStorage.setItem('selectedTheme', btn.dataset.color);
+      localStorage.setItem("selectedTheme", btn.dataset.color);
     });
-    btn.addEventListener('keydown', e => {
+    btn.addEventListener("keydown", (e) => {
       let index = Array.from(buttons).indexOf(e.target);
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
         e.preventDefault();
         let next = (index + 1) % buttons.length;
         buttons[next].focus();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
         e.preventDefault();
         let prev = (index - 1 + buttons.length) % buttons.length;
         buttons[prev].focus();
-      } else if (e.key === 'Enter' || e.key === ' ') {
+      } else if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         setTheme(e.target.dataset.color);
-        localStorage.setItem('selectedTheme', e.target.dataset.color);
+        localStorage.setItem("selectedTheme", e.target.dataset.color);
       }
     });
   });
-
-  const toggleBtn = document.getElementById('toggle-palette');
-  if (toggleBtn && selector) {
-    toggleBtn.addEventListener('click', () => {
-      selector.classList.toggle('visible');
-    });
-  }
-
 });
+  const cupon = document.getElementById('cupon');
+    const closeBtn = document.querySelector('.close-btn');
+    const contadorElem = document.getElementById('contador');
+    const precios = document.querySelectorAll('.precio');
+
+    const descuento = 0.20; // 20%
+    const storageKey = 'cuponExpira';
+
+    // Función para aplicar descuento
+    function aplicarDescuento() {
+      precios.forEach(precioEl => {
+        const precioOriginal = parseFloat(precioEl.dataset.precio);
+        const precioConDescuento = (precioOriginal * (1 - descuento)).toFixed(2);
+        precioEl.innerHTML = `<s>$${precioOriginal}</s> $${precioConDescuento}`;
+      });
+    }
+
+    // Función para quitar descuento
+    function quitarDescuento() {
+      precios.forEach(precioEl => {
+        const precioOriginal = parseFloat(precioEl.dataset.precio);
+        precioEl.textContent = `$${precioOriginal}`;
+      });
+    }
+
+    // Función de contador
+    function iniciarContador(expira) {
+      const intervalo = setInterval(() => {
+        const ahora = new Date().getTime();
+        const distancia = expira - ahora;
+
+        if(distancia <= 0) {
+          clearInterval(intervalo);
+          contadorElem.parentElement.style.display = 'none';
+          quitarDescuento();
+          localStorage.removeItem(storageKey);
+          return;
+        }
+
+        const horas = Math.floor(distancia / (1000 * 60 * 60));
+        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        contadorElem.textContent = `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
+      }, 1000);
+    }
+
+    // Verificar si ya hay un cupon en localStorage
+    const cuponGuardado = localStorage.getItem(storageKey);
+    let expira;
+
+    if(cuponGuardado) {
+      expira = parseInt(cuponGuardado);
+      const ahora = new Date().getTime();
+      if(expira > ahora) {
+        cupon.style.display = 'block';
+        aplicarDescuento();
+        iniciarContador(expira);
+      } else {
+        localStorage.removeItem(storageKey);
+        cupon.style.display = 'none';
+      }
+    } else {
+      // Nuevo cupon
+      expira = new Date().getTime() + 24*60*60*1000; // 24 horas
+      localStorage.setItem(storageKey, expira);
+      aplicarDescuento();
+      iniciarContador(expira);
+    }
+
+    // Cerrar tarjeta
+    closeBtn.addEventListener('click', () => {
+      cupon.style.display = 'none';
+    });
 </script>
-
-
 
 </body>
 </html>
