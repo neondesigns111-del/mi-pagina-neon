@@ -570,7 +570,7 @@ main.producto {
       behavior: 'smooth'
     });
   }
-<script>
+
 document.addEventListener("DOMContentLoaded", () => {
   const cuponData = JSON.parse(localStorage.getItem("cuponData"));
   const cuponActivo = cuponData && cuponData.inicio && (Date.now() - cuponData.inicio < 24 * 60 * 60 * 1000);
@@ -615,6 +615,7 @@ document.addEventListener("DOMContentLoaded", () => {
   selectCircuit(0);
 });
 </script>
+
 
 
 
