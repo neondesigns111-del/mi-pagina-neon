@@ -16,17 +16,7 @@
   </script>
   
   <style>
-    .precio.tachado {
-  text-decoration: line-through;
-  color: #888;
-}
 
-.precio-descuento {
-  color: #00fff7;
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-top: 4px;
-}
     * {
       margin: 0;
       padding: 0;
@@ -580,10 +570,52 @@ main.producto {
       behavior: 'smooth'
     });
   }
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cuponData = JSON.parse(localStorage.getItem("cuponData"));
+  const cuponActivo = cuponData && cuponData.inicio && (Date.now() - cuponData.inicio < 24 * 60 * 60 * 1000);
 
-  // Mostrar primer circuito por defecto
+  const priceEl = document.getElementById("circuitPrice");
+
+  // Buscar el circuito actual mostrado
+  function aplicarDescuento(circuit) {
+    if (cuponActivo) {
+      const precioOriginal = circuit.price;
+      const precioConDesc = Math.floor(precioOriginal * 0.8);
+
+      priceEl.innerHTML = `
+        <span style="text-decoration: line-through; color:#888;">$${precioOriginal.toLocaleString("es-AR")} ARS</span>
+        <span style="color:#00fff7; font-weight:bold; margin-left:10px;">
+          $${precioConDesc.toLocaleString("es-AR")} ARS (-20%)
+        </span>
+      `;
+    } else {
+      priceEl.textContent = `$${circuit.price.toLocaleString("es-AR")} ARS`;
+    }
+  }
+
+  // Selección de circuitos con descuento aplicado
+  function selectCircuit(index) {
+    const circuit = circuits[index];
+    mainImg.src = circuit.img;
+    modalImg.src = circuit.img;
+    title.textContent = circuit.name;
+    desc.textContent = circuit.description;
+
+    aplicarDescuento(circuit);
+
+    document.querySelectorAll('.thumbs-wrapper img').forEach(img => img.classList.remove('selected'));
+    document.querySelectorAll('.thumbs-wrapper img')[index].classList.add('selected');
+  }
+
+  // Sobrescribo tu selectCircuit con el nuevo
+  window.selectCircuit = selectCircuit;
+
+  // Mostrar primer circuito al cargar
   selectCircuit(0);
+});
 </script>
+
 
 
 
