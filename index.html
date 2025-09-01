@@ -841,20 +841,56 @@ section.hero p {
     });
   });
 
-  // Toggle paleta
-  const toggleBtn = document.getElementById('toggle-palette');
-  const paletteSelector = document.getElementById('palette-selector');
+   // Paleta de color
+    const selector = document.getElementById('palette-selector');
+    const buttons = selector ? selector.querySelectorAll('button') : [];
+    const tooltip = document.getElementById('color-tooltip');
 
-  if (toggleBtn && paletteSelector) {
-    toggleBtn.addEventListener('click', () => {
-      paletteSelector.classList.toggle('visible');
+    function setTheme(color) {
+      document.documentElement.setAttribute('data-theme', color);
+      buttons.forEach(btn => {
+        const selected = btn.dataset.color === color;
+        btn.setAttribute('aria-selected', selected);
+        btn.tabIndex = selected ? 0 : -1;
+      });
+      showTooltip(color);
+    }
+
+    function showTooltip(colorName) {
+      if (!tooltip) return;
+      tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+      tooltip.classList.add('show');
+      clearTimeout(tooltip.hideTimeout);
+      tooltip.hideTimeout = setTimeout(() => {
+        tooltip.classList.remove('show');
+      }, 1500);
+    }
+
+    const temaGuardado = localStorage.getItem('selectedTheme');
+    if (temaGuardado) setTheme(temaGuardado);
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTheme(btn.dataset.color);
+        localStorage.setItem('selectedTheme', btn.dataset.color);
+      });
+      btn.addEventListener('keydown', e => {
+        let index = Array.from(buttons).indexOf(e.target);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          let next = (index + 1) % buttons.length;
+          buttons[next].focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let prev = (index - 1 + buttons.length) % buttons.length;
+          buttons[prev].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setTheme(e.target.dataset.color);
+          localStorage.setItem('selectedTheme', e.target.dataset.color);
+        }
+      });
     });
-  }
-  (function(){
-  const modal = document.getElementById("cuponModal");
-  const closeBtn = document.querySelector(".close-btn");
-  const timerEl = document.getElementById("cupon-timer");
-  const floatEl = document.getElementById("cuponFloat");
 
   // 24hs en ms
   const DURATION = 24 * 60 * 60 * 1000;
