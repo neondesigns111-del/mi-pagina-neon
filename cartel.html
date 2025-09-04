@@ -5,84 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carteles para Eventos y Negocios - Diseños Neón</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
-  
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLMPE91HKN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PLMPE91HKN');
-  </script>
-  
   <style>
-   /* ✅ Corrección: prevenir scroll horizontal */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    :root {
+      --neon-main: #00fff7;
+      --neon-light: #7affff;
+      --bg-dark: #0a0a10;
+      --bg-light: #1c1c36;
+      --text-light: #eaeaea;
+      --shadow-glow: 0 0 6px var(--neon-light), 0 0 18px var(--neon-main);
     }
 
-      :root {
-    --neon-main: #66fff7;   /* celeste más apagado */
-    --neon-light: #a8ffff;  /* menos saturado */
-    --bg-dark: #101014;     /* casi igual */
-    --text-light: #eaeaea;  /* apenas más suave */
-    --shadow-glow: 0 0 4px var(--neon-light), 0 0 10px var(--neon-main); /* glow reducido */
-  }
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, var(--bg-dark), #1b1b1f);
+      background: linear-gradient(135deg, var(--bg-dark), var(--bg-light));
       color: var(--text-light);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 0;
-      width: 100%;
       overflow-x: hidden;
-        max-width: 100vw;
-  overflow-x: hidden !important;
     }
 
-header {
-  background: rgba(0, 0, 0, 0.9);
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 0 10px var(--neon);
-}
-header h1 {
-  font-size: 1.6rem;
-  color: var(--neon-main);
-  text-shadow: 0 0 10px var(--neon-main);
-  margin: 0;
-}
+    header {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 0 10px var(--neon-main);
+    }
 
-header nav {
-  display: flex;
-  gap: 1.5rem;
-}
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--neon-main);
+      text-shadow: var(--shadow-glow);
+      margin: 0;
+    }
 
-header nav a {
-  color: var(--text-main);
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
 
-header nav a:hover {
-  color: var(--neon-main);
-}
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
+    nav a:hover {
+      color: var(--neon-main);
+    }
 
     main {
-      flex: 1;
-      padding: 2rem 1rem 4rem;
       max-width: 1200px;
       margin: auto;
+      padding: 2rem 1rem 4rem;
+      animation: fadeIn 1s ease-out;
     }
 
     h1 {
@@ -90,7 +70,7 @@ header nav a:hover {
       text-align: center;
       color: var(--neon-main);
       text-shadow: var(--shadow-glow);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
     }
 
     p.intro {
@@ -99,7 +79,6 @@ header nav a:hover {
       margin: 0 auto 2rem;
       max-width: 800px;
       color: #ccc;
-      user-select: text;
     }
 
     .grid {
@@ -115,26 +94,25 @@ header nav a:hover {
       padding: 1.5rem;
       box-shadow: 0 0 15px rgba(0, 255, 247, 0.2);
       text-align: center;
-      transition: transform 0.3s ease;
-      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
-    .card:hover, .card:focus-within {
+    .card:hover {
       transform: scale(1.03);
       box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
-      outline: none;
     }
 
     .card img {
       width: 100%;
       border-radius: 12px;
       margin-bottom: 1rem;
-      user-select: none;
     }
 
     .card h2 {
       color: var(--neon-main);
       margin-bottom: 0.5rem;
+      text-shadow: var(--shadow-glow);
     }
 
     .card p {
@@ -142,22 +120,23 @@ header nav a:hover {
       font-size: 1rem;
     }
 
-    /* Previsualización */
-    section.preview {
-      max-width: 700px;
-      margin: 0 auto 4rem;
+    section.preview,
+    section.custom-design,
+    section.info-extra {
       background: rgba(0, 255, 247, 0.05);
-      padding: 1.5rem 2rem;
+      padding: 2rem;
       border-radius: 15px;
       box-shadow: 0 0 18px rgba(0, 255, 247, 0.2);
-      user-select: none;
+      margin-bottom: 3rem;
     }
 
-    section.preview h2 {
+    section.preview h2,
+    section.custom-design h3,
+    .info-extra h2 {
       color: var(--neon-main);
-      text-shadow: var(--shadow-glow);
       text-align: center;
       margin-bottom: 1rem;
+      text-shadow: var(--shadow-glow);
     }
 
     .preview-config {
@@ -166,36 +145,30 @@ header nav a:hover {
       justify-content: center;
       gap: 1rem 2rem;
       margin-bottom: 1.5rem;
-      user-select: text;
     }
 
     .preview-config label {
       color: #aadce6;
       font-weight: 600;
-      align-self: center;
       min-width: 80px;
     }
 
-    .preview-config input[type="text"],
+    .preview-config input,
     .preview-config select {
       padding: 0.5rem 0.8rem;
       border-radius: 8px;
       border: none;
       font-size: 1rem;
       min-width: 150px;
-      font-family: 'Orbitron', sans-serif;
       background: #111;
       color: var(--text-light);
-      box-shadow:
-        inset 0 0 8px rgba(0, 255, 247, 0.3);
-      transition: box-shadow 0.3s ease;
+      box-shadow: inset 0 0 8px rgba(0, 255, 247, 0.3);
     }
 
-    .preview-config input[type="text"]:focus,
+    .preview-config input:focus,
     .preview-config select:focus {
       outline: none;
-      box-shadow:
-        0 0 12px var(--neon-main);
+      box-shadow: 0 0 12px var(--neon-main);
     }
 
     .preview-box {
@@ -207,75 +180,50 @@ header nav a:hover {
       background-size: cover;
       background-position: center;
       box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
-      user-select: none;
-      position: relative;
+    }
+
+    .preview-box.ladrillo {
+      background-image: url('https://d22fxaf9t8d39k.cloudfront.net/8a2436f2f311e673dcbf00dca651997500293462b78b7ee0bf174f976563f14e136013.png');
+    }
+
+    .preview-box.pared-blanca {
+      background-color: #ddd;
+    }
+
+    .preview-box.pared-gris {
+      background-color: #444;
     }
 
     #previewText {
       font-size: 3.5rem;
       color: var(--neon-main);
       font-weight: 400;
-      font-family: 'Orbitron', sans-serif;
-      text-shadow:
-        0 0 4px rgba(0, 255, 247, 0.4),
-        0 0 10px rgba(0, 255, 247, 0.3),
-        0 0 18px rgba(0, 255, 247, 0.2); 
-      user-select: text;
-      word-break: break-word;
-      text-align: center;
-      max-width: 100%;
-      white-space: normal;
-      cursor: default;
-      -webkit-text-stroke: 0.35px #000;
-    }
-
-    /* Campo diseño propio */
-    section.custom-design {
-      max-width: 700px;
-      margin: 0 auto 4rem;
-      background: rgba(0, 255, 247, 0.05);
-      padding: 1.5rem 2rem;
-      border-radius: 15px;
-      box-shadow: 0 0 18px rgba(0, 255, 247, 0.2);
-      user-select: text;
-    }
-
-    section.custom-design h3 {
-      color: var(--neon-main);
       text-shadow: var(--shadow-glow);
-      margin-bottom: 0.7rem;
       text-align: center;
-    }
-
-    section.custom-design p {
-      margin-bottom: 1rem;
-      text-align: center;
-      color: #bbb;
+      word-break: break-word;
+      max-width: 100%;
     }
 
     section.custom-design input[type="file"],
     section.custom-design textarea {
-      display: block;
       width: 100%;
       margin-bottom: 1rem;
       border-radius: 8px;
       border: none;
       padding: 0.6rem 1rem;
-      font-family: 'Orbitron', sans-serif;
       font-size: 1rem;
       background: #111;
       color: var(--text-light);
-      box-shadow:
-        inset 0 0 8px rgba(0, 255, 247, 0.3);
-      resize: vertical;
+      box-shadow: inset 0 0 8px rgba(0, 255, 247, 0.3);
     }
 
     section.custom-design textarea {
       min-height: 100px;
+      resize: vertical;
     }
 
     .btn-wsp {
-      display: inline-block;
+      display: block;
       background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
       color: white;
       padding: 0.8rem 2.5rem;
@@ -284,346 +232,112 @@ header nav a:hover {
       font-size: 1.1rem;
       text-align: center;
       cursor: pointer;
-      user-select: none;
-      transition: box-shadow 0.3s ease;
       text-decoration: none;
-      margin: 0 auto;
-      display: block;
       max-width: 280px;
+      margin: 0 auto;
+      box-shadow: 0 0 15px var(--neon-light);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
-    .btn-wsp:hover, .btn-wsp:focus {
-      box-shadow:
-        0 0 25px var(--neon-light),
-        0 0 45px var(--neon-main);
-      outline: none;
-    }
-:root {
-  --neon: #00fff7;
-}
-
-:root {
-  --neon: #00d5cc; /* más suave que #00fff7 */
-  --neon-shadow: 0 0 4px #00d5cc, 0 0 8px #00d5cc;
-}
-
-footer {
-  background: #0a0a0a;
-  color: #aaa;
-  text-align: center;
-  padding: 1rem 0.5rem;
-  font-size: 0.9rem;
-  margin-top: auto;
-  box-shadow: inset 0 1px 2px rgba(0, 255, 247, 0.05);
-}
-
-footer p {
-  margin: 0.5rem 0;
-}
-
-.contacto-info {
-  background: rgba(0, 255, 247, 0.06);
-  border: 2px solid var(--neon);
-  border-radius: 20px; /* más fino */
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 1200px; /* más ancho */
-  box-shadow: 0 0 14px rgba(0, 213, 204, 0.25);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.contacto-info:hover {
-  box-shadow: 0 0 25px rgba(0, 213, 204, 0.4);
-  transform: translateY(-2px);
-}
-
-.contacto-info h2 {
-  color: #fff;
-  text-shadow: var(--neon-shadow);
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.contacto-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-items: center;
-  padding: 0 1.5rem;
-}
-
-.contacto-grid p {
-  margin: 0;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  text-align: center;
-  color: #e0e0e0;
-  text-shadow: 0 0 2px #000;
-}
-
-.contacto-info a {
-  color: var(--neon);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.contacto-info a:hover {
-  color: #fff;
-  text-shadow: 0 0 6px var(--neon), 0 0 10px var(--neon);
-}
-
-
-
-
-    /* Fondos para preview */
-    .preview-box.ladrillo {
-      background-image: url('https://d22fxaf9t8d39k.cloudfront.net/8a2436f2f311e673dcbf00dca651997500293462b78b7ee0bf174f976563f14e136013.png');
-    }
-    .preview-box.pared-blanca {
-      background-color: #ddd;
-      background-image: none;
-    }
-    .preview-box.pared-gris {
-      background-color: #444;
-      background-image: none;
+    .btn-wsp:hover {
+      box-shadow: 0 0 25px var(--neon-light), 0 0 45px var(--neon-main);
+      transform: scale(1.05);
     }
 
-
-
-    .info-extra {
-      background: rgba(0, 255, 247, 0.05);
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 247, 0.1);
-      margin: 2rem auto 4rem;
-      max-width: 900px;
-    }
-    .info-extra h2 {
-      color: var(--neon-main);
-      text-align: center;
-      margin-bottom: 1rem;
-      text-shadow: var(--shadow-glow);
-    }
     .info-extra ul {
       list-style: none;
       padding-left: 1rem;
     }
+
     .info-extra li {
       margin-bottom: 0.8rem;
       padding-left: 1rem;
       position: relative;
     }
+
     .info-extra li::before {
       content: '✔';
       color: var(--neon-main);
       position: absolute;
       left: 0;
     }
-    .info-extra .sub {
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-top: 0.2rem;
-    }
 
-    .faq {
+       .faq {
       background: #0d0d0f;
       border-radius: 12px;
       padding: 1rem 1.5rem;
       margin-top: 2rem;
       box-shadow: 0 0 12px rgba(0,255,247,0.1);
     }
+
     .faq h3 {
       color: var(--neon-main);
       margin-bottom: 0.5rem;
+      text-shadow: var(--shadow-glow);
     }
+
     .faq p {
       color: #ccc;
       font-size: 0.95rem;
       margin-bottom: 1rem;
     }
+
+    footer {
+      background: #0a0a0a;
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 2px rgba(0, 255, 247, 0.05);
+    }
+
+    .contacto-info {
+      margin-top: 2rem;
+    }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      justify-items: center;
+      padding: 1rem;
+    }
+
+    .contacto-grid p {
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: center;
+      color: #e0e0e0;
+      text-shadow: 0 0 2px #000;
+    }
+
+    .contacto-info a {
+      color: var(--neon-main);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .contacto-info a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px var(--neon-main), 0 0 10px var(--neon-light);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     @media (max-width: 768px) {
-  /* Prevención scroll horizontal */
-  html, body {
-    max-width: 100vw;
-    overflow-x: hidden !important;
-  }
-
-  /* Header */
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    padding: 1rem;
-  }
-
-  header h1 {
-    font-size: 1.3rem;
-    text-shadow:
-      0 0 1px var(--neon-main),
-      0 0 3px var(--neon-main),
-      0 0 6px var(--neon-light); /* brillo limpio */
-  }
-
-  header nav {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 1rem;
-  }
-
-  header nav a {
-    font-size: 1.05rem;
-  }
-
-  /* Main y productos */
-  main {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem;
-  }
-
-  .product-images {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .product-images .main-image img {
-    width: 90vw;
-    max-width: 320px;
-  }
-
-  .thumbnails {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .product-details {
-    max-width: 90%;
-    text-align: center;
-    align-items: center;
-  }
-
-  .product-details h2 {
-    font-size: 1.5rem;
-  }
-
-  .product-details p {
-    font-size: 1rem;
-  }
-
-  .product-details button {
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  /* Footer */
-  footer {
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  footer .footer-links {
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .modal img {
-    width: 95vw;
-    max-height: 80vh;
-    object-fit: contain;
-  }
-
-  /* Preview-config */
-  .preview-config {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .preview-config label,
-  .preview-config input,
-  .preview-config select {
-    width: 100%;
-  }
-
-  /* Títulos principales con brillo limpio (sin nube) */
-  h1, 
-  .contacto-info h2, 
-  .info-extra h2, 
-  #previewText, 
-  section.preview h2, 
-  section.custom-design h3,
-  .card h2,
-  .faq h3 {
-    text-shadow:
-      0 0 1px var(--neon-main),
-      0 0 3px var(--neon-main),
-      0 0 6px var(--neon-light); /* brillo legible */
-  }
-
-  /* Ajuste de tamaños específicos */
-  h1 { font-size: 2rem; }
-  .contacto-info h2 { font-size: 1.6rem; }
-  .info-extra h2 { font-size: 1.6rem; }
-  #previewText { font-size: 2.5rem; }
-  section.preview h2 { font-size: 1.5rem; }
-  section.custom-design h3 { font-size: 1.4rem; }
-  .card h2 { font-size: 1.3rem; }
-  .faq h3 { font-size: 1.2rem; }
-}
-/* ======= Ajustes SOLO para móviles ======= */
-@media (max-width: 768px) {
-  :root {
-    --neon-main: #4ef6ef;   /* celeste más suave */
-    --neon-light: #a2ffff;  /* menos saturado */
-    --text-light: #f8fdfd;  /* blanco legible */
-    --shadow-glow: 0 0 3px var(--neon-light), 0 0 8px var(--neon-main); /* glow reducido */
-  }
-
-  /* Título hero */
-  section.hero h1 {
-    font-size: 2.2rem;
-    text-shadow:
-      0 0 3px var(--neon-main),
-      0 0 6px var(--neon-light);
-    animation: none;       /* quitamos flicker en mobile */
-    filter: brightness(0.85);
-  }
-
-  /* Texto hero */
-  section.hero p {
-    font-size: 1rem;
-    text-shadow: 0 0 2px var(--neon-light);
-    color: #ffffff;
-  }
-
-  /* Cards títulos */
-  article.card h3 {
-    font-size: 1.5rem;
-    text-shadow:
-      0 0 2px var(--neon-main),
-      0 0 5px var(--neon-light);
-  }
-
-  /* Cards párrafos */
-  article.card p {
-    font-size: 1rem;
-    color: #e6ffff;
-    text-shadow: 0 0 2px var(--neon-light);
-  }
-
-  /* Footer */
-  footer {
-    color: #cccccc;
-    text-shadow: 0 0 2px var(--neon-main);
-  }
-}
-
-
+      h1 { font-size: 2rem; }
+      #previewText { font-size: 2.5rem; }
+      .btn-wsp { font-size: 1rem; padding: 0.6rem 2rem; }
+      .preview-config { flex-direction: column; align-items: stretch; }
+      .preview-config label,
+      .preview-config input,
+      .preview-config select { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -734,59 +448,44 @@ footer p {
 </footer>
 
 
-<script>
-  const textoInput = document.getElementById('textoPreview');
-  const colorSelect = document.getElementById('colorPreview');
-  const fondoSelect = document.getElementById('fondoPreview');
-  const previewText = document.getElementById('previewText');
-  const previewBox = document.getElementById('previewBox');
-  const btnWsp = document.getElementById('btnWsp');
-  const textarea = document.querySelector('textarea');
+ 
+  <script>
+    const textoInput = document.getElementById('textoPreview');
+    const colorSelect = document.getElementById('colorPreview');
+    const fondoSelect = document.getElementById('fondoPreview');
+    const previewText = document.getElementById('previewText');
+    const previewBox = document.getElementById('previewBox');
+    const btnWsp = document.getElementById('btnWsp');
+    const textarea = document.querySelector('textarea');
 
-  function actualizarPreview() {
-    // Texto
-    previewText.textContent = textoInput.value.trim() || 'Mi Negocio';
+    function actualizarPreview() {
+      const texto = textoInput.value.trim() || 'Mi Negocio';
+      previewText.textContent = texto;
+      previewText.style.color = colorSelect.value;
+      previewText.style.textShadow = `
+        0 0 6px ${colorSelect.value},
+        0 0 15px ${colorSelect.value},
+        0 0 25px ${colorSelect.value}
+      `;
+      previewBox.className = 'preview-box ' + fondoSelect.value;
+    }
 
-    // Color de luz neón
-    previewText.style.color = colorSelect.value;
-    previewText.style.textShadow = `
-      0 0 6px ${colorSelect.value},
-      0 0 15px ${colorSelect.value},
-      0 0 25px ${colorSelect.value}
-    `;
+    textoInput.addEventListener('input', actualizarPreview);
+    colorSelect.addEventListener('change', actualizarPreview);
+    fondoSelect.addEventListener('change', actualizarPreview);
+    actualizarPreview();
 
-    // Fondo
-    previewBox.className = 'preview-box ' + fondoSelect.value;
-  }
-
-  textoInput.addEventListener('input', actualizarPreview);
-  colorSelect.addEventListener('change', actualizarPreview);
-  fondoSelect.addEventListener('change', actualizarPreview);
-
-  actualizarPreview();
-
-  btnWsp.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Armar mensaje con texto y descripción
-    const texto = textoInput.value.trim() || 'Mi Negocio';
-    const idea = textarea.value.trim() || 'No agregó descripción';
-    const mensaje = encodeURIComponent(`Hola, quiero un cartel personalizado.\nTexto: ${texto}\nDescripción: ${idea}`);
-    // Cambiar el número por tu número real sin espacios ni símbolos
-    const telefono = '5491151171205';
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
-    window.open(url, '_blank');
-  });
-</script>
-
+    btnWsp.addEventListener('click', (e) => {
+      e.preventDefault();
+      const texto = textoInput.value.trim() || 'Mi Negocio';
+      const idea = textarea.value.trim() || 'No agregó descripción';
+      const mensaje = encodeURIComponent(`Hola, quiero un cartel personalizado.\nTexto: ${texto}\nDescripción: ${idea}`);
+      const telefono = '5491151171205';
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
+      window.open(url, '_blank');
+    });
+  </script>
 </body>
-</html>
-
-
-
-
-
-
-
 
 
 
