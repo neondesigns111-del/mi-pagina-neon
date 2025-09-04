@@ -214,27 +214,61 @@
       resize: vertical;
     }
 
-    .btn-wsp {
-      display: block;
-      background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
-      color: white;
-      padding: 0.8rem 2.5rem;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
-      max-width: 280px;
-      margin: 0 auto;
-      box-shadow: 0 0 10px var(--neon-light);
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
+ .btn-wsp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(90deg, #00e6dd, #66fff7);
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow:
+    0 0 6px rgba(0, 255, 247, 0.3),
+    0 0 12px rgba(0, 255, 247, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
 
-    .btn-wsp:hover {
-      box-shadow: 0 0 20px var(--neon-light), 0 0 30px var(--neon-main);
-      transform: scale(1.05);
-    }
+.btn-wsp::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.btn-wsp:hover::before {
+  opacity: 1;
+}
+
+.btn-wsp:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 12px rgba(0, 255, 247, 0.4),
+    0 0 24px rgba(0, 255, 247, 0.3);
+}
+
+.btn-wsp:focus {
+  outline: none;
+  box-shadow:
+    0 0 14px rgba(0, 255, 247, 0.5),
+    0 0 28px rgba(0, 255, 247, 0.3);
+}
+
+.btn-wsp svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: #fff;
+}
 
     .info-extra ul {
       list-style: none;
@@ -322,7 +356,10 @@
     @media (max-width: 768px) {
       h1 { font-size: 2rem; }
       #previewText { font-size: 2.5rem; }
-      .btn-wsp { font-size: 1rem; padding: 0.6rem 2rem; }
+        .btn-wsp {
+    font-size: 1rem;
+    padding: 0.8rem 1.8rem;
+  }
       .preview-config { flex-direction: column; align-items: stretch; }
       .preview-config label,
       .preview-config input,
@@ -393,7 +430,13 @@
       <p>Subí tu logo o contanos tu idea y creamos el cartel ideal para vos.</p>
       <input type="file" accept="image/*" />
       <textarea placeholder="Contanos tu idea..."></textarea>
-      <a href="#" id="btnWsp" class="btn-wsp">Encargar por WhatsApp</a>
+    <a href="#" id="btnWsp" class="btn-wsp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.738 5.47 2.03 7.81L0 32l8.41-2.19A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.49 23.49c-.35.98-2.05 1.81-2.83 1.92-.73.11-1.63.16-2.63-.16-.61-.2-1.39-.45-2.4-.88-4.22-1.83-6.96-6.34-7.17-6.64-.2-.3-1.71-2.28-1.71-4.35s1.09-3.07 1.48-3.49c.38-.42.83-.53 1.11-.53.28 0 .56.01.8.01.26 0 .61-.1.96.73.35.84 1.2 2.9 1.3 3.11.1.21.17.46.03.74-.13.28-.2.45-.39.7-.19.25-.4.56-.57.75-.19.19-.39.4-.17.78.21.38.93 1.53 2 2.48 1.37 1.22 2.52 1.6 2.9 1.78.38.18.6.15.83-.09.23-.24.96-1.12 1.22-1.5.26-.38.52-.31.87-.19.35.12 2.2 1.04 2.57 1.23.38.19.63.28.72.43.09.15.09.87-.26 1.85z"/>
+  </svg>
+  Encargar por WhatsApp
+</a>
+
     </section>
 
     <section class="info-extra">
@@ -472,6 +515,7 @@
   </script>
 </body>
 </html>
+
 
 
 
