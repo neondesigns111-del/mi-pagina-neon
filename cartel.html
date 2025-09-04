@@ -4,15 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carteles para Eventos y Negocios - Diseños Neón</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --neon-main: #00fff7;
-      --neon-light: #7affff;
+      --neon-main: #00e6dd;
+      --neon-light: #66fff7;
       --bg-dark: #0a0a10;
       --bg-light: #1c1c36;
-      --text-light: #eaeaea;
-      --shadow-glow: 0 0 6px var(--neon-light), 0 0 18px var(--neon-main);
+      --text-light: #e0e0e0;
     }
 
     body {
@@ -38,7 +37,7 @@
     header h1 {
       font-size: 1.6rem;
       color: var(--neon-main);
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 2px var(--neon-main);
       margin: 0;
     }
 
@@ -62,20 +61,19 @@
       max-width: 1200px;
       margin: auto;
       padding: 2rem 1rem 4rem;
-      animation: fadeIn 1s ease-out;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       text-align: center;
       color: var(--neon-main);
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 2px var(--neon-main);
       margin-bottom: 0.5rem;
     }
 
     p.intro {
       text-align: center;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       margin: 0 auto 2rem;
       max-width: 800px;
       color: #ccc;
@@ -92,15 +90,15 @@
       background: rgba(0, 255, 247, 0.05);
       border-radius: 15px;
       padding: 1.5rem;
-      box-shadow: 0 0 15px rgba(0, 255, 247, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 247, 0.15);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
 
     .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
     }
 
     .card img {
@@ -112,7 +110,7 @@
     .card h2 {
       color: var(--neon-main);
       margin-bottom: 0.5rem;
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 1px var(--neon-main);
     }
 
     .card p {
@@ -123,10 +121,10 @@
     section.preview,
     section.custom-design,
     section.info-extra {
-      background: rgba(0, 255, 247, 0.05);
+      background: rgba(0, 255, 247, 0.04);
       padding: 2rem;
       border-radius: 15px;
-      box-shadow: 0 0 18px rgba(0, 255, 247, 0.2);
+      box-shadow: 0 0 12px rgba(0, 255, 247, 0.15);
       margin-bottom: 3rem;
     }
 
@@ -136,7 +134,7 @@
       color: var(--neon-main);
       text-align: center;
       margin-bottom: 1rem;
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 1px var(--neon-main);
     }
 
     .preview-config {
@@ -162,13 +160,7 @@
       min-width: 150px;
       background: #111;
       color: var(--text-light);
-      box-shadow: inset 0 0 8px rgba(0, 255, 247, 0.3);
-    }
-
-    .preview-config input:focus,
-    .preview-config select:focus {
-      outline: none;
-      box-shadow: 0 0 12px var(--neon-main);
+      box-shadow: inset 0 0 6px rgba(0, 255, 247, 0.2);
     }
 
     .preview-box {
@@ -179,7 +171,7 @@
       align-items: center;
       background-size: cover;
       background-position: center;
-      box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
+      box-shadow: 0 0 10px rgba(0, 255, 247, 0.2);
     }
 
     .preview-box.ladrillo {
@@ -195,10 +187,10 @@
     }
 
     #previewText {
-      font-size: 3.5rem;
+      font-size: 3rem;
       color: var(--neon-main);
       font-weight: 400;
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 2px var(--neon-main), 0 0 4px var(--neon-light);
       text-align: center;
       word-break: break-word;
       max-width: 100%;
@@ -214,7 +206,7 @@
       font-size: 1rem;
       background: #111;
       color: var(--text-light);
-      box-shadow: inset 0 0 8px rgba(0, 255, 247, 0.3);
+      box-shadow: inset 0 0 6px rgba(0, 255, 247, 0.2);
     }
 
     section.custom-design textarea {
@@ -235,12 +227,12 @@
       text-decoration: none;
       max-width: 280px;
       margin: 0 auto;
-      box-shadow: 0 0 15px var(--neon-light);
+      box-shadow: 0 0 10px var(--neon-light);
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
     .btn-wsp:hover {
-      box-shadow: 0 0 25px var(--neon-light), 0 0 45px var(--neon-main);
+      box-shadow: 0 0 20px var(--neon-light), 0 0 30px var(--neon-main);
       transform: scale(1.05);
     }
 
@@ -262,18 +254,18 @@
       left: 0;
     }
 
-       .faq {
+    .faq {
       background: #0d0d0f;
       border-radius: 12px;
       padding: 1rem 1.5rem;
       margin-top: 2rem;
-      box-shadow: 0 0 12px rgba(0,255,247,0.1);
+      box-shadow: 0 0 8px rgba(0,255,247,0.1);
     }
 
     .faq h3 {
       color: var(--neon-main);
       margin-bottom: 0.5rem;
-      text-shadow: var(--shadow-glow);
+      text-shadow: 0 0 1px var(--neon-main);
     }
 
     .faq p {
@@ -282,6 +274,9 @@
       margin-bottom: 1rem;
     }
 
+
+
+    
     footer {
       background: #0a0a0a;
       color: #aaa;
@@ -324,19 +319,9 @@
       text-shadow: 0 0 6px var(--neon-main), 0 0 10px var(--neon-light);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 768px) {
-    #previewText,
-    section.preview h2 {
-    text-shadow:
-      0 0 1px var(--neon-main),
-      0 0 3px var(--neon-light);
-    filter: brightness(0.9);
-    }
+      h1 { font-size: 2rem; }
+      #previewText { font-size: 2.5rem; }
       .btn-wsp { font-size: 1rem; padding: 0.6rem 2rem; }
       .preview-config { flex-direction: column; align-items: stretch; }
       .preview-config label,
@@ -348,14 +333,13 @@
 <body>
 
   <header>
-    <h1>Carteles Neon</h1>
+    <h1>Carteles Neón</h1>
     <nav>
       <a href="index.html">Catálogo</a>
       <a href="faq.html">FAQ</a>
       <a href="Pasos.html">Pasos</a>
     </nav>
   </header>
-
 
   <main>
     <h1>Carteles para Eventos y Negocios</h1>
@@ -379,48 +363,46 @@
     </div>
 
     <section class="preview" aria-label="Simulador de previsualización de cartel">
-      <h2>Previsualizá el color de tu Cartel simple
+      <h2>Previsualizá el color de tu Cartel simple</h2>
       <div class="preview-config">
         <label for="textoPreview">Texto:</label>
-        <input type="text" id="textoPreview" placeholder="Mi Negocio" maxlength="30" aria-describedby="descTexto" />
-        
+        <input type="text" id="textoPreview" placeholder="Mi Negocio" maxlength="30" />
+
         <label for="colorPreview">Color de luz:</label>
-        <select id="colorPreview" aria-describedby="descColor">
+        <select id="colorPreview">
           <option value="#ff0057">Rojo</option>
-           <option value="#ffffff">Blanca</option>
           <option value="#00fff7" selected>Cyan</option>
           <option value="#00ff88">Verde</option>
           <option value="#ffaa00">Naranja</option>
         </select>
 
         <label for="fondoPreview">Fondo:</label>
-        <select id="fondoPreview" aria-describedby="descFondo">
+        <select id="fondoPreview">
           <option value="ladrillo" selected>Ladrillos oscuros</option>
           <option value="pared-blanca">Pared blanca</option>
           <option value="pared-gris">Pared gris</option>
         </select>
       </div>
-      <div class="preview-box ladrillo" id="previewBox" aria-live="polite" aria-atomic="true" role="region">
+      <div class="preview-box ladrillo" id="previewBox">
         <div id="previewText">Mi Negocio</div>
       </div>
     </section>
 
-    
-    <section class="custom-design" aria-label="Envío de diseño personalizado">
+    <section class="custom-design">
       <h3>¿Tenés tu diseño o necesitás uno?</h3>
       <p>Subí tu logo o contanos tu idea y creamos el cartel ideal para vos.</p>
-      <input type="file" accept="image/*" aria-label="Subir archivo de diseño" />
-      <textarea placeholder="Contanos tu idea..." aria-label="Descripción de diseño"></textarea>
-     <a href="#" id="btnWsp" class="btn-wsp" role="button">Encargar por WhatsApp</a>
+      <input type="file" accept="image/*" />
+      <textarea placeholder="Contanos tu idea..."></textarea>
+      <a href="#" id="btnWsp" class="btn-wsp">Encargar por WhatsApp</a>
     </section>
 
     <section class="info-extra">
       <h2>¿Qué incluye tu cartel?</h2>
       <ul>
-        <li>Estructura en plastico de impresora 3d.</li>
+        <li>Estructura en plástico de impresora 3D.</li>
         <li>Luz LED flexible tipo neón (varios colores a elección).</li>
         <li>Fuente de alimentación 12V segura y silenciosa.</li>
-        <li>facil instalacion, conectas el transformador y ya esta listo </li>
+        <li>Fácil instalación: conectás el transformador y ya está listo.</li>
       </ul>
 
       <div class="faq">
@@ -435,26 +417,24 @@
         <p><strong>¿Cuánto tarda?</strong> De 4 a 10 días hábiles según complejidad.</p>
         <p><strong>¿Envían a todo el país?</strong> Sí, por correo con seguimiento.</p>
         <p><strong>¿Puedo pedir varios carteles?</strong> Sí, hacemos descuentos por cantidad.</p>
-         <p><strong>¿el precio varia si pido un diseño complejo?</strong> Sí, el precio depende de la complejidad.</p>
+        <p><strong>¿El precio varía si pido un diseño complejo?</strong> Sí, depende de la complejidad.</p>
       </div>
     </section>
   </main>
 
-<footer>
-  <p>© 2025 Diseños Neón — Todos los derechos reservados.</p>
-  <section class="contacto-info">
-    <h2>📬 Contacto</h2>
-    <div class="contacto-grid">
-      <p><strong>📞 WhatsApp:</strong><br><a href="https://wa.me/54 911 5117 1205" target="_blank">+54 911 5117 1205</a></p>
-      <p><strong>📧 Email:</strong><br><a href="mailto:neondesigns111@gmail.com">neondesigns111@gmail.com</a></p>
-      <p><strong>📸 Instagram:</strong><br><a href="https://www.instagram.com/neondesigns111" target="_blank">@neondesigns111</a></p>
-      <p><strong>🎵 TikTok:</strong><br><a href="https://www.tiktok.com/@neondesigns1" target="_blank">@neondesigns1</a></p>
-    </div>
-  </section>
-</footer>
+  <footer>
+    <p>© 2025 Diseños Neón — Todos los derechos reservados.</p>
+    <section class="contacto-info">
+      <h2>📬 Contacto</h2>
+      <div class="contacto-grid">
+        <p><strong>📞 WhatsApp:</strong><br><a href="https://wa.me/5491151171205" target="_blank">+54 911 5117 1205</a></p>
+        <p><strong>📧 Email:</strong><br><a href="mailto:neondesigns111@gmail.com">neondesigns111@gmail.com</a></p>
+        <p><strong>📸 Instagram:</strong><br><a href="https://www.instagram.com/neondesigns111" target="_blank">@neondesigns111</a></p>
+        <p><strong>🎵 TikTok:</strong><br><a href="https://www.tiktok.com/@neondesigns1" target="_blank">@neondesigns1</a></p>
+      </div>
+    </section>
+  </footer>
 
-
- 
   <script>
     const textoInput = document.getElementById('textoPreview');
     const colorSelect = document.getElementById('colorPreview');
@@ -464,14 +444,13 @@
     const btnWsp = document.getElementById('btnWsp');
     const textarea = document.querySelector('textarea');
 
-    function actualizarPreview() {
+       function actualizarPreview() {
       const texto = textoInput.value.trim() || 'Mi Negocio';
       previewText.textContent = texto;
       previewText.style.color = colorSelect.value;
       previewText.style.textShadow = `
-        0 0 6px ${colorSelect.value},
-        0 0 15px ${colorSelect.value},
-        0 0 25px ${colorSelect.value}
+        0 0 2px ${colorSelect.value},
+        0 0 4px ${colorSelect.value}
       `;
       previewBox.className = 'preview-box ' + fondoSelect.value;
     }
@@ -492,10 +471,7 @@
     });
   </script>
 </body>
-
-
-
-
+</html>
 
 
 
