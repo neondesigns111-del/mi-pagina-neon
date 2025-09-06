@@ -625,6 +625,12 @@ section.hero p {
   transform: translateY(40px);
   animation: fadeUp 0.8s ease forwards;
 }
+.card {
+  box-shadow: 0 0 8px rgba(0, 255, 247, 0.2);
+}
+.card img {
+  box-shadow: 0 0 12px rgba(0, 255, 247, 0.25);
+}
 
 .card:nth-child(1) { animation-delay: 0.1s; }
 .card:nth-child(2) { animation-delay: 0.2s; }
@@ -644,6 +650,12 @@ section.hero p {
 .card:hover {
   transform: scale(1.03) rotateX(3deg) rotateY(5deg);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (max-width: 768px) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+  }
 }
 
 /* Entrada elegante en el hero */
@@ -742,18 +754,7 @@ section.hero h1 {
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
-  <!-- Tarjeta modal del cupón -->
-<div id="cuponModal" class="cupon-modal">
-  <div class="cupon-content">
-    <span class="close-btn">&times;</span>
-    <h2>🎉 ¡Oferta Especial!</h2>
-    <p>Tenés un <strong>20% de descuento</strong> en un producto a elección.</p>
-    <p id="cupon-timer">Tiempo restante: 24:00:00</p>
-  </div>
-</div>
 
-<!-- Contador flotante -->
-<div id="cuponFloat" class="cupon-float"></div>
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
   <button id="btn-verde" data-color="verde"></button>
@@ -775,7 +776,7 @@ section.hero h1 {
 
     const particlesContainer = document.getElementById("particles");
     if (particlesContainer) {
-      const totalParticles = 70;
+    const totalParticles = window.innerWidth < 768 ? 20 : 70;
       for (let i = 0; i < totalParticles; i++) {
         const p = document.createElement('div');
         p.classList.add('particle');
