@@ -16,34 +16,73 @@
     gtag('config', 'G-PLMPE91HKN');
   </script>
   <style>
-.titulo-principal {
-  text-align: center;
-  margin-top: 5rem;
-  font-size: 2rem;
-  color: #fff;
-  text-shadow: 0 0 10px #0ff;
-}
+  /* === TARJETA EMERGENTE === */
+    .popup-cupon {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-.cupon-contador {
-  text-align: center;
-  margin-top: 6rem;
-  margin-bottom: 4rem;
-  font-size: 1.5rem;
-  color: #0ff;
-  text-shadow: 0 0 5px #0ff;
-  position: relative;
-  z-index: 10;
-}
+    .popup-contenido {
+      background: #111;
+      color: #0ff;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px #0ff;
+      max-width: 400px;
+      width: 90%;
+    }
 
-#cuenta-regresiva {
-  font-size: 2.5rem;
-  margin-top: 1rem;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 10px #0ff;
-}
+    .popup-contenido button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: #0ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
+    .popup-contenido button:hover {
+      background: #fff;
+      color: #00f;
+    }
 
+    /* === TÍTULO PRINCIPAL === */
+    .titulo-principal {
+      text-align: center;
+      margin-top: 5rem;
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    /* === CONTADOR CUPÓN === */
+    .cupon-contador {
+      text-align: center;
+      margin-top: 6rem;
+      margin-bottom: 4rem;
+      font-size: 1.5rem;
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    #cuenta-regresiva {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #0ff;
+    }
 
   /* Reset */
   *, *::before, *::after {
@@ -681,20 +720,26 @@ section.hero h1 {
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
-<!-- Tarjeta emergente -->
-<div id="popup-cupon" class="popup-cupon">
-  <div class="popup-contenido">
-    <h3>🎉 ¡Descuento Flash del 20%!</h3>
-    <p>Usá el código <strong>NEON20</strong> en tu compra. Válido por 24hs.</p>
-    <button onclick="cerrarPopup()">Cerrar</button>
+
+  <!-- TARJETA EMERGENTE -->
+  <div id="popup-cupon" class="popup-cupon">
+    <div class="popup-contenido">
+      <h3>🎉 ¡Descuento Flash del 20%!</h3>
+      <p>Usá el código <strong>NEON20</strong> en tu compra. Válido por 24hs.</p>
+      <button onclick="cerrarPopup()">Cerrar</button>
+    </div>
   </div>
-</div>
 
+  <!-- TÍTULO PRINCIPAL -->
+  <header class="titulo-principal">
+    <h1>Bienvenido a Diseños Neón</h1>
+  </header>
 
-<section class="cupon-contador">
-  <p>⏳ Tiempo restante para el cupón:</p>
-  <div id="cuenta-regresiva">Cargando...</div>
-</section>
+  <!-- CONTADOR -->
+  <section class="cupon-contador">
+    <p>⏳ Tiempo restante para el cupón:</p>
+    <div id="cuenta-regresiva">Cargando...</div>
+  </section>
   
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
@@ -707,32 +752,41 @@ section.hero h1 {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-function iniciarContador() {
-  const fin = new Date(Date.now() + 24 * 60 * 60 * 1000);
+ // Mostrar tarjeta al cargar
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("popup-cupon").style.display = "flex";
+      iniciarContador();
+    });
 
-  const actualizar = () => {
-    const ahora = new Date();
-    const restante = fin - ahora;
-
-    if (restante <= 0) {
-      document.getElementById("cuenta-regresiva").textContent = "¡Cupón expirado!";
-      return;
+    // Cerrar tarjeta
+    function cerrarPopup() {
+      document.getElementById("popup-cupon").style.display = "none";
     }
 
-    const horas = Math.floor(restante / (1000 * 60 * 60));
-    const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+    // Contador regresivo
+    function iniciarContador() {
+      const fin = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    document.getElementById("cuenta-regresiva").textContent =
-      `${horas}h ${minutos}m ${segundos}s`;
-  };
+      function actualizar() {
+        const ahora = new Date();
+        const restante = fin - ahora;
 
-  actualizar(); // Mostrar inmediatamente
-  setInterval(actualizar, 1000);
-}
+        if (restante <= 0) {
+          document.getElementById("cuenta-regresiva").textContent = "¡Cupón expirado!";
+          return;
+        }
 
-window.onload = iniciarContador;
+        const horas = Math.floor(restante / (1000 * 60 * 60));
+        const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((restante % (1000 * 60)) / 1000);
 
+        document.getElementById("cuenta-regresiva").textContent =
+          `${horas}h ${minutos}m ${segundos}s`;
+      }
+
+      actualizar(); // Mostrar inmediatamente
+      setInterval(actualizar, 1000);
+    }
   document.addEventListener("DOMContentLoaded", () => {
     const cupon = document.getElementById("cupon-flotante");
     const modal = document.getElementById("modal-cupon");
