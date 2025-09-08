@@ -719,68 +719,6 @@ section.hero h1 {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-// Modal y cupón
-const modal = document.getElementById('welcome-coupon');
-const closeBtn = document.getElementById('close-coupon');
-const claimBtn = document.getElementById('claim-coupon');
-const timerEl = document.getElementById('coupon-timer');
-
-// Mostrar modal si no atrapó el cupón
-if(!localStorage.getItem('welcomeCoupon')) {
-  modal.classList.add('show');
-}
-
-// Cerrar modal
-closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-
-// Atrapar cupón
-claimBtn.addEventListener('click', () => {
-  localStorage.setItem('welcomeCoupon', 'claimed');
-  const expiry = new Date().getTime() + 24*60*60*1000;
-  localStorage.setItem('welcomeCouponExpiry', expiry);
-  modal.classList.remove('show');
-  alert('¡Cupón activado! El descuento se aplicará en tus productos.');
-  updateAllProducts();
-});
-
-// Contador de 24h
-function updateTimer() {
-  const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(!expiry) { timerEl.textContent = '24:00:00'; return; }
-  const now = new Date().getTime();
-  const distance = expiry - now;
-  if(distance <=0){
-    timerEl.textContent='00:00:00';
-    localStorage.removeItem('welcomeCoupon');
-    localStorage.removeItem('welcomeCouponExpiry');
-    return;
-  }
-  const h = Math.floor(distance/(1000*60*60));
-  const m = Math.floor((distance%(1000*60*60))/(1000*60));
-  const s = Math.floor((distance%(1000*60))/1000);
-  timerEl.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-setInterval(updateTimer,1000);
-updateTimer();
-
-// Función para aplicar cupón a los productos
-function applyCoupon(product, discount=0.2){
-  const priceEl = product.querySelector('.original-price');
-  const discountEl = product.querySelector('.discount-price');
-  const originalPrice = parseFloat(product.dataset.price);
-  const discountedPrice = originalPrice*(1-discount);
-  priceEl.style.textDecoration='line-through';
-  discountEl.textContent='Con descuento: $'+discountedPrice.toFixed(2);
-}
-
-// Actualizar todos los productos si cupón activo
-function updateAllProducts(){
-  const claimed = localStorage.getItem('welcomeCoupon');
-  const expiry = localStorage.getItem('welcomeCouponExpiry');
-  if(claimed && expiry && new Date().getTime() < expiry){
-    document.querySelectorAll('.product').forEach(p => applyCoupon(p));
-  }
-}
 
 // Ejecutar al cargar la página
 updateAllProducts();
@@ -1232,7 +1170,17 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 faders.forEach(el => observer.observe(el));
-
+<!-- INDEX.HTML: Tarjeta del cupón -->
+<div id="welcome-coupon" class="coupon-modal">
+  <div class="coupon-content">
+    <h2>¡Bienvenido!</h2>
+    <p>Tenés un 20% de descuento en tu primera compra.</p>
+    <p>Usá el código: <strong>BIENVENIDA20</strong></p>
+    <p>Tiempo restante: <span id="coupon-timer">24:00:00</span></p>
+    <button id="claim-coupon">Atrapá tu descuento</button>
+    <button id="close-coupon" class="close-btn">&times;</button>
+  </div>
+</div>
 </script>
 
 </body>
