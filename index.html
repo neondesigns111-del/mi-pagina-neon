@@ -16,64 +16,8 @@
     gtag('config', 'G-PLMPE91HKN');
   </script>
   <style>
-    .fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cupon-flash {
-  background: radial-gradient(circle at top left, #0ff, #00f);
-  color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-  max-width: 500px;
-  margin: 2rem auto;
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-}
-
-.cupon-contenido h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 5px #0ff;
-}
-
-.cupon-contenido p {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-}
-
-.cupon-expira {
-  font-style: italic;
-  color: #ccc;
-}
-
-.btn-copiar {
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #fff;
-  color: #00f;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-copiar:hover {
-  background-color: #0ff;
-  color: #000;
-  box-shadow: 0 0 10px #0ff;
-}
-
-
-#modal-cupon {
+ /* Tarjeta emergente */
+.popup-cupon {
   position: fixed;
   top: 0;
   left: 0;
@@ -81,31 +25,53 @@
   height: 100%;
   background: rgba(0,0,0,0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
+  align-items: center;
+  z-index: 999;
 }
 
-#modal-contenido {
+.popup-contenido {
   background: #111;
-  border: 2px solid #ff00cc;
-  padding: 30px;
+  color: #0ff;
+  padding: 2rem;
+  border-radius: 12px;
   text-align: center;
-  border-radius: 20px;
-  color: #fff;
-  width: 90%;
+  box-shadow: 0 0 20px #0ff;
   max-width: 400px;
-  position: relative;
-  font-family: Orbitron, sans-serif;
-  box-shadow: 0 0 30px #ff00cc;
 }
 
-#cerrar-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
+.popup-contenido button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #0ff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+}
+
+/* Título principal */
+.titulo-principal {
+  text-align: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 10px #0ff;
+}
+
+/* Contador */
+.contador-cupon {
+  text-align: center;
+  margin-top: 6rem;
+  font-size: 1.5rem;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff;
+}
+
+#cuenta-regresiva {
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: bold;
 }
 
 
@@ -745,14 +711,26 @@ section.hero h1 {
 <footer>
   <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
-<section class="cupon-flash">
-  <div class="cupon-contenido">
-    <h2>🎉 Cupón Flash: -20% por 24hs</h2>
-    <p>Usá el código <strong>NEON20</strong> al finalizar tu compra.</p>
-    <p class="cupon-expira">Válido hasta: <span id="cupon-expira"></span></p>
-    <button class="btn-copiar" onclick="copiarCupon()">Copiar Código</button>
+<!-- Tarjeta emergente -->
+<div id="popup-cupon" class="popup-cupon">
+  <div class="popup-contenido">
+    <h3>🎉 ¡Descuento Flash del 20%!</h3>
+    <p>Usá el código <strong>NEON20</strong> en tu compra. Válido por 24hs.</p>
+    <button onclick="cerrarPopup()">Cerrar</button>
   </div>
-</section>
+</div>
+
+<!-- Título principal -->
+<header class="titulo-principal">
+  <h1>Bienvenido a Diseños Neón</h1>
+</header>
+
+<!-- Contador -->
+<div class="contador-cupon">
+  <p>⏳ Tiempo restante para el cupón:</p>
+  <div id="cuenta-regresiva"></div>
+</div>
+  
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
   <button id="btn-verde" data-color="verde"></button>
@@ -764,21 +742,42 @@ section.hero h1 {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-   // Fecha de expiración: 24hs desde ahora
-  const expiracion = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  document.getElementById("cupon-expira").textContent = expiracion.toLocaleString("es-AR");
+ 
+// Mostrar tarjeta al cargar
+window.onload = function () {
+  document.getElementById("popup-cupon").style.display = "flex";
+  iniciarContador();
+};
 
-  function copiarCupon() {
-    navigator.clipboard.writeText("NEON20");
-    alert("¡Cupón copiado!");
-  }
-  document.addEventListener("DOMContentLoaded", () => {
-    const cupon = document.getElementById("cupon-flotante");
-    const modal = document.getElementById("modal-cupon");
-    const cerrarModalBtn = document.getElementById("cerrar-modal");
-    const contadorFlotante = document.getElementById("contador-flotante");
-    const textoContador = document.getElementById("contador-cupon-flotante");
-    const DURACION_CUPON_MS = 86400000;
+// Cerrar tarjeta
+function cerrarPopup() {
+  document.getElementById("popup-cupon").style.display = "none";
+}
+
+// Contador regresivo
+function iniciarContador() {
+  const fin = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+  const actualizar = () => {
+    const ahora = new Date();
+    const restante = fin - ahora;
+
+    if (restante <= 0) {
+      document.getElementById("cuenta-regresiva").textContent = "¡Cupón expirado!";
+      return;
+    }
+
+    const horas = Math.floor(restante / (1000 * 60 * 60));
+    const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+
+    document.getElementById("cuenta-regresiva").textContent =
+      `${horas}h ${minutos}m ${segundos}s`;
+  };
+
+  setInterval(actualizar, 1000);
+}
+
 
     const particlesContainer = document.getElementById("particles");
     if (particlesContainer) {
