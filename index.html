@@ -777,6 +777,13 @@ function iniciarContador() {
 
   setInterval(actualizar, 1000);
 }
+  document.addEventListener("DOMContentLoaded", () => {
+    const cupon = document.getElementById("cupon-flotante");
+    const modal = document.getElementById("modal-cupon");
+    const cerrarModalBtn = document.getElementById("cerrar-modal");
+    const contadorFlotante = document.getElementById("contador-flotante");
+    const textoContador = document.getElementById("contador-cupon-flotante");
+    const DURACION_CUPON_MS = 86400000;
 
 
     const particlesContainer = document.getElementById("particles");
