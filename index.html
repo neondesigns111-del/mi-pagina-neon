@@ -719,9 +719,6 @@ section.hero h1 {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
-
-// Ejecutar al cargar la página
-updateAllProducts();
   document.addEventListener("DOMContentLoaded", () => {
     const cupon = document.getElementById("cupon-flotante");
     const modal = document.getElementById("modal-cupon");
@@ -730,10 +727,9 @@ updateAllProducts();
     const textoContador = document.getElementById("contador-cupon-flotante");
     const DURACION_CUPON_MS = 86400000;
 
-
     const particlesContainer = document.getElementById("particles");
     if (particlesContainer) {
-    const totalParticles = window.innerWidth < 768 ? 20 : 70;
+      const totalParticles = 70;
       for (let i = 0; i < totalParticles; i++) {
         const p = document.createElement('div');
         p.classList.add('particle');
@@ -949,145 +945,6 @@ if (!cuponMostrado && !cuponAtrapado) {
       paletteSelector.classList.toggle('visible');
     });
   }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  const contadorFlotante = document.getElementById("contador-flotante");
-  const textoContador = document.getElementById("contador-cupon-flotante");
-  const DURACION_CUPON_MS = 86400000; // 24hs
-
-  // --- Partículas de fondo ---
-  const particlesContainer = document.getElementById("particles");
-  if (particlesContainer) {
-    const totalParticles = 70;
-    for (let i = 0; i < totalParticles; i++) {
-      const p = document.createElement("div");
-      p.classList.add("particle");
-      const size = Math.random() * 4 + 1.5;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.top = `${Math.random() * 100}vh`;
-      p.style.left = `${Math.random() * 100}vw`;
-      p.style.animationDuration = `${15 + Math.random() * 10}s`;
-      p.style.animationDelay = `${Math.random() * 15}s`;
-      particlesContainer.appendChild(p);
-    }
-  }
-
-  // --- Estado del cupón ---
-  function getEstadoCupon() {
-    const data = JSON.parse(localStorage.getItem("cuponData"));
-    return data && data.inicio ? data : null;
-  }
-
-  function guardarEstadoCupon(data) {
-    localStorage.setItem("cuponData", JSON.stringify(data));
-  }
-
-  function resetCupon() {
-    localStorage.removeItem("cuponData");
-    location.reload();
-  }
-
-  // --- Contador flotante ---
-  function iniciarContador() {
-    const estado = getEstadoCupon();
-    if (!estado) return;
-
-    function actualizarContador() {
-      const ahora = Date.now();
-      const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
-      if (diferencia <= 0) {
-        contadorFlotante.style.display = "none";
-        return;
-      }
-      const horas = Math.floor(diferencia / 3600000);
-      const minutos = Math.floor((diferencia % 3600000) / 60000);
-      const segundos = Math.floor((diferencia % 60000) / 1000);
-      textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
-    }
-
-    contadorFlotante.style.display = "block";
-    actualizarContador();
-    setInterval(actualizarContador, 1000);
-  }
-
-  if (!getEstadoCupon()) {
-    guardarEstadoCupon({ inicio: Date.now() });
-    iniciarContador();
-  } else {
-    iniciarContador();
-  }
-
-  window.resetCupon = resetCupon;
-
-  // --- Fade-in de tarjetas ---
-  const fadeEls = document.querySelectorAll(".fade-in");
-  function handleScrollFade() {
-    const windowHeight = window.innerHeight;
-    fadeEls.forEach((el) => {
-      const top = el.getBoundingClientRect().top;
-      if (top < windowHeight * 0.85) {
-        el.classList.add("visible");
-      }
-    });
-  }
-  window.addEventListener("scroll", handleScrollFade);
-  window.addEventListener("load", handleScrollFade);
-
-  // --- Paleta de color ---
-  const selector = document.getElementById("palette-selector");
-  const buttons = selector ? selector.querySelectorAll("button") : [];
-  const tooltip = document.getElementById("color-tooltip");
-
-  function setTheme(color) {
-    document.documentElement.setAttribute("data-theme", color);
-    buttons.forEach((btn) => {
-      const selected = btn.dataset.color === color;
-      btn.setAttribute("aria-selected", selected);
-      btn.tabIndex = selected ? 0 : -1;
-    });
-    showTooltip(color);
-  }
-
-  function showTooltip(colorName) {
-    if (!tooltip) return;
-    tooltip.textContent =
-      colorName.charAt(0).toUpperCase() + colorName.slice(1);
-    tooltip.classList.add("show");
-    clearTimeout(tooltip.hideTimeout);
-    tooltip.hideTimeout = setTimeout(() => {
-      tooltip.classList.remove("show");
-    }, 1500);
-  }
-
-  const temaGuardado = localStorage.getItem("selectedTheme");
-  if (temaGuardado) setTheme(temaGuardado);
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      setTheme(btn.dataset.color);
-      localStorage.setItem("selectedTheme", btn.dataset.color);
-    });
-    btn.addEventListener("keydown", (e) => {
-      let index = Array.from(buttons).indexOf(e.target);
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        e.preventDefault();
-        let next = (index + 1) % buttons.length;
-        buttons[next].focus();
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        e.preventDefault();
-        let prev = (index - 1 + buttons.length) % buttons.length;
-        buttons[prev].focus();
-      } else if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        setTheme(e.target.dataset.color);
-        localStorage.setItem("selectedTheme", e.target.dataset.color);
-      }
-    });
-  });
-});
-
 </script>
 
 </body>
