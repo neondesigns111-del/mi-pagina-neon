@@ -16,41 +16,6 @@
     gtag('config', 'G-PLMPE91HKN');
   </script>
   <style>
- /* Tarjeta emergente */
-.popup-cupon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.popup-contenido {
-  background: #111;
-  color: #0ff;
-  padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 0 20px #0ff;
-  max-width: 400px;
-}
-
-.popup-contenido button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #0ff;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* Título principal */
 .titulo-principal {
   text-align: center;
   margin-top: 5rem;
@@ -59,20 +24,25 @@
   text-shadow: 0 0 10px #0ff;
 }
 
-/* Contador */
-.contador-cupon {
+.cupon-contador {
   text-align: center;
   margin-top: 6rem;
+  margin-bottom: 4rem;
   font-size: 1.5rem;
   color: #0ff;
   text-shadow: 0 0 5px #0ff;
+  position: relative;
+  z-index: 10;
 }
 
 #cuenta-regresiva {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-top: 1rem;
   font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px #0ff;
 }
+
 
 
   /* Reset */
@@ -720,16 +690,11 @@ section.hero h1 {
   </div>
 </div>
 
-<!-- Título principal -->
-<header class="titulo-principal">
-  <h1>Bienvenido a Diseños Neón</h1>
-</header>
 
-<!-- Contador -->
-<div class="contador-cupon">
+<section class="cupon-contador">
   <p>⏳ Tiempo restante para el cupón:</p>
-  <div id="cuenta-regresiva"></div>
-</div>
+  <div id="cuenta-regresiva">Cargando...</div>
+</section>
   
 <div id="palette-selector">
   <button id="btn-celeste" data-color="celeste" aria-selected="true"></button>
@@ -742,19 +707,6 @@ section.hero h1 {
 <button id="toggle-palette" aria-label="Mostrar selector de colores">🎨</button>
 
 <script>
- 
-// Mostrar tarjeta al cargar
-window.onload = function () {
-  document.getElementById("popup-cupon").style.display = "flex";
-  iniciarContador();
-};
-
-// Cerrar tarjeta
-function cerrarPopup() {
-  document.getElementById("popup-cupon").style.display = "none";
-}
-
-// Contador regresivo
 function iniciarContador() {
   const fin = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
@@ -775,8 +727,12 @@ function iniciarContador() {
       `${horas}h ${minutos}m ${segundos}s`;
   };
 
+  actualizar(); // Mostrar inmediatamente
   setInterval(actualizar, 1000);
 }
+
+window.onload = iniciarContador;
+
   document.addEventListener("DOMContentLoaded", () => {
     const cupon = document.getElementById("cupon-flotante");
     const modal = document.getElementById("modal-cupon");
