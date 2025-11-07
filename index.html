@@ -624,6 +624,45 @@ section.hero h1 {
   50% { box-shadow: 0 0 20px var(--neon-light); }
   100% { box-shadow: 0 0 10px var(--neon-main); }
 }
+#menu-toggle {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block;
+  }
+
+  nav {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: black;
+    width: 100%;
+    padding: 1rem;
+    z-index: 999;
+  }
+
+  nav a {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+}
 
   </style>
 </head>
@@ -631,7 +670,8 @@ section.hero h1 {
 <div id="particles" aria-hidden="true"></div>
 <header>
   <div class="logo">Diseños Neón</div>
-  <nav>
+  <button id="menu-toggle" aria-label="Abrir menú">☰</button>
+  <nav id="nav-menu" class="hidden">
     <a href="#catalogo">Catálogo</a>
     <a href="faq.html">FAQ</a>
     <a href="Pasos.html">Pasos</a>
@@ -640,6 +680,7 @@ section.hero h1 {
     <a href="seguimiento.html">Seguimiento de pedido</a>
   </nav>
 </header>
+
 <section class="hero">
   <h1>Diseños Neón</h1>
   <p>Tu espacio, iluminado con estilo y personalidad</p>
@@ -945,6 +986,22 @@ if (!cuponMostrado && !cuponAtrapado) {
       paletteSelector.classList.toggle('visible');
     });
   }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("hidden");
+    });
+
+    navMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.add("hidden");
+      });
+    });
+  });
+
 </script>
 
 </body>
