@@ -772,6 +772,19 @@ section.hero h1 {
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+        // Menú hamburguesa
+    const toggleBtn = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    toggleBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("hidden");
+    });
+
+    navMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.add("hidden");
+      });
+    });
     const cupon = document.getElementById("cupon-flotante");
     const modal = document.getElementById("modal-cupon");
     const cerrarModalBtn = document.getElementById("cerrar-modal");
@@ -998,20 +1011,7 @@ if (!cuponMostrado && !cuponAtrapado) {
     });
   }
   
-    // Menú hamburguesa
-    const toggleBtn = document.getElementById("menu-toggle");
-    const navMenu = document.getElementById("nav-menu");
-
-    toggleBtn.addEventListener("click", () => {
-      navMenu.classList.toggle("hidden");
-    });
-
-    navMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        navMenu.classList.add("hidden");
-      });
-    });
-
+ 
 </script>
 
 </body>
