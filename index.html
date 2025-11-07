@@ -162,7 +162,56 @@ nav a:hover {
     animation: flicker 3s linear infinite alternate;
     margin-bottom: 0.5rem;
   }
+ #menu-toggle {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
 
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav.hidden {
+      display: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: cyan;
+    }
+
+    @media (max-width: 768px) {
+      #menu-toggle {
+        display: block;
+      }
+
+      nav {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: black;
+        width: 100%;
+        padding: 1rem;
+        z-index: 999;
+      }
+
+      nav a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+      }
+    }
   section.hero p {
     color: var(--neon-light);
     font-size: 1.5rem;
@@ -624,45 +673,7 @@ section.hero h1 {
   50% { box-shadow: 0 0 20px var(--neon-light); }
   100% { box-shadow: 0 0 10px var(--neon-main); }
 }
-#menu-toggle {
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: none;
-}
 
-nav {
-  display: flex;
-  gap: 1rem;
-}
-
-nav.hidden {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  #menu-toggle {
-    display: block;
-  }
-
-  nav {
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background: black;
-    width: 100%;
-    padding: 1rem;
-    z-index: 999;
-  }
-
-  nav a {
-    padding: 0.5rem 0;
-    font-size: 1.2rem;
-  }
-}
 
   </style>
 </head>
