@@ -207,12 +207,13 @@
         resultado.textContent = 'Por favor, ingresa un número de seguimiento válido.';
         return;
       }
-      const url = `https://www.correoargentino.com.ar/seguimiento-envios?tracking=${encodeURIComponent(numero)}`;
+      const url = `https://www.correoargentino.com.ar/formularios/ondnc=${encodeURIComponent(numero)}`;
       window.open(url, '_blank');
       resultado.textContent = `Abriendo el estado de tu pedido: ${numero}`;
     }
   </script>
 </body>
 </html>
+
 
 
