@@ -4,155 +4,352 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seguimiento de Pedido - Neón Designs</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
-  
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLMPE91HKN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PLMPE91HKN');
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
+   /* HEADER EN MODO COMPUTADORA */
+/* Header base */
+header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0,0,0,0.9);
+  box-shadow: 0 0 10px var(--neon-main);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Agrupa logo + tres puntitos a la izquierda */
+.left-group {
+  display: flex;
+  align-items: center;
+  gap: 75rem;           /* separa logo y ⋮ */
+}
+
+/* Empuja el nav a la derecha sin mover los puntitos */
+nav {
+  margin-left: auto;  /* nav a la derecha */
+}
+
+/* Estilos de logo y toggle */
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  color: var(--neon-main);
+}
+
+.menu-toggle {
+  font-size: 1.6rem;
+  color: var(--neon-main);
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+.menu-toggle:hover { background: rgba(0,255,255,0.1); }
+
+/* MENÚ DESPLEGABLE EN MODO COMPUTADORA */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+  padding: 1.5rem 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 999;
+}
+
+.menu-dropdown a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.menu-dropdown a:hover {
+  transform: scale(1.05);
+  background: rgba(0, 255, 255, 0.08);
+  color: var(--neon-main);
+}
+@media (max-width: 768px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    margin-left: 0; /* siempre pegado al borde */
+  }
+
+  .logo {
+    margin-left: 1rem; /* mantiene separación */
+  }
+  .left-group {
+  display: flex;
+  align-items: center;
+  gap: 6rem;           /* separa logo y ⋮ */
+}
+}
+
+  @media (max-width: 768px) {
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    position: relative;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu-toggle {
+    font-size: 1.6rem;
+    color: var(--neon-main);
+    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1); /* sombra más suave */
+  padding: 1.5rem 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  z-index: 999;
+}
+
+.menu-dropdown a {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.menu-dropdown a:hover {
+  color: var(--neon-main);
+  background: rgba(0, 255, 255, 0.08);
+}
+.menu-dropdown a {
+  display: block; /* hace que toda el área sea clickeable */
+  width: 100%;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+}
+
+
+    :root {
+      --neon-main: #0ff;
+      --neon-light: #00f0f0;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #eee;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: #111;
-      color: #eee;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background-image: url('');
-      background-size: cover;
-      background-position: center;
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--neon-main);
+      filter: drop-shadow(0 0 5px var(--neon-light));
+      opacity: 0.8;
+      animation: drift 15s linear infinite;
+    }
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--offset-x), var(--offset-y));
+    opacity: 0.2;
+  }
+}
 
     header {
       background: rgba(0, 0, 0, 0.9);
-      padding: 0.8rem 1rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 0 10px var(--neon-main);
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 0 10px #0ff;
-      flex-wrap: wrap;
     }
 
     .logo {
-      font-size: 1.6rem;
-      color: #0ff;
-      text-shadow: 0 0 10px #0ff;
-      user-select: none;
-    }
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--neon-main);
+  text-shadow: 0 0 6px var(--neon-main);
+  letter-spacing: 1px;
+}
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
+nav a {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
 
-    nav a {
-      color: #ccc;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-      font-size: 1rem;
-    }
+nav a:hover {
+  color: var(--neon-main);
+  text-shadow: 0 0 5px var(--neon-main);
+}
+
 
     nav a:hover {
-      color: #0ff;
-      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+      color: var(--neon-main);
+      text-shadow: 0 0 5px var(--neon-main);
     }
 
     main {
-      flex: 1 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem 1rem;
+      padding: 4rem 1rem 2rem;
+      min-height: calc(100vh - 160px);
+      position: relative;
+      z-index: 1;
     }
 
     .seguimiento {
-      width: 100%;
-      max-width: 400px;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0, 0, 0, 0.85);
+      padding: 2.5rem;
       border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 0 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      max-width: 420px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.2rem;
+      backdrop-filter: blur(4px);
     }
 
     .seguimiento h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 400;
       font-size: 2rem;
-      color: #0ff;
-      text-shadow: 0 0 10px #0ff;
+      color: var(--neon-main);
       text-align: center;
+      text-shadow: 0 0 6px var(--neon-main);
     }
 
     .seguimiento label {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #ccf;
-      margin-bottom: 0.5rem;
     }
 
     .seguimiento input {
-      padding: 0.7rem;
+      padding: 0.75rem;
       font-size: 1rem;
       border-radius: 10px;
-      border: none;
-      width: 100%;
+      border: 1px solid #444;
+      background: #111;
+      color: #eee;
+      outline: none;
     }
 
     .seguimiento button {
-      background: #0ff;
+      background: var(--neon-main);
       color: #000;
       font-weight: bold;
-      padding: 0.8rem;
+      padding: 0.9rem;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      transition: all 0.3s ease;
       font-size: 1rem;
-      box-shadow: 0 0 15px ;
+      box-shadow: 0 0 10px var(--neon-main);
+      transition: all 0.3s ease;
     }
 
     .seguimiento button:hover {
-      background: #00cfcf;
-      box-shadow: 0 0 25px #0ff;
+      background: var(--neon-light);
+      box-shadow: 0 0 20px var(--neon-main);
     }
 
     .resultado {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       padding: 1rem;
       border-radius: 15px;
       text-align: center;
-      font-size: 1rem;
-      color: #0ff;
-      word-break: break-word;
+      font-size: 0.95rem;
+      color: var(--neon-main);
     }
 
-    footer#contacto {
-      flex-shrink: 0;
+    footer {
       background-color: #000;
-      color: #0ff;
+      color: var(--neon-main);
       text-align: center;
-      padding: 1rem;
-      font-size: 0.95rem;
-      font-weight: bold;
-      text-shadow: 0 0 8px #0ff, 0 0 15px ;
-      user-select: none;
+      padding: 1rem 1rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-shadow: 0 0 6px var(--neon-main);
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
     }
 
     @media (max-width: 480px) {
@@ -161,60 +358,118 @@
         align-items: flex-start;
         gap: 0.5rem;
       }
-      .logo { font-size: 1.4rem; }
-      nav a { font-size: 0.9rem; }
+      nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
       .seguimiento {
-        padding: 1.5rem;
+        padding: 2rem;
         max-width: 95%;
       }
-      .seguimiento h2 { font-size: 1.6rem; }
-      .seguimiento input, .seguimiento button { font-size: 0.95rem; padding: 0.6rem; }
-      footer#contacto { font-size: 0.85rem; padding: 0.8rem; }
     }
   </style>
-</head>
+</head><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet" />
+
 <body>
+  <div id="particles"></div>
+
   <header>
+ <div class="left-group">
     <div class="logo">Neón Designs</div>
-    <nav>
-      <a href="index.html">Catálogo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="Pasos.html">Pasos</a>
-      <a href="seguimiento.html">Seguimiento de pedido</a>
-    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">⋮</div>
+  </div>
+
+<div class="menu-dropdown" id="menuDropdown">
+  <a href="index.html">Catálogo</a>
+  <a href="faq.html">FAQ</a>
+  <a href="precios.html">Precios</a>
+  <a href="instagram.html">Instagram</a>
+  <a href="tiktok.html">TikTok</a>
+  <a href="seguimiento.html">Seguimiento</a>
+</div>
+
+
+   </nav>
   </header>
 
   <main>
     <section class="seguimiento">
       <h2>Seguimiento de tu Pedido</h2>
-      <label for="trackingNumber">Ingresa tu número de seguimiento:</label>
+      <label for="trackingNumber">Número de seguimiento:</label>
       <input type="text" id="trackingNumber" placeholder="Ej: AA123456789AR" />
       <button onclick="abrirCorreo()">Ver Estado</button>
       <div class="resultado" id="resultado"></div>
     </section>
   </main>
 
-  <footer id="contacto">
+  <footer>
     <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
     <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
   </footer>
 
-  <script>
-    function abrirCorreo() {
-      const numero = document.getElementById('trackingNumber').value.trim();
-      const resultado = document.getElementById('resultado');
-      if(!numero) {
-        resultado.textContent = 'Por favor, ingresa un número de seguimiento válido.';
-        return;
-      }
-      const url = `https://www.correoargentino.com.ar/formularios/ondnc`;
-      window.open(url, '_blank');
-      resultado.textContent = `Abriendo el estado de tu pedido: ${numero}`;
+<script>
+  const container = document.getElementById('particles');
+  const total = 80;
+
+  for (let i = 0; i < total; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+
+    const size = Math.random() * 4 + 2;
+    const duration = 10 + Math.random() * 10;
+    const delay = Math.random() * duration;
+    const offsetX = Math.random() * 30 - 15; // -15vw to +15vw
+    const offsetY = Math.random() * 30 - 15; // -15vh to +15vh
+
+    p.style.left = `${Math.random() * 100}vw`;
+    p.style.top = `${Math.random() * 100}vh`;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.animationDuration = `${duration}s`;
+    p.style.animationDelay = `${delay}s`;
+    p.style.setProperty('--offset-x', `${offsetX}vw`);
+    p.style.setProperty('--offset-y', `${offsetY}vh`);
+
+    container.appendChild(p);
+  }
+  
+ 
+  function toggleMenu() {
+    const menu = document.getElementById('menuDropdown');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  document.addEventListener('click', function (e) {
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('menuDropdown');
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
     }
-  </script>
+  });
+
+  document.querySelectorAll('#menuDropdown a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('menuDropdown').style.display = 'none';
+    });
+  });
+
+   function abrirCorreo() {
+    const numero = document.getElementById('trackingNumber').value.trim();
+    const resultado = document.getElementById('resultado');
+
+    if (!numero) {
+      // Caso vacío
+      resultado.textContent = 'Por favor, escribe el número de seguimiento.';
+      return;
+    }
+
+    // Caso con número
+    const url = "https://www.correoargentino.com.ar/formularios/ondnc";
+    window.open(url, "_blank");
+    resultado.textContent = `Abriendo el estado de tu pedido: ${numero}`;
+  }
+</script>
+
 </body>
 </html>
-
-
-
 
