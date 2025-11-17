@@ -7,175 +7,108 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
-   /* HEADER EN MODO COMPUTADORA */
-/* Header base */
-header {
+ /* Header */
+.header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(0,0,0,0.9);
-  box-shadow: 0 0 10px var(--neon-main);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  padding: 15px 25px;
+  background: #0a0a1a;
 }
 
-/* Agrupa logo + tres puntitos a la izquierda */
-.left-group {
-  display: flex;
-  align-items: center;
-  gap: 75rem;           /* separa logo y ⋮ */
-}
-
-/* Empuja el nav a la derecha sin mover los puntitos */
-nav {
-  margin-left: auto;  /* nav a la derecha */
-}
-
-/* Estilos de logo y toggle */
 .logo {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.6rem;
   color: var(--neon-main);
 }
 
+/* Botón tres puntitos */
 .menu-toggle {
-  font-size: 1.6rem;
-  color: var(--neon-main);
+  background: none;
+  border: none;
   cursor: pointer;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  transition: background 0.3s ease;
-}
-.menu-toggle:hover { background: rgba(0,255,255,0.1); }
-
-/* MENÚ DESPLEGABLE EN MODO COMPUTADORA */
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
-  padding: 1.5rem 1rem;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  z-index: 999;
-}
-
-.menu-dropdown a {
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.3rem;
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 400;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-
-.menu-dropdown a:hover {
-  transform: scale(1.05);
-  background: rgba(0, 255, 255, 0.08);
-  color: var(--neon-main);
-}
-@media (max-width: 768px) {
-  header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .menu-toggle {
-    margin-left: 0; /* siempre pegado al borde */
-  }
-
-  .logo {
-    margin-left: 1rem; /* mantiene separación */
-  }
-  .left-group {
   display: flex;
-  align-items: center;
-  gap: 6rem;           /* separa logo y ⋮ */
+  flex-direction: column;
+  justify-content: space-around;
+  height: 40px;
+  width: 40px;
+  padding: 6px;
 }
+
+.menu-toggle .dot {
+  width: 10px;
+  height: 10px;
+  background: #66d9ff;
+  border-radius: 50%;
+  margin: 4px auto;
+  box-shadow: 0 0 6px #66d9ff; /* glow más suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-  @media (max-width: 768px) {
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    position: relative;
-  }
+.menu-toggle:hover .dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #99e6ff;
+}
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .menu-toggle {
-    font-size: 1.6rem;
-    color: var(--neon-main);
-    cursor: pointer;
-    padding: 0.4rem 0.6rem;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
+/* Overlay menú */
+.menu {
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1); /* sombra más suave */
-  padding: 1.5rem 1rem;
+  height: 100vh;
+  background: rgba(10,10,26,0.95);
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
   z-index: 999;
 }
 
-.menu-dropdown a {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.3rem;
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 400;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: color 0.3s ease, background 0.3s ease;
+.menu.active {
+  transform: translateY(0);
 }
 
-.menu-dropdown a:hover {
-  color: var(--neon-main);
-  background: rgba(0, 255, 255, 0.08);
+.menu-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #66d9ff;
+  cursor: pointer;
+  text-shadow: 0 0 6px #66d9ff; /* glow más bajo */
 }
-.menu-dropdown a {
-  display: block; /* hace que toda el área sea clickeable */
-  width: 100%;
+
+/* Links del menú */
+.menu ul {
+  list-style: none;
+  padding: 0;
   text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.3rem;
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 400;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: transform 0.2s ease, background 0.3s ease;
 }
 
+.menu ul li {
+  margin: 20px 0;
 }
+
+.menu ul li a {
+  font-size: 1.6rem; /* más elegante, no tan grande */
+  font-weight: 300;  /* más fino */
+  color: #66d9ff;
+  text-decoration: none;
+  text-shadow: 0 0 4px #66d9ff; /* glow reducido */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.menu ul li a:hover {
+  color: #99e6ff;
+  text-shadow: 0 0 8px #99e6ff; /* glow más suave */
+}
+
 
 
     :root {
@@ -372,25 +305,29 @@ nav a:hover {
 
 <body>
   <div id="particles"></div>
+<header class="header">
+  <div class="logo">Diseños Neon</div>
 
-  <header>
- <div class="left-group">
-    <div class="logo">Neón Designs</div>
-    <div class="menu-toggle" onclick="toggleMenu()">⋮</div>
-  </div>
+  <!-- Botón tres puntitos -->
+  <button class="menu-toggle" aria-label="Abrir menú">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </button>
 
-<div class="menu-dropdown" id="menuDropdown">
-  <a href="index.html">Catálogo</a>
-  <a href="faq.html">FAQ</a>
-  <a href="precios.html">Precios</a>
-  <a href="instagram.html">Instagram</a>
-  <a href="tiktok.html">TikTok</a>
-  <a href="seguimiento.html">Seguimiento</a>
-</div>
-
-
-   </nav>
-  </header>
+  <!-- Menú overlay -->
+  <nav class="menu">
+    <button class="menu-close" aria-label="Cerrar menú">&times;</button>
+    <ul>
+      <li><a href="index.html">Catalogo</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="Pasos.html">Pasos</a></li>
+      <li><a href="seguimiento.html">Seguimiento de Pedido</a></li>
+      <li><a href="https://www.instagram.com/neondesigns111" target="_blank">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@neondesigns1" target="_blank">Tiktok</a></li>
+    </ul>
+  </nav>
+</header>
 
   <main>
     <section class="seguimiento">
@@ -403,7 +340,7 @@ nav a:hover {
   </main>
 
   <footer>
-    <p>Contacto: neondesigns111@gmail.com | +54 9 11 2345-6789</p>
+    <p>Contacto: smartforexai10@gmail.com | +54 9 11 2345-6789</p>
     <p>&copy; 2025 Neón Designs - Todos los derechos reservados.</p>
   </footer>
 
@@ -434,24 +371,18 @@ nav a:hover {
   }
   
  
-  function toggleMenu() {
-    const menu = document.getElementById('menuDropdown');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-  }
+ const toggleBtn = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.menu-close');
+const menu = document.querySelector('.menu');
 
-  document.addEventListener('click', function (e) {
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.getElementById('menuDropdown');
-    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  });
+toggleBtn.addEventListener('click', () => {
+  menu.classList.add('active');
+});
 
-  document.querySelectorAll('#menuDropdown a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('menuDropdown').style.display = 'none';
-    });
-  });
+closeBtn.addEventListener('click', () => {
+  menu.classList.remove('active');
+});
+
 
    function abrirCorreo() {
     const numero = document.getElementById('trackingNumber').value.trim();
@@ -472,5 +403,4 @@ nav a:hover {
 
 </body>
 </html>
-
 
