@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Especial Navidad</title>
+
+<style>
+
+/* ===================== */
+/*   ESTILOS NAVIDAD     */
+/* ===================== */
+
+.navidad-section {
+    background: linear-gradient(180deg, #080b16, #111);
+    color: white;
+    padding-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* HERO */
+.hero-navidad {
+    text-align: center;
+    padding: 70px 20px;
+    position: relative;
+}
+.hero-navidad h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 10px #0ff;
+}
+.hero-navidad p {
+    opacity: 0.9;
+}
+.hero-navidad .btn-navidad {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    background: #0ff;
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #0ff;
+    transition: 0.3s;
+}
+.hero-navidad .btn-navidad:hover {
+    transform: scale(1.06);
+}
+
+/* Árbol neón */
+.arbol-neon {
+    width: 120px;
+    height: 160px;
+    margin: 30px auto;
+    border-left: 2px solid #0ff;
+    border-right: 2px solid #0ff;
+    border-bottom: 2px solid #0ff;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    filter: drop-shadow(0 0 10px #0ff);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    0% { filter: drop-shadow(0 0 8px #0ff); }
+    100% { filter: drop-shadow(0 0 18px #0ff); }
+}
+
+/* Copos de nieve */
+.copos-container .copo {
+    width: 8px;
+    height: 8px;
+    background: #0ff;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    animation: caer 6s linear infinite;
+    box-shadow: 0 0 8px #0ff;
+}
+.copos-container .copo:nth-child(1) { left: 10%; animation-duration: 7s; }
+.copos-container .copo:nth-child(2) { left: 40%; animation-duration: 5s; }
+.copos-container .copo:nth-child(3) { left: 70%; animation-duration: 6s; }
+.copos-container .copo:nth-child(4) { left: 90%; animation-duration: 8s; }
+
+@keyframes caer {
+    0% { transform: translateY(-20px); }
+    100% { transform: translateY(120vh); }
+}
+
+/* Productos */
+.rubro {
+    margin-top: 50px;
+    text-align: center;
+}
+.rubro-desc {
+    opacity: 0.8;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.producto {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #0ff5;
+    transition: 0.3s;
+}
+.producto:hover {
+    transform: translateY(-5px);
+}
+.producto img {
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 0 15px #0ff;
+}
+.producto button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #0ff;
+    color: black;
+    border: none;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.producto button:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+.footer-navidad {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- ===================== -->
+<!--   SECCIÓN NAVIDAD     -->
+<!-- ===================== -->
+
+<section class="navidad-section">
+
+    <!-- HERO -->
+    <div class="hero-navidad">
+        <h1>🎄 Navidad 2025 – Especial Neón 🎁</h1>
+        <p>Decoración LED, tecnología y magia navideña.</p>
+        <a href="#" class="btn-navidad">Ver Ofertas</a>
+
+        <!-- Árbol neón -->
+        <div class="arbol-neon"></div>
+    </div>
+
+    <!-- Copos -->
+    <div class="copos-container">
+        <div class="copo"></div>
+        <div class="copo"></div>
+        <div class="copo"></div>
+        <div class="copo"></div>
+    </div>
+
+    <!-- SECCIÓN DE PRODUCTOS -->
+    <div class="rubro">
+        <h2>✨ Decoración LED ✨</h2>
+        <p class="rubro-desc">Brillo, color y espíritu navideño para tu casa.</p>
+
+        <div class="productos-grid">
+
+            <div class="producto">
+                <img src="led1.jpg" alt="Copo LED">
+                <h3>Copo LED</h3>
+                <p>$8999</p>
+                <button>Ver más 🎁</button>
+            </div>
+
+            <div class="producto">
+                <img src="arbolneon.jpg" alt="Árbol LED">
+                <h3>Árbol LED</h3>
+                <p>$12.999</p>
+                <button>Ver más 🎁</button>
+            </div>
+
+            <div class="producto">
+                <img src="estrella.jpg" alt="Estrella LED">
+                <h3>Estrella LED</h3>
+                <p>$7500</p>
+                <button>Ver más 🎁</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-navidad">
+        <p>© 2025 Navidad Store — Todos los derechos reservados 🎄</p>
+    </footer>
+
+</section>
+
+</body>
+</html>
