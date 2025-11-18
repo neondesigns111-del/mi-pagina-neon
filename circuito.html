@@ -17,6 +17,7 @@
   
   <style>
 
+
     * {
       margin: 0;
       padding: 0;
@@ -184,6 +185,17 @@
 
 
     /* Carrusel miniaturas */
+ .thumbs-carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+  animation: fadeSlideIn 0.8s ease-in-out;
+}
 
 .thumbs-wrapper {
   display: flex;
@@ -225,6 +237,19 @@
   box-shadow: none;
 }
 
+.carousel-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #ff3b3b;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  padding: 0 6px;
+}
+.carousel-btn:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
 
 @keyframes fadeSlideIn {
   0% { transform: translateY(10px); opacity: 0; }
@@ -325,7 +350,7 @@
       background-color: #000; /* fondo negro sólido */
       color: #ff3b3b;         /* rojo neón */
       text-align: center;
-      padding: 1.5rem 1rem;
+      padding: 1rem 1rem;
       font-size: 1rem;
       font-weight: bold;
       box-shadow: inset 0 0 20px #e1e1e100; /* brillo interno */
@@ -615,6 +640,7 @@ closeBtn.addEventListener('click', () => {
   menu.classList.remove('active');
 });
 </script>
+
 
 
 
