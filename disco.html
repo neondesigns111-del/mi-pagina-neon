@@ -212,7 +212,15 @@
   overflow: hidden;       /* evita que el zoom se corte en esquinas rectas */
   flex-shrink: 0;
 }
-
+.thumbs-carousel {
+  display: flex;
+  flex-wrap: nowrap;       /* todas en una sola fila */
+  overflow-x: auto;        /* scroll horizontal */
+  gap: 12px;               /* espacio entre miniaturas */
+  margin-top: 1rem;        /* espacio con la imagen principal */
+  padding: 0.5rem 0;
+  scrollbar-width: none;
+}
 .thumbs-carousel img:hover {
   transform: scale(1.1);  /* zoom más suave */
   opacity: 1;
@@ -589,6 +597,7 @@ closeBtn.addEventListener('click', () => {
     document.querySelectorAll('.thumbs-carousel img')[currentIndex].classList.add('selected');
   }
 </script>
+
 
 
 
