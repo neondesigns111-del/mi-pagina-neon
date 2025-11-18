@@ -22,40 +22,107 @@
       overflow-x: hidden;
     }
 
-    header {
-      background: rgba(0, 0, 0, 0.9);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 0 10px var(--neon-main);
-    }
+        .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: #0a0a1a;
+}
 
-    header h1 {
-      font-size: 1.6rem;
-      color: var(--neon-main);
-      text-shadow: 0 0 2px var(--neon-main);
-      margin: 0;
-    }
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  color: var(--neon-main);
+}
 
-    nav {
-      display: flex;
-      gap: 1.5rem;
-    }
+/* Botón tres puntitos */
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 40px;
+  width: 40px;
+  padding: 6px;
+}
 
-    nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
+.menu-toggle .dot {
+  width: 10px;
+  height: 10px;
+  background: #66d9ff;
+  border-radius: 50%;
+  margin: 4px auto;
+  box-shadow: 0 0 6px #66d9ff; /* glow más suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    nav a:hover {
-      color: var(--neon-main);
-    }
+.menu-toggle:hover .dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #99e6ff;
+}
+
+/* Overlay menú */
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(10,10,26,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+  z-index: 999;
+}
+
+.menu.active {
+  transform: translateY(0);
+}
+
+.menu-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #66d9ff;
+  cursor: pointer;
+  text-shadow: 0 0 6px #66d9ff; /* glow más bajo */
+}
+
+/* Links del menú */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu ul li {
+  margin: 20px 0;
+}
+
+.menu ul li a {
+  font-size: 1.6rem; /* más elegante, no tan grande */
+  font-weight: 300;  /* más fino */
+  color: #66d9ff;
+  text-decoration: none;
+  text-shadow: 0 0 4px #66d9ff; /* glow reducido */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.menu ul li a:hover {
+  color: #99e6ff;
+  text-shadow: 0 0 8px #99e6ff; /* glow más suave */
+}
+
 
     main {
       max-width: 1200px;
@@ -369,15 +436,30 @@
 </head>
 <body>
 
-  <header>
-    <h1>Carteles Neón</h1>
-    <nav>
-      <a href="index.html">Catálogo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="Pasos.html">Pasos</a>
-    </nav>
-  </header>
 
+  <header class="header">
+  <div class="logo">Diseños Neon</div>
+
+  <!-- Botón tres puntitos -->
+  <button class="menu-toggle" aria-label="Abrir menú">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </button>
+
+  <!-- Menú overlay -->
+  <nav class="menu">
+    <button class="menu-close" aria-label="Cerrar menú">&times;</button>
+    <ul>
+      <li><a href="index.html">Catalogo</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="Pasos.html">Pasos</a></li>
+      <li><a href="seguimiento.html">Seguimiento de Pedido</a></li>
+      <li><a href="https://www.instagram.com/neondesigns111" target="_blank">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@neondesigns1" target="_blank">Tiktok</a></li>
+    </ul>
+  </nav>
+</header>
   <main>
     <h1>Carteles para Eventos y Negocios</h1>
     <p class="intro">
@@ -512,13 +594,20 @@
       const url = `https://wa.me/${telefono}?text=${mensaje}`;
       window.open(url, '_blank');
     });
+     const toggleBtn = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.menu-close');
+const menu = document.querySelector('.menu');
+
+toggleBtn.addEventListener('click', () => {
+  menu.classList.add('active');
+});
+
+closeBtn.addEventListener('click', () => {
+  menu.classList.remove('active');
+});
   </script>
 </body>
 </html>
-
-
-
-
 
 
 
