@@ -33,52 +33,105 @@
       background-position: center;
     }
 
-header {
-  background: rgba(0, 0, 0, 0.9);
-  padding: 1rem 2rem;
+  .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 0 10px var(--neon);
+  padding: 15px 25px;
+  background: #0a0a1a;
 }
 
 .logo {
-  font-size: 1.8rem;
-  color: var(--neon);
-  text-shadow: 0 0 10px var(--neon);
-  user-select: none;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  color: var(--neon-main);
 }
 
-nav a {
-  margin-left: 1.5rem;
-  color: var(--text-light);
+/* Botón tres puntitos */
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 40px;
+  width: 40px;
+  padding: 6px;
+}
+
+.menu-toggle .dot {
+  width: 10px;
+  height: 10px;
+  background: #66d9ff;
+  border-radius: 50%;
+  margin: 4px auto;
+  box-shadow: 0 0 6px #66d9ff; /* glow más suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-toggle:hover .dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #99e6ff;
+}
+
+/* Overlay menú */
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(10,10,26,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+  z-index: 999;
+}
+
+.menu.active {
+  transform: translateY(0);
+}
+
+.menu-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #66d9ff;
+  cursor: pointer;
+  text-shadow: 0 0 6px #66d9ff; /* glow más bajo */
+}
+
+/* Links del menú */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu ul li {
+  margin: 20px 0;
+}
+
+.menu ul li a {
+  font-size: 1.6rem; /* más elegante, no tan grande */
+  font-weight: 300;  /* más fino */
+  color: #66d9ff;
   text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: var(--neon);
-}
-
-nav a {
-  margin-left: 1.5rem;
-  color: #ccc; /* color base un poco claro */
-  text-decoration: none;
-  font-weight: bold;
+  text-shadow: 0 0 4px #66d9ff; /* glow reducido */
   transition: color 0.3s ease, text-shadow 0.3s ease;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
-nav a:hover {
-  color: #ff3b3b;
-  text-shadow:
-    0 0 5px #ff3b3b,
-    0 0 10px #ff3b3b,
-    0 0 20px #ff3b3b,
-    0 0 40px #ff3b3b;
+.menu ul li a:hover {
+  color: #99e6ff;
+  text-shadow: 0 0 8px #99e6ff; /* glow más suave */
 }
 
     .producto {
@@ -279,7 +332,7 @@ nav a:hover {
       max-width: 90vw;
       max-height: 90vh;
       border-radius: 20px;
-      box-shadow: 0 0 50px #ff3b3b;
+      box-shadow: 0 0 5px #ff3b3b;
       animation: zoomIn 0.4s ease;
     }
     @keyframes zoomIn {
@@ -300,7 +353,7 @@ nav a:hover {
       font-size: 1rem;
       font-weight: bold;
       box-shadow: inset 0 0 20px #e1e1e100; /* brillo interno */
-      text-shadow: 0 0 8px #ff3b3b, 0 0 15px #ff3b3b88; /* neón */
+      text-shadow: 0 0 px #ff3b3b, 0 0 3px #ff3b3b88; /* neón */
       user-select: none;
     }
     footer#contacto p {
@@ -324,27 +377,29 @@ nav a:hover {
     }
    /* --- Responsive desde 768px hacia abajo --- */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    padding: 1rem;
+
+ header {
+    flex-direction: row;          /* fila horizontal */
+    justify-content: space-between; /* logo a la izquierda, toggle a la derecha */
+    align-items: center;
+    padding: 1rem 1.5rem;
   }
 
-  header h1 {
-    font-size: 1.8rem;
+  .logo {
+    margin: 0; /* pegado a la izquierda */
+    font-size: 1.4rem;
   }
 
-  nav {
+  .menu-toggle {
+    margin-left: auto; /* empuja a la derecha */
+  }
+
+  .left-group {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    gap: 1.5rem;
-  }
-
-  nav a {
-    margin-left: 0; /* removemos margen para evitar pegado */
-    font-size: 1.1rem;
+    justify-content: space-between; /* separa logo y puntitos */
+    align-items: center;
+    gap: 0; /* sin separación exagerada */
   }
 
   .producto {
@@ -446,15 +501,29 @@ main.producto {
 </head>
 <body>
   <div class="page-wrapper">
-    <header>
-      <h1>Neón F1</h1>
-      <nav>
-        <a href="index.html">Catálogo</a>
-        <a href="faq.html">FAQ</a>
-        <a href="Pasos.html">Pasos</a>
-        <a href="seguimiento.html">Seguimiento de pedido</a>
-      </nav>
-    </header>
+    <header class="header">
+  <div class="logo">F1 Neon</div>
+
+  <!-- Botón tres puntitos -->
+  <button class="menu-toggle" aria-label="Abrir menú">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </button>
+
+  <!-- Menú overlay -->
+  <nav class="menu">
+    <button class="menu-close" aria-label="Cerrar menú">&times;</button>
+    <ul>
+      <li><a href="index.html">Catalogo</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="Pasos.html">Pasos</a></li>
+      <li><a href="seguimiento.html">Seguimiento de Pedido</a></li>
+      <li><a href="https://www.instagram.com/neondesigns111" target="_blank">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@neondesigns1" target="_blank">Tiktok</a></li>
+    </ul>
+  </nav>
+</header>
    <a href="Pasos.html" class="boton-comprar"> ¿No sabés cómo comprar? </a>
     <main class="producto">
       <div class="left-column">
@@ -466,8 +535,8 @@ main.producto {
         </div>
       </div>
       <div class="right-column">
-        <h2 id="circuitTitle">Spa-Francorchamps</h2>
-        <p id="circuitDesc">Uno de los circuitos más icónicos de la Fórmula 1, conocido por sus curvas rápidas y cambios de elevación. Ideal para los verdaderos fanáticos del automovilismo.</p>
+        <h2 id="circuitTitle">Monaco</h2>
+        <p id="circuitDesc">El circuito urbano más famoso y glamoroso del calendario.</p>
         <div class="price" id="circuitPrice">$18.000 ARS</div>
         <div class="buttons">
           <a href="https://wa.me/5491151171205?text=Quiero%20comprar%20el%20Circuito%20F1%20Neón" target="_blank" class="btn-whatsapp">Encangar por WhatsApp</a>
@@ -490,24 +559,12 @@ main.producto {
   <script>
   // Circuitos disponibles
   const circuits = [
-    {
-      name: "Spa-Francorchamps",
-      description: "Uno de los circuitos más icónicos de la Fórmula 1.",
-      price: 18000,
-      img: "spa francochamps.jpg"
-    },
-    {
+  {
       name: "Monaco",
       description: "El circuito urbano más famoso y glamoroso del calendario.",
       price: 18500,
       img: "WhatsApp Image 2025-08-17 at 7.44.06 PM.jpeg"
     },
-    {
-      name: "Monza",
-      description: "Templo de la velocidad, amado por los tifosi.",
-      price: 17000,
-      img: "monza.png"
-    }
   ];
 
   const tieneCupon = localStorage.getItem('cupon-obtenido') === 'true';
@@ -570,8 +627,24 @@ main.producto {
       behavior: 'smooth'
     });
   }
+    const toggleBtn = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.menu-close');
+const menu = document.querySelector('.menu');
 
+toggleBtn.addEventListener('click', () => {
+  menu.classList.add('active');
+});
+
+closeBtn.addEventListener('click', () => {
+  menu.classList.remove('active');
+});
 </script>
+
+
+
+
+
+
 
 
 
