@@ -300,6 +300,30 @@ nav a:hover {
         max-width: 95%;
       }
     }
+      header {
+    flex-direction: row;          /* fila horizontal */
+    justify-content: space-between; /* logo a la izquierda, toggle a la derecha */
+    align-items: center;
+    padding: 1rem 1.5rem;
+  }
+
+  .logo {
+    margin: 0; /* pegado a la izquierda */
+    font-size: 1.4rem;
+  }
+
+  .menu-toggle {
+    margin-left: auto; /* empuja a la derecha */
+  }
+
+  .left-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* separa logo y puntitos */
+    align-items: center;
+    gap: 0; /* sin separación exagerada */
+  }
+}
   </style>
 </head><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet" />
 
@@ -403,5 +427,6 @@ closeBtn.addEventListener('click', () => {
 
 </body>
 </html>
+
 
 
