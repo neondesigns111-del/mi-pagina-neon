@@ -1,215 +1,528 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Especial Navidad</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Especial Navidad — Glow Edition</title>
 
 <style>
-
-/* ===================== */
-/*   ESTILOS NAVIDAD     */
-/* ===================== */
-
-.navidad-section {
-    background: linear-gradient(180deg, #080b16, #111);
-    color: white;
-    padding-bottom: 40px;
-    position: relative;
-    overflow: hidden;
+:root{
+  --bg-1: #060712;
+  --bg-2: #0f1220;
+  --neon: #38f0ff; /* celeste neón */
+  --accent: #7df07a; /* verde suave */
+  --card-bg: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04);
+  --muted: rgba(255,255,255,0.65);
+  --gap: 18px;
+  --header-h: 72px;
 }
 
-/* HERO */
-.hero-navidad {
-    text-align: center;
-    padding: 70px 20px;
-    position: relative;
-}
-.hero-navidad h1 {
-    font-size: 3rem;
-    text-shadow: 0 0 10px #0ff;
-}
-.hero-navidad p {
-    opacity: 0.9;
-}
-.hero-navidad .btn-navidad {
-    margin-top: 20px;
-    padding: 12px 25px;
-    border: none;
-    background: #0ff;
-    color: #000;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 0 12px #0ff;
-    transition: 0.3s;
-}
-.hero-navidad .btn-navidad:hover {
-    transform: scale(1.06);
+/* Reset básico */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color: white;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
 }
 
-/* Árbol neón */
-.arbol-neon {
-    width: 120px;
-    height: 160px;
-    margin: 30px auto;
-    border-left: 2px solid #0ff;
-    border-right: 2px solid #0ff;
-    border-bottom: 2px solid #0ff;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    filter: drop-shadow(0 0 10px #0ff);
-    animation: glow 2s infinite alternate;
+/* Layout principal: header, main, footer */
+.header{
+  height:var(--header-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  position:sticky;
+  top:0;
+  z-index:30;
+  backdrop-filter: blur(6px);
+}
+.header .brand{
+  display:flex;align-items:center;gap:12px;
+}
+.brand .logo{
+  width:44px;height:44px;border-radius:8px;
+  background: linear-gradient(135deg,var(--neon),#7b8bff);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 22px rgba(56,240,255,0.12), inset 0 -6px 18px rgba(0,0,0,0.25);
+  font-weight:700;color:#03121b;
+}
+.header nav a{
+  color:var(--muted);text-decoration:none;margin-left:14px;font-weight:600;
+}
+.header nav a:hover{color:var(--neon);transform:translateY(-2px);transition:0.18s}
+
+/* Main content grows so footer goes to bottom */
+.main{
+  flex:1 0 auto;
+  padding:28px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
 }
 
-@keyframes glow {
-    0% { filter: drop-shadow(0 0 8px #0ff); }
-    100% { filter: drop-shadow(0 0 18px #0ff); }
+/* Container de sección navideña */
+.container{
+  width:100%;
+  max-width:1100px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  border-radius:14px;
+  padding:22px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
-/* Copos de nieve */
-.copos-container .copo {
-    width: 8px;
-    height: 8px;
-    background: #0ff;
-    border-radius: 50%;
-    position: absolute;
-    top: -20px;
-    animation: caer 6s linear infinite;
-    box-shadow: 0 0 8px #0ff;
+/* Título de sección */
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
 }
-.copos-container .copo:nth-child(1) { left: 10%; animation-duration: 7s; }
-.copos-container .copo:nth-child(2) { left: 40%; animation-duration: 5s; }
-.copos-container .copo:nth-child(3) { left: 70%; animation-duration: 6s; }
-.copos-container .copo:nth-child(4) { left: 90%; animation-duration: 8s; }
-
-@keyframes caer {
-    0% { transform: translateY(-20px); }
-    100% { transform: translateY(120vh); }
+.section-head h2{
+  font-size:1.4rem;
+  letter-spacing:0.2px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-head .badge{
+  background:linear-gradient(90deg,var(--neon),#7b8bff);
+  color:#02121a;padding:6px 10px;border-radius:999px;font-weight:700;
+  box-shadow:0 6px 18px rgba(56,240,255,0.12);
 }
 
-/* Productos */
-.rubro {
-    margin-top: 50px;
-    text-align: center;
-}
-.rubro-desc {
-    opacity: 0.8;
-}
-
-.productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
-    padding: 0 20px;
+/* Vista principal: imagen grande + columna derecha con info (en desktop) */
+.product-view{
+  display:grid;
+  grid-template-columns: 1fr 360px;
+  gap:var(--gap);
+  align-items:start;
 }
 
-.producto {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px #0ff5;
-    transition: 0.3s;
-}
-.producto:hover {
-    transform: translateY(-5px);
-}
-.producto img {
-    width: 100%;
-    border-radius: 6px;
-    box-shadow: 0 0 15px #0ff;
-}
-.producto button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: #0ff;
-    color: black;
-    border: none;
-    width: 100%;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.producto button:hover {
-    transform: scale(1.05);
+/* Imagen grande */
+.preview-wrap{
+  position:relative;
+  min-height:360px;
+  border-radius:10px;
+  overflow:hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: inset 0 0 60px rgba(56,240,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
-/* Footer */
-.footer-navidad {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px 0;
-    font-size: 0.9rem;
-    opacity: 0.6;
+/* imagen principal */
+.preview-img{
+  max-width:100%;
+  max-height:72vh;
+  width:100%;
+  object-fit:contain;
+  transform-origin:center;
+  filter: drop-shadow(0 10px 40px rgba(56,240,255,0.06));
+  transition: transform 450ms cubic-bezier(.2,.9,.2,1), opacity 300ms ease, filter 400ms ease;
+  opacity:0;
+  transform: scale(0.96) translateY(8px);
+}
+/* cuando cargue se ve */
+.preview-img.is-visible{
+  opacity:1;
+  transform: scale(1) translateY(0);
 }
 
+/* pequeño glow animated overlay */
+.preview-wrap::after{
+  content:"";
+  position:absolute;left:-20%;top:-40%;width:160%;height:160%;
+  background: radial-gradient(ellipse at center, rgba(56,240,255,0.06), transparent 30%);
+  animation: slow-rotate 12s linear infinite;
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
+@keyframes slow-rotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* Right column (info + acciones) */
+.info{
+  display:flex;flex-direction:column;gap:12px;
+}
+.price{
+  font-size:1.6rem;font-weight:800;color:var(--accent);
+  text-shadow:0 6px 20px rgba(125,240,122,0.06);
+}
+.short-desc{color:var(--muted);font-size:0.95rem}
+.actions{
+  display:flex;flex-direction:column;gap:10px;margin-top:8px;
+}
+.btn{
+  padding:12px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
+  box-shadow: 0 8px 26px rgba(2,6,23,0.6);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.btn:active{transform:translateY(2px)}
+.btn-primary{
+  background: linear-gradient(90deg,var(--neon), #7b8bff);
+  color:#02121a;
+  box-shadow: 0 10px 30px rgba(56,240,255,0.12);
+}
+.btn-ghost{
+  background:transparent;color:var(--neon);
+  border: 1px solid rgba(56,240,255,0.12);
+  backdrop-filter: blur(6px);
+}
+
+/* MercadoPago + WhatsApp row */
+.pay-row{display:flex;gap:10px;align-items:center}
+.pay-badge{
+  display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;
+  background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer;
+  transition: transform 160ms;
+}
+.pay-badge:hover{transform:translateY(-4px)}
+
+/* thumbnails carousel */
+.thumbs-wrap{
+  margin-top:14px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.thumbs{
+  display:flex;gap:10px;overflow:hidden;padding:6px 4px;
+  align-items:center;
+}
+.thumb{
+  min-width:84px;height:84px;border-radius:8px;overflow:hidden;flex:0 0 auto;
+  border:2px solid transparent;cursor:pointer;background:var(--card-bg);
+  display:flex;align-items:center;justify-content:center;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms, border-color 200ms;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb.active{transform:translateY(-6px) scale(1.03);border-color:var(--neon);box-shadow:0 18px 40px rgba(56,240,255,0.06)}
+.thumb:focus{outline:3px solid rgba(56,240,255,0.12)}
+.thumb-inner{
+  width:76px;height:76px;border-radius:6px;overflow:hidden;
+}
+
+/* carousel controls */
+.thumb-controls{display:flex;gap:8px;align-items:center}
+.ctrl{
+  width:36px;height:36px;border-radius:8px;background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.03)
+}
+.ctrl svg{width:18px;height:18px;opacity:0.9;transform:translateX(0);transition:transform 160ms}
+.ctrl:hover{transform:translateY(-3px)}
+.ctrl:active{transform:translateY(1px)}
+
+/* descripción dependiente del producto */
+.detail{
+  margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));font-size:0.95rem;
+  color:var(--muted);min-height:70px;
+  transition: transform 220ms, opacity 220ms;
+}
+.detail h4{color:white;margin-bottom:6px}
+
+/* responsive */
+@media (max-width:980px){
+  .product-view{grid-template-columns:1fr; }
+  .info{order:2}
+  .preview-wrap{order:1}
+}
+
+/* footer */
+.footer{
+  margin-top:22px;padding:18px;border-top:1px solid rgba(255,255,255,0.02);
+  text-align:center;color:var(--muted);font-size:0.9rem;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
+}
+.small-note{font-size:0.85rem;color:rgba(255,255,255,0.55)}
+
+/* subtle floating snow-dot decorations (neon) */
+.decoration-dot{
+  position:absolute;border-radius:50%;width:10px;height:10px;background:var(--neon);
+  filter:blur(6px);opacity:0.08;pointer-events:none;mix-blend-mode:screen;
+}
+.decoration-dot.one{left:6%;top:8%}
+.decoration-dot.two{right:8%;top:16%}
+.decoration-dot.three{left:14%;bottom:12%}
+
+/* small animated pulse for mp and whatsapp icons */
+.icon-pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+
+/* subtle focus states */
+a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
 </style>
-
 </head>
 <body>
 
-<!-- ===================== -->
-<!--   SECCIÓN NAVIDAD     -->
-<!-- ===================== -->
+<header class="header" role="banner">
+  <div class="brand">
+    <div class="logo">NF</div>
+    <div>
+      <div style="font-weight:800">Navidad Glow</div>
+      <div style="font-size:12px;color:var(--muted)">Decoración | Tecnología | Regalos</div>
+    </div>
+  </div>
 
-<section class="navidad-section">
+  <nav aria-label="principal">
+    <a href="#ex" style="font-size:0.95rem">Colección</a>
+    <a href="#contact" style="font-size:0.95rem">Contacto</a>
+    <a href="#ayuda" style="font-size:0.95rem">Ayuda</a>
+  </nav>
+</header>
 
-    <!-- HERO -->
-    <div class="hero-navidad">
-        <h1>🎄 Navidad 2025 – Especial Neón 🎁</h1>
-        <p>Decoración LED, tecnología y magia navideña.</p>
-        <a href="#" class="btn-navidad">Ver Ofertas</a>
+<main class="main">
+  <section class="container" id="ex" aria-labelledby="navidad-title">
+    <div class="decoration-dot one"></div>
+    <div class="decoration-dot two"></div>
+    <div class="decoration-dot three"></div>
 
-        <!-- Árbol neón -->
-        <div class="arbol-neon"></div>
+    <div class="section-head">
+      <h2 id="navidad-title">🎄 Colección Navidad — Glow Edition</h2>
+      <div class="badge">Edición Neón</div>
     </div>
 
-    <!-- Copos -->
-    <div class="copos-container">
-        <div class="copo"></div>
-        <div class="copo"></div>
-        <div class="copo"></div>
-        <div class="copo"></div>
-    </div>
+    <div class="product-view">
 
-    <!-- SECCIÓN DE PRODUCTOS -->
-    <div class="rubro">
-        <h2>✨ Decoración LED ✨</h2>
-        <p class="rubro-desc">Brillo, color y espíritu navideño para tu casa.</p>
+      <!-- IMAGEN GRANDE -->
+      <div class="preview-wrap" aria-live="polite">
+        <img id="previewImage" class="preview-img" src="" alt="Producto seleccionado" />
+      </div>
 
-        <div class="productos-grid">
-
-            <div class="producto">
-                <img src="led1.jpg" alt="Copo LED">
-                <h3>Copo LED</h3>
-                <p>$8999</p>
-                <button>Ver más 🎁</button>
+      <!-- COLUMNA DERECHA: info y acciones -->
+      <aside class="info" aria-label="Detalles del producto">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div id="productTitle" style="font-weight:800;font-size:1.05rem">Título del producto</div>
+              <div class="short-desc" id="productSubtitle">Subtítulo breve</div>
             </div>
-
-            <div class="producto">
-                <img src="arbolneon.jpg" alt="Árbol LED">
-                <h3>Árbol LED</h3>
-                <p>$12.999</p>
-                <button>Ver más 🎁</button>
+            <div style="text-align:right">
+              <div class="price" id="productPrice">$0</div>
+              <div class="small-note">En stock</div>
             </div>
-
-            <div class="producto">
-                <img src="estrella.jpg" alt="Estrella LED">
-                <h3>Estrella LED</h3>
-                <p>$7500</p>
-                <button>Ver más 🎁</button>
-            </div>
-
+          </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
-    <footer class="footer-navidad">
-        <p>© 2025 Navidad Store — Todos los derechos reservados 🎄</p>
-    </footer>
+        <!-- acciones -->
+        <div class="actions">
+          <button id="btnComprar" class="btn btn-primary" aria-label="Comprar">Comprar</button>
+          <button id="btnEncargar" class="btn btn-ghost" aria-label="Encargar">Encargar</button>
 
-</section>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <!-- Mercado Pago -->
+            <button id="btnMP" class="pay-badge" title="Pagar con Mercado Pago">
+              <!-- SVG MP logo simple y accesible -->
+              <svg width="28" height="20" viewBox="0 0 24 16" aria-hidden="true" focusable="false">
+                <rect rx="3" width="24" height="16" fill="#00a650"></rect>
+                <path d="M6.5 4.5h11v2h-11z" fill="#fff" opacity="0.95"></path>
+                <path d="M6.5 8.5h11v2h-11z" fill="#fff" opacity="0.8"></path>
+              </svg>
+              <div style="font-size:14px;color:#fff;font-weight:700">Pagar con MP</div>
+            </button>
 
+            <!-- WhatsApp contacto -->
+            <a id="waLink" class="pay-badge" href="https://wa.me/549xxxxxxxxxx" target="_blank" rel="noopener" title="Enviar mensaje por WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#25D366" d="M12 2C6.48 2 2 6.48 2 12c0 1.99.5 3.86 1.4 5.5L2 22l4.7-1.2C8.2 21.1 10 21.5 12 21.5 17.52 21.5 22 17.02 22 11.5 22 6.48 17.52 2 12 2z"/>
+                <path fill="#fff" d="M17.5 14.3c-.3-.2-1.7-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1.1-.1.2-.2.2-.5.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.6.1-.1.2-.2.3-.3.1-.1.1-.2.2-.3.1-.1.1-.2.2-.4.1-.1 0-.2 0-.3-.1-.1-.6-1.5-.8-2.1-.2-.6-.4-.5-.6-.5-.1 0-.3 0-.5 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 1.9 3 4.7 4.2 1.1.5 1.9.8 2.6 1 1 .3 1.6.2 2.2.1.6-.1 1.9-.8 2.2-1.9.3-1 .3-1.8.2-1.9-.1-.1-.3-.1-.6-.2z"/>
+              </svg>
+              <div style="font-size:14px;color:#fff;font-weight:700">Contactar</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Thumbnails carousel -->
+        <div class="thumbs-wrap">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Variantes</div>
+            <div class="thumb-controls">
+              <div class="ctrl" id="prevThumb" title="Anterior" aria-hidden="true">
+                <!-- chevron left -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </div>
+              <div class="ctrl" id="nextThumb" title="Siguiente" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="thumbs" id="thumbs" role="listbox" aria-label="Selector de variantes">
+            <!-- thumbs dinamicos inyectados por JS -->
+          </div>
+        </div>
+
+        <!-- Descripción dinámica -->
+        <div class="detail" id="detailBox" aria-live="polite">
+          <h4 id="detailTitle">Seleccioná un producto</h4>
+          <div id="detailText">Elegí una miniatura para ver descripción, precios y opciones de compra.</div>
+        </div>
+
+      </aside>
+    </div><!-- /product-view -->
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div>© 2025 Navidad Glow — Todos los derechos reservados.</div>
+  <div class="small-note">Envíos, devoluciones y soporte — <a href="#contact" style="color:var(--neon)">Contactanos</a></div>
+</footer>
+
+<script>
+/* Datos de ejemplo: reemplazá src por tus imágenes reales */
+const products = [
+  { id: 'p1', title:'Árbol Neón 90cm', subtitle:'Efecto glow, cable USB', price:'$12.999', img:'images/arbol-1.jpg', thumb:'images/arbol-1-thumb.jpg', desc:'Árbol LED con tecnología neón y control remoto. Ideal para interiores y vitrinas.' },
+  { id: 'p2', title:'Copo LED Colgante', subtitle:'Pack x3, blanco frío', price:'$8.499', img:'images/copo-1.jpg', thumb:'images/copo-1-thumb.jpg', desc:'Copos de nieve LED para colgar. Efecto parpadeo suave y bajo consumo.' },
+  { id: 'p3', title:'Tira RGB Navideña', subtitle:'5m + control', price:'$6.999', img:'images/tira-5m.jpg', thumb:'images/tira-5m-thumb.jpg', desc:'Tira RGB compatible con sincronía musical. Cortable y flexible.' },
+  { id: 'p4', title:'Cartel Merry Xmas Neón', subtitle:'50x20cm', price:'$9.999', img:'images/cartel.jpg', thumb:'images/cartel-thumb.jpg', desc:'Cartel acrílico con iluminación integrada. Montaje fácil.' }
+];
+
+/* fallbacks: si no tenés imágenes, generamos placeholders SVG */
+function placeholderDataURI(text, w=800,h=600){
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill='#08101a'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#38f0ff' font-family='Arial' font-size='28'>${text}</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+
+/* render thumbs */
+const thumbsContainer = document.getElementById('thumbs');
+products.forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'thumb';
+  btn.setAttribute('role','option');
+  btn.setAttribute('aria-label', p.title);
+  btn.dataset.index = i;
+  btn.innerHTML = `<div class="thumb-inner"><img src="${p.thumb || placeholderDataURI(p.title,160,140)}" alt="${p.title}"></div>`;
+  btn.addEventListener('click', ()=> selectProduct(i, true));
+  thumbsContainer.appendChild(btn);
+});
+
+/* select initial */
+let current = 0;
+const previewImage = document.getElementById('previewImage');
+const productTitle = document.getElementById('productTitle');
+const productSubtitle = document.getElementById('productSubtitle');
+const productPrice = document.getElementById('productPrice');
+const detailTitle = document.getElementById('detailTitle');
+const detailText = document.getElementById('detailText');
+
+function updateActiveThumb(){
+  document.querySelectorAll('.thumb').forEach((t, idx) => {
+    t.classList.toggle('active', idx===current);
+  });
+  // ensure visible: scroll thumbnail into view smoothly
+  const active = document.querySelector('.thumb.active');
+  if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+}
+
+function loadImage(src){
+  // animate in: remove class, set src, on load add class
+  previewImage.classList.remove('is-visible');
+  previewImage.src = src || placeholderDataURI('No Image',1200,900);
+  previewImage.alt = products[current].title;
+  previewImage.onload = ()=> {
+    requestAnimationFrame(()=> previewImage.classList.add('is-visible'));
+  };
+}
+
+/* main selection function */
+function selectProduct(index, userInitiated=false){
+  current = index;
+  const p = products[current];
+  productTitle.textContent = p.title;
+  productSubtitle.textContent = p.subtitle;
+  productPrice.textContent = p.price;
+  detailTitle.textContent = p.title;
+  detailText.textContent = p.desc;
+  loadImage(p.img);
+  updateActiveThumb();
+
+  // micro-feedback: tiny pulse animation on selected
+  if(userInitiated){
+    const el = document.querySelector('.thumb.active');
+    if(el){
+      el.animate([{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:220,easing:'cubic-bezier(.2,.9,.2,1)'});
+    }
+  }
+}
+
+/* prev/next controls */
+document.getElementById('prevThumb').addEventListener('click', ()=>{
+  current = (current - 1 + products.length) % products.length;
+  selectProduct(current, true);
+});
+document.getElementById('nextThumb').addEventListener('click', ()=>{
+  current = (current + 1) % products.length;
+  selectProduct(current, true);
+});
+
+/* initial render */
+selectProduct(0,false);
+
+/* acción botones */
+document.getElementById('btnComprar').addEventListener('click', ()=>{
+  const p = products[current];
+  alert(`Agregar al carrito: ${p.title} — ${p.price}\n(Implementá carrito / checkout real aquí)`);
+});
+
+document.getElementById('btnEncargar').addEventListener('click', ()=>{
+  const p = products[current];
+  const wa = document.getElementById('waLink').href;
+  window.open(wa + `?text=${encodeURIComponent('Hola! Quiero encargar: '+p.title)}`, '_blank');
+});
+
+/* Mercado Pago: placeholder. Reemplazá con tu link de checkout o integración JS SDK */
+document.getElementById('btnMP').addEventListener('click', ()=>{
+  const p = products[current];
+  // ejemplo: abrir link externo (reemplazar por tu preferencia)
+  // window.location.href = 'https://www.mercadopago.com/checkout/link-de-ejemplo';
+  alert('Iniciar proceso de pago con Mercado Pago para: ' + p.title + '\\nReemplaza este comportamiento por tu integración de MP.');
+});
+
+/* keyboard navigation for thumbs (left/right) */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight'){ current=(current+1)%products.length; selectProduct(current,true) }
+  if(e.key === 'ArrowLeft'){ current=(current-1+products.length)%products.length; selectProduct(current,true) }
+});
+
+/* small improvement: lazy load thumbnails images (if many) */
+document.querySelectorAll('.thumb img').forEach(img=>{
+  if(img.src.startsWith('data:')) return;
+  img.loading = 'lazy';
+});
+
+/* Optional: autoplay thumbnail scroll (soft animation) */
+let autoScroll = true;
+let scrollPos = 0;
+function autoScrollThumbs(){
+  if(!autoScroll) return;
+  scrollPos += 0.4;
+  thumbsContainer.scrollLeft = scrollPos;
+  if(scrollPos > thumbsContainer.scrollWidth - thumbsContainer.clientWidth - 10) scrollPos = 0;
+  requestAnimationFrame(autoScrollThumbs);
+}
+requestAnimationFrame(autoScrollThumbs);
+
+/* Improve accessibility: announce changes */
+const live = document.getElementById('detailBox');
+function announce(text){
+  live.setAttribute('aria-busy','true');
+  setTimeout(()=>{ live.setAttribute('aria-busy','false'); }, 300);
+}
+
+/* When preview loads, announce */
+previewImage.addEventListener('load', ()=>{
+  announce('Imagen cargada: '+products[current].title);
+});
+</script>
 </body>
 </html>
