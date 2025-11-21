@@ -1,359 +1,681 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Especial Navidad — Glow Edition</title>
-
-<style>
-:root{
-  --bg-1: #060712;
-  --bg-2: #0f1220;
-  --neon: #38f0ff; /* celeste neón */
-  --accent: #7df07a; /* verde suave */
-  --card-bg: rgba(255,255,255,0.03);
-  --glass: rgba(255,255,255,0.04);
-  --muted: rgba(255,255,255,0.65);
-  --gap: 18px;
-  --header-h: 72px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diseños Neón - Catálogo Completo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+  
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PLMPE91HKN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PLMPE91HKN');
+  </script>
+  <style>
+/* Modal estilo neón */
+.coupon-modal {
+  display: none;
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.coupon-modal.show {
+  display: flex;
+  opacity: 1;
+}
+.coupon-content {
+  background: #111;
+  color: #0ff;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 20px #0ff;
+  max-width: 400px;
+  position: relative;
+  transform: scale(0.8);
+  transition: transform 0.5s ease;
+}
+.coupon-modal.show .coupon-content {
+  transform: scale(1);
+}
+.coupon-content h2 { font-size: 2rem; margin-bottom: 10px; }
+.coupon-content p { font-size: 1.1rem; margin-bottom: 15px; }
+.coupon-content .close-btn {
+  position: absolute; top: 10px; right: 15px; background: none; border: none;
+  color: #0ff; font-size: 1.5rem; cursor: pointer;
+}
+.coupon-content button {
+  background: #0ff; border: none; color: #111;
+  font-weight: bold; padding: 10px 20px; border-radius: 10px; cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
 }
 
-/* Reset básico */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  /* Reset */
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  
+   /* Paletas con CSS variables para cada tema */
+  :root {
+    --neon-main: #00fff7;       /* Celeste neón */
+    --neon-light: #7affff;
+    --neon-bg-dark: #0a0a10;
+    --neon-bg-light: #1c1c36;
+    --text-color: #e0e0e0;
+    --shadow-color: rgba(0, 255, 247, 0.8);
+  }
+  :root[data-theme="verde"] {
+    --neon-main: #00ff6a;
+    --neon-light: #7affb2;
+    --neon-bg-dark: #081207;
+    --neon-bg-light: #153a12;
+    --text-color: #d6fcdc;
+    --shadow-color: rgba(0, 255, 106, 0.8);
+  }
+  :root[data-theme="rojo"] {
+    --neon-main: #ff0044;
+    --neon-light: #ff7a99;
+    --neon-bg-dark: #12040a;
+    --neon-bg-light: #361b28;
+    --text-color: #f4d6dc;
+    --shadow-color: rgba(255, 0, 68, 0.8);
+  }
 
-/* Asegura que el degradé ocupe SIEMPRE toda la pantalla */
-html, body {
-    height: 100%;
-}
 
-body {
+  body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, var(--neon-bg-dark), var(--neon-bg-light));
+    color: var(--text-color);
     min-height: 100vh;
-    font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
-    background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%) fixed;
-    color: white;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.4;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+
+:root {
+  --neon: #00fff7;
+  --bg-dark: #0f0f12;
+  --text-light: #f0f0f0;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--neon);
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: var(--neon);
+  text-shadow: 0 0 10px var(--neon);
+  user-select: none;
+}
+
+nav a {
+  margin-left: 1.5rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--neon);
+}
+
+  /* Hero */
+  section.hero {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-/* Main content grows so footer goes to bottom */
-.main{
-  flex:1 0 auto;
-  padding:18px 0 10px 0;
-  display:flex;
-  align-items:center; /* CENTRA vertical */
-  justify-content:center;
-}
-
-
-/* Container de sección navideña */
-.container{
-  width:100%;
-  max-width:1100px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
-  border-radius:14px;
-  padding:22px;
-  box-shadow: 0 12px 40px rgba(2,6,23,0.6);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-/* Título de sección */
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
-}
-.section-head h2{
-  font-size:1.4rem;
-  letter-spacing:0.2px;
-  display:flex;align-items:center;gap:10px;
-}
-.section-head .badge{
-  background:linear-gradient(90deg,var(--neon),#7b8bff);
-  color:#02121a;padding:6px 10px;border-radius:999px;font-weight:700;
-  box-shadow:0 6px 18px rgba(56,240,255,0.12);
-}
-
-/* Vista principal: imagen grande + columna derecha con info (en desktop) */
-.product-view{
-  display:grid;
-  grid-template-columns: 1fr 360px;
-  gap:var(--gap);
-  align-items:start;
-}
-
-/* Imagen grande */
-.preview-wrap{
-  position:relative;
-  min-height:360px;
-  border-radius:10px;
-  overflow:hidden;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow: inset 0 0 60px rgba(56,240,255,0.02);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-/* imagen principal */
-.preview-img{
-  max-width:100%;
-  max-height:72vh;
-  width:100%;
-  object-fit:contain;
-  transform-origin:center;
-  filter: drop-shadow(0 10px 40px rgba(56,240,255,0.06));
-  transition: transform 450ms cubic-bezier(.2,.9,.2,1), opacity 300ms ease, filter 400ms ease;
-  opacity:0;
-  transform: scale(0.96) translateY(8px);
-}
-/* cuando cargue se ve */
-.preview-img.is-visible{
-  opacity:1;
-  transform: scale(1) translateY(0);
-}
-
-/* pequeño glow animated overlay */
-.preview-wrap::after{
-  content:"";
-  position:absolute;left:-20%;top:-40%;width:160%;height:160%;
-  background: radial-gradient(ellipse at center, rgba(56,240,255,0.06), transparent 30%);
-  animation: slow-rotate 12s linear infinite;
-  pointer-events:none;
-  mix-blend-mode:screen;
-}
-@keyframes slow-rotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-/* Right column (info + acciones) */
-.info{
-  display:flex;flex-direction:column;gap:12px;
-}
-.price{
-  font-size:1.6rem;font-weight:800;color:var(--accent);
-  text-shadow:0 6px 20px rgba(125,240,122,0.06);
-}
-.short-desc{color:var(--muted);font-size:0.95rem}
-.actions{
-  display:flex;flex-direction:column;gap:10px;margin-top:8px;
-}
-.btn{
-  padding:12px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
-  box-shadow: 0 8px 26px rgba(2,6,23,0.6);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-.btn:active{transform:translateY(2px)}
-.btn-primary{
-  background: linear-gradient(90deg,var(--neon), #7b8bff);
-  color:#02121a;
-  box-shadow: 0 10px 30px rgba(56,240,255,0.12);
-}
-.btn-ghost{
-  background:transparent;color:var(--neon);
-  border: 1px solid rgba(56,240,255,0.12);
-  backdrop-filter: blur(6px);
-}
-
-/* MercadoPago + WhatsApp row */
-.pay-row{display:flex;gap:10px;align-items:center}
-.pay-badge{
-  display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;
-  background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer;
-  transition: transform 160ms;
-}
-.pay-badge:hover{transform:translateY(-4px)}
-
-/* thumbnails carousel */
-.thumbs-wrap{
-  margin-top:14px;
-  display:flex;flex-direction:column;gap:8px;
-}
-.thumbs{
-  display:flex;gap:10px;overflow:hidden;padding:6px 4px;
-  align-items:center;
-}
-.thumb{
-  min-width:84px;height:84px;border-radius:8px;overflow:hidden;flex:0 0 auto;
-  border:2px solid transparent;cursor:pointer;background:var(--card-bg);
-  display:flex;align-items:center;justify-content:center;
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms, border-color 200ms;
-  box-shadow: 0 6px 20px rgba(2,6,23,0.45);
-}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumb.active{transform:translateY(-6px) scale(1.03);border-color:var(--neon);box-shadow:0 18px 40px rgba(56,240,255,0.06)}
-.thumb:focus{outline:3px solid rgba(56,240,255,0.12)}
-.thumb-inner{
-  width:76px;height:76px;border-radius:6px;overflow:hidden;
-}
-
-/* carousel controls */
-.thumb-controls{display:flex;gap:8px;align-items:center}
-.ctrl{
-  width:36px;height:36px;border-radius:8px;background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.03)
-}
-.ctrl svg{width:18px;height:18px;opacity:0.9;transform:translateX(0);transition:transform 160ms}
-.ctrl:hover{transform:translateY(-3px)}
-.ctrl:active{transform:translateY(1px)}
-
-/* descripción dependiente del producto */
-.detail{
-  margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));font-size:0.95rem;
-  color:var(--muted);min-height:70px;
-  transition: transform 220ms, opacity 220ms;
-}
-.detail h4{color:white;margin-bottom:6px}
-
-/* responsive */
-@media (max-width:980px){
-  .product-view{grid-template-columns:1fr; }
-  .info{order:2}
-  .preview-wrap{order:1}
-}
-
-/* footer */
-.footer{
-  margin-top:22px;padding:18px;border-top:1px solid rgba(255,255,255,0.02);
-  text-align:center;color:var(--muted);font-size:0.9rem;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
-}
-.small-note{font-size:0.85rem;color:rgba(255,255,255,0.55)}
-
-/* subtle floating snow-dot decorations (neon) */
-.decoration-dot{
-  position:absolute;border-radius:50%;width:10px;height:10px;background:var(--neon);
-  filter:blur(6px);opacity:0.08;pointer-events:none;mix-blend-mode:screen;
-}
-.decoration-dot.one{left:6%;top:8%}
-.decoration-dot.two{right:8%;top:16%}
-.decoration-dot.three{left:14%;bottom:12%}
-
-/* small animated pulse for mp and whatsapp icons */
-.icon-pulse{animation:pulse 2s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
-
-/* subtle focus states */
-a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
-/* ====== ESTILOS GENERALES ====== */
-
-.producto {
-    width: 100%;
-    padding: 20px;
-    display: flex;
     justify-content: center;
-}
-
-.producto-contenido {
-    max-width: 450px;
-    width: 100%;
+    align-items: center;
     text-align: center;
+    padding: 0 2rem;
+    user-select: none;
+  }
+
+  section.hero h1 {
+    font-size: 4rem;
+    color: var(--neon-main);
+    text-shadow:
+      0 0 8px var(--neon-main),
+      0 0 25px var(--neon-light),
+      0 0 40px var(--neon-light),
+      0 0 60px var(--neon-main);
+    animation: flicker 3s linear infinite alternate;
+    margin-bottom: 0.5rem;
+  }
+ #menu-toggle {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav.hidden {
+      display: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: cyan;
+    }
+
+    @media (max-width: 768px) {
+      #menu-toggle {
+        display: block;
+      }
+
+      nav {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: black;
+        width: 100%;
+        padding: 1rem;
+        z-index: 999;
+      }
+
+      nav a {
+        padding: 0.5rem 0;
+        font-size: 1.2rem;
+      }
+    }
+  section.hero p {
+    color: var(--neon-light);
+    font-size: 1.5rem;
+    max-width: 600px;
+    line-height: 1.4;
+    text-shadow: 0 0 10px var(--neon-light);
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      text-shadow:
+        0 0 8px var(--neon-main),
+        0 0 25px var(--neon-light),
+        0 0 40px var(--neon-light),
+        0 0 60px var(--neon-main);
+    }
+    20%, 22%, 24%, 55% {
+      opacity: 0.7;
+      text-shadow: none;
+    }
+  }
+
+  /* Catalogo cards */
+  main.catalog {
+    max-width: 1200px;
+    margin: 4rem auto 2rem;
+    padding: 0 1.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+  }
+
+article.card {
+  background: rgba(0, 255, 247, 0.06); /* Más tenue */
+  box-shadow:
+    0 0 8px rgba(0, 255, 247, 0.4),
+    inset 0 0 25px rgba(122, 255, 255, 0.3);
+  padding: 1.5rem 1.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  perspective: 700px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  user-select: none;
 }
 
-.producto-img {
-    width: 100%;
-    border-radius: 15px;
+article.card:hover,
+article.card:focus-within {
+  box-shadow:
+    0 0 20px rgba(122, 255, 255, 0.5),
+    inset 0 0 40px rgba(0, 255, 247, 0.35);
+  transform: scale(1.03) rotateX(5deg) rotateY(7deg);
 }
 
-.producto-titulo {
-    font-size: 28px;
-    margin: 15px 0 5px 0;
-    color: #c62828;
+article.card img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 20px;
+  box-shadow:
+    0 0 18px rgba(0, 255, 247, 0.35);
+  margin-bottom: 1.25rem;
+  user-select: none;
+  transition: box-shadow 0.3s ease;
+}
+article.card:hover img {
+  box-shadow:
+    0 0 30px rgba(122, 255, 255, 0.4);
 }
 
-.producto-desc {
-    font-size: 16px;
-    color: #444;
+article.card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--neon-main);
+  text-shadow: 0 0 6px rgba(0, 255, 247, 0.6);
 }
 
-/* ====== BOTONES ====== */
 
-.botones-compra {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.btn {
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 18px;
+  article.card p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #a0f9ff;
+    margin-bottom: 1.5rem;
+    min-height: 4.5em;
+    text-align: center;
+  }
+  a.btn-vermas {
+    background: linear-gradient(90deg, var(--neon-main), var(--neon-light));
+    color: #fff;
     font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.8rem 2.2rem;
+    border-radius: 25px;
+    box-shadow:
+      0 0 25px var(--neon-light),
+      0 0 45px var(--neon-main);
+    border: none;
     text-decoration: none;
-    width: 100%;
-    display: block;
-}
-
-.encargar {
-    background: #25d366;
-    color: #fff;
-}
-
-.pagar {
-    background: #009ee3;
-    color: #fff;
-}
-
-/* ====== MODO MÓVIL ARREGLADO ====== */
-
-@media (max-width: 600px){
-  .product-view{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    width:100%;
+    text-align: center;
+    user-select: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  a.btn-vermas:hover,
+  a.btn-vermas:focus {
+    box-shadow:
+      0 0 45px var(--neon-light),
+      0 0 75px var(--neon-main);
+    transform: scale(1.15);
+    outline: none;
   }
 
-  .container{
-    padding:14px;
+.navbar {
+  background: #000;
+  padding: 1rem;
+  text-align: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap; /* Permite que se acomoden sin romper */
+  justify-content: center;
+  gap: 8rem; /* espacio entre ítems */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  margin: 0.4rem 0;
+}
+
+.nav-list a {
+  color: #00d5cc;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #fff;
+  text-shadow: 0 0 6px var(--neon);
+}
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--neon-bg-light);
+    color: #999;
+    box-shadow: inset 0 1px 3px var(--neon-main);
+    font-size: 0.9rem;
+    user-select: none;
+    border-radius: 0 0 25px 25px;
+    margin-top: 3rem;
   }
 
-  .info{
-    width:100%;
-    max-width:380px;
+  /* Scroll animation fade in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .preview-wrap{
-    width:100%;
-    max-width:380px;
+  /* Particulas animadas */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
   }
-}
-@media (max-width:600px){
-  .container{
-    max-width:100%;
-    width:100%;
-    margin:0;
-    border-radius:10px;
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--neon-main);
+    filter: drop-shadow(0 0 5px var(--neon-light));
+    opacity: 0.8;
+    animation: drift 15s linear infinite;
   }
-}
-@media (max-width:600px){
-  .container{
-      box-shadow:none;
-  }
-}
-/* FIX FRANJA NEGRA EN MODO MÓVIL */
-@media (max-width: 480px) {
-
-    .main {
-        padding: 0;                /* SACAMOS EL PADDING QUE CREA LA FRANJA */
+  @keyframes drift {
+    0% {
+      transform: translate(0,0);
     }
-
-    .container {
-        border: none;              /* opcional – elimina bordes que crean líneas */
-        box-shadow: none;          /* opcional – evita sombras raras en mobile */
+    100% {
+      transform: translate(20vw, 20vh);
     }
+  }
 
-    .footer {
-        background: transparent;   /* SACAMOS EL GRADIENTE DEL FOOTER */
+  /* Responsive */
+  @media (max-width: 1024px) {
+    header {
+      padding: 1rem 2rem;
     }
+      header h1 {
+    filter: brightness(0.6);
+    text-shadow: 0 0 6px #0ff;
+  }
+    main.catalog {
+      max-width: 100%;
+      margin: 3rem auto 2rem;
+      gap: 1.8rem;
+      padding: 0 1rem 3rem;
+    }
+    article.card {
+      max-width: 340px;
+      margin: 0 auto;
+    }
+  }
+@media (max-width: 600px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 9rem; /* más aire entre ellos en vertical */
+  }
+
+  .nav-list a {
+    font-size: 1.1rem;
+    padding: 0.9rem 0;
+  }
 }
+
+  @media (max-width: 600px) {
+    header {
+      padding: 1rem 0.1rem;
+    }
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+  section.hero h1 {
+    font-size: 2.2rem; /* más chico */
+    color: var(--neon-main);
+    text-shadow:
+      0 0 3px var(--neon-main),
+      0 0 8px var(--neon-light); /* mucho menos glow */
+    animation: none; /* sin flicker para no encandilar en celu */
+    filter: brightness(0.8); /* baja la intensidad */
+  }
+}
+
+/* PARRAFO HERO */
+section.hero p {
+  font-size: 1.1rem;
+  max-width: 90vw;
+  color: #fff;
+  text-shadow: 0 0 3px #00cccc;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+/* Ajuste párrafo móvil */
+@media (max-width: 768px) {
+  section.hero p {
+    font-size: 1rem;
+    text-shadow: 0 0 2px #00cccc;
+  }
+}
+    main.catalog {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    article.card {
+      max-width: 90vw;
+    }
+    a.btn-vermas {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.3rem;
+    }
+  }
+ 
+  /* Responsive */
+  @media (max-width: 600px) {
+    
+  }
+
+  .estrella-particle {
+    position: fixed;
+    background: var(--neon-main);
+    filter: drop-shadow(0 0 5px var(--neon-light));
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: chispas-mov 1.2s linear forwards;
+    width: 4px;
+    height: 4px;
+    z-index: 9999;
+  }
+  @keyframes chispas-mov {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--dir-x) * 30px), calc(var(--dir-y) * -30px)) scale(0);
+    }
+  }
+   /* Mostrar siempre el botón toggle, fijo en la pantalla */
+/* Mostrar siempre el botón toggle, fijo en la pantalla */
+#toggle-palette {
+  position: fixed;
+  top: 80px;
+  left: 16px;
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  z-index: 9999;
+  cursor: pointer;
+  display: block; /* Siempre visible */
+}
+
+/* Selector oculto por defecto en todas las pantallas */
+#palette-selector {
+  display: none;
+  position: fixed;
+  top: 120px;
+  left: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 9998;
+  gap: 8px;
+  transition: transform 0.2s ease;
+}
+
+/* Cuando tiene clase visible, mostrar selector */
+#palette-selector.visible {
+  display: flex;
+}
+
+/* Botones de colores (igual que antes) */
+#palette-selector button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  outline-offset: 2px;
+  transition: transform 0.2s ease;
+}
+
+#btn-celeste { background-color: #00ffff; }
+#btn-verde { background-color: #00ff00; }
+#btn-rojo { background-color: #ff0000; }
+
+#palette-selector button:hover,
+#palette-selector button[aria-selected="true"] {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* Opcional: tooltip ajustes para que no tapen nada */
+#color-tooltip {
+  position: fixed;
+  top: 180px;
+  left: 16px;
+  background: var(--neon-bg-light);
+  color: var(--neon-main);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px var(--neon-main);
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.5s ease;
+  z-index: 10002;
+}
+#color-tooltip.show {
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  #toggle-palette {
+    top: 110px; /* baja el botón toggle */
+  }
+
+  #palette-selector {
+    top: 150px !important; /* baja el selector de paletas */
+  }
+
+  #color-tooltip {
+    top: 190px !important; /* baja el tooltip del color */
+  }
+}
+/* Fade-in escalonado para tarjetas */
+.card {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease forwards;
+}
+.card {
+  box-shadow: 0 0 8px rgba(0, 255, 247, 0.2);
+}
+.card img {
+  box-shadow: 0 0 12px rgba(0, 255, 247, 0.25);
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover con profundidad y rebote */
+.card:hover {
+  transform: scale(1.03) rotateX(3deg) rotateY(5deg);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (max-width: 768px) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+  }
+}
+
+/* Entrada elegante en el hero */
+section.hero h1 {
+  animation: slideIn 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón “Ver más” con pulso suave */
+.btn-vermas {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px var(--neon-main); }
+  50% { box-shadow: 0 0 20px var(--neon-light); }
+  100% { box-shadow: 0 0 10px var(--neon-main); }
+}
+:root { --header-h: 64px; }
+
+:root { --header-h: 64px; }
 
 /* Header */
 .header {
@@ -457,9 +779,11 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
   text-shadow: 0 0 8px #99e6ff; /* glow más suave */
 }
 
-</style>
+
+  </style>
 </head>
 <body>
+<div id="particles" aria-hidden="true"></div>
 
 <header class="header">
   <div class="logo">Diseños Neon</div>
@@ -485,224 +809,297 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
   </nav>
 </header>
 
-<main class="main">
-  <section class="container" id="ex" aria-labelledby="navidad-title">
-    <div class="decoration-dot one"></div>
-    <div class="decoration-dot two"></div>
-    <div class="decoration-dot three"></div>
 
-    <div class="section-head">
-      <h2 id="navidad-title">🎄 Colección Navidad
-    </div>
-
-    <div class="product-view">
-
-      <!-- IMAGEN GRANDE -->
-      <div class="preview-wrap" aria-live="polite">
-        <img id="previewImage" class="preview-img" src="" alt="Producto seleccionado" />
-      </div>
-
-      <!-- COLUMNA DERECHA: info y acciones -->
-      <aside class="info" aria-label="Detalles del producto">
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div id="productTitle" style="font-weight:800;font-size:1.05rem">Título del producto</div>
-              <div class="short-desc" id="productSubtitle">Subtítulo breve</div>
-            </div>
-            <div style="text-align:right">
-              <div class="price" id="productPrice">$0</div>
-              <div class="small-note">En stock</div>
-            </div>
-          </div>
-        </div>
-
-         <div class="botones-compra">
-            <a href="https://wa.me/5491112345678" class="btn encargar">Encargar por WhatsApp</a>
-
-            <a href="https://www.mercadopago.com.ar" class="btn pagar">
-                Pagar con Mercado Pago
-            </a>
-        </div>
+<section class="hero">
+  <h1>Diseños Neón</h1>
+  <p>Tu espacio, iluminado con estilo y personalidad</p>
+</section>
+<main id="catalogo" class="catalog">
+  <article class="card" data-precio="10000">
+    <img src="https://i.ebayimg.com/images/g/swEAAOSwk3RmCyBA/s-l1200.jpg" alt="Pelota de fútbol neón" />
+    <h3>Linea M de BMW</h3>
+    <p>La emblemática línea BMW M representa la máxima expresión de rendimiento y competición.</p>
+    <a href="bmw.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+  </article>
     
-      
-        <!-- Thumbnails carousel -->
-        <div class="thumbs-wrap">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:700">Variantes</div>
-            <div class="thumb-controls">
-              <div class="ctrl" id="prevThumb" title="Anterior" aria-hidden="true">
-                <!-- chevron left -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </div>
-              <div class="ctrl" id="nextThumb" title="Siguiente" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-              </div>
-            </div>
-          </div>
+  <!-- Tarjeta: Personajes Neón -->
+  <article class="card" tabindex="0" aria-labelledby="personajes-title" aria-describedby="personajes-desc">
+    <img src="spidderman.jpg" alt="Diseños de personajes con luz neón" loading="lazy" />
+    <h3 id="personajes-title">Personajes Neón</h3>
+    <p id="personajes-desc" style="min-height: 4.5em;">Spider-Man, Batman, Superman y otros héroes con luz neón. Elegí tu favorito y decorá tu espacio con estilo.</p>
+    <a href="personajes.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+  </article>
 
-          <div class="thumbs" id="thumbs" role="listbox" aria-label="Selector de variantes">
-            <!-- thumbs dinamicos inyectados por JS -->
-          </div>
-        </div>
 
-        <!-- Descripción dinámica -->
-        <div class="detail" id="detailBox" aria-live="polite">
-          <h4 id="detailTitle">Seleccioná un producto</h4>
-          <div id="detailText">Elegí una miniatura para ver descripción, precios y opciones de compra.</div>
-        </div>
+  <article class="card" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
+    <img src="WhatsApp Image 2025-08-17 at 7.44.06 PM.jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
+    <h3 id="circuito-title">Circuito F1 Neón</h3>
+    <p id="circuito-desc">Diseño automovilístico con luz intensa, ideal para fanáticos de la velocidad.</p>
+    <a href="circuito.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+  </article>
 
-      </aside>
-    </div><!-- /product-view -->
-  </section>
+  <article class="card" tabindex="0" aria-labelledby="cartel-title" aria-describedby="cartel-desc" style="animation-delay: 0.3s;">
+    <img src="cartel custom.png" alt="Cartel luminoso personalizado con luz cálida cyan" loading="lazy" />
+    <h3 id="cartel-title">Carteles para Eventos y Negocios (personalizables)</h3>
+    <p id="cartel-desc">Diseños personalizados de carteles con luz neón pensados especialmente para tu negocio, local, fiesta, cumpleaños, casamiento o evento importante.</p>
+    <a href="cartel.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+  </article>
+
+  <article class="card" tabindex="0" aria-labelledby="nube-title" aria-describedby="nube-desc" style="animation-delay: 0.45s;">
+  <img src="https://www.ledyilighting.com/wp-content/uploads/2023/08/Thunder-Cloud.jpg" alt="Diseño de nube con luz neón intensa" loading="lazy" />
+  <h3 id="nube-title">Nube Neón Decorativa</h3>
+  <p id="nube-desc">Diseño con forma de nube cargada, luces envolventes y efecto tormenta. Ideal para ambientes modernos o espacios creativos.</p>
+  <a href="nube.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+</article>
+
+<article class="card" tabindex="0" aria-labelledby="circuito-title" aria-describedby="circuito-desc" style="animation-delay: 0.15s;">
+    <img src="WhatsApp Image 2025-08-16 at 2.50.12 PM (1).jpeg" alt="Diseño circuito F1 con luz neón cyan" loading="lazy" />
+    <h3 id="circuito-title">Disco de freno iluminado</h3>
+    <p id="circuito-desc">Disco de freno LED con brillo neón, ideal para amantes de la velocidad y la decoración automotriz.</p>
+    <a href="disco.html" class="btn-vermas" target="_blank" rel="noopener noreferrer">Ver más</a>
+</article>
+
+
+</article>
 </main>
 
-<footer class="footer" role="contentinfo">
-  <div>© 2025 Navidad Glow — Todos los derechos reservados.</div>
-
+<footer>
+  <p>© 2025 Diseños Neón - Todos los derechos reservados.</p>
 </footer>
+<!-- INDEX.HTML: Tarjeta del cupón -->
+<div id="welcome-coupon" class="coupon-modal">
+  <div class="coupon-content">
+    <h2>¡Bienvenido!</h2>
+    <p>Tenés un 20% de descuento en tu primera compra.</p>
+    <p>Usá el código: <strong>BIENVENIDA20</strong></p>
+    <p>Tiempo restante: <span id="coupon-timer">24:00:00</span></p>
+    <button id="claim-coupon">Atrapá tu descuento</button>
+    <button id="close-coupon" class="close-btn">&times;</button>
+  </div>
+</div>
+
 
 <script>
-/* Datos de ejemplo: reemplazá src por tus imágenes reales */
-const products = [
-  { id: 'p1', title:'Árbol Neón 90cm', subtitle:'Efecto glow, cable USB', price:'$12.999', img:'image.png', thumb:'image.png', desc:'Árbol LED con tecnología neón y control remoto. Ideal para interiores y vitrinas.' },
-  { id: 'p2', title:'Copo LED Colgante', subtitle:'Pack x3, blanco frío', price:'$8.499', img:'image.png', thumb:'image.png', desc:'Copos de nieve LED para colgar. Efecto parpadeo suave y bajo consumo.' },
-  { id: 'p3', title:'Tira RGB Navideña', subtitle:'5m + control', price:'$6.999', img:'image.png', thumb:'image.png', desc:'Tira RGB compatible con sincronía musical. Cortable y flexible.' },
-  { id: 'p4', title:'Cartel Merry Xmas Neón', subtitle:'50x20cm', price:'$9.999', img:'image.png', thumb:'image.png', desc:'Cartel acrílico con iluminación integrada. Montaje fácil.' }
-];
+  document.addEventListener("DOMContentLoaded", () => {
+  
+    const cupon = document.getElementById("cupon-flotante");
+    const modal = document.getElementById("modal-cupon");
+    const cerrarModalBtn = document.getElementById("cerrar-modal");
+    const contadorFlotante = document.getElementById("contador-flotante");
+    const textoContador = document.getElementById("contador-cupon-flotante");
+    const DURACION_CUPON_MS = 86400000;
 
-/* fallbacks: si no tenés imágenes, generamos placeholders SVG */
-
-/* render thumbs */
-const thumbsContainer = document.getElementById('thumbs');
-products.forEach((p, i) => {
-  const btn = document.createElement('button');
-  btn.className = 'thumb';
-  btn.setAttribute('role','option');
-  btn.setAttribute('aria-label', p.title);
-  btn.dataset.index = i;
-  btn.innerHTML = `<div class="thumb-inner"><img src="${p.thumb || placeholderDataURI(p.title,160,140)}" alt="${p.title}"></div>`;
-  btn.addEventListener('click', ()=> selectProduct(i, true));
-  thumbsContainer.appendChild(btn);
-});
-
-/* select initial */
-let current = 0;
-const previewImage = document.getElementById('previewImage');
-const productTitle = document.getElementById('productTitle');
-const productSubtitle = document.getElementById('productSubtitle');
-const productPrice = document.getElementById('productPrice');
-const detailTitle = document.getElementById('detailTitle');
-const detailText = document.getElementById('detailText');
-
-function updateActiveThumb(){
-  document.querySelectorAll('.thumb').forEach((t, idx) => {
-    t.classList.toggle('active', idx===current);
-  });
-  // ensure visible: scroll thumbnail into view smoothly
-  const active = document.querySelector('.thumb.active');
-  if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-}
-
-function loadImage(src){
-  // animate in: remove class, set src, on load add class
-  previewImage.classList.remove('is-visible');
-  previewImage.src = src || placeholderDataURI('No Image',1200,900);
-  previewImage.alt = products[current].title;
-  previewImage.onload = ()=> {
-    requestAnimationFrame(()=> previewImage.classList.add('is-visible'));
-  };
-}
-
-/* main selection function */
-function selectProduct(index, userInitiated=false){
-  current = index;
-  const p = products[current];
-  productTitle.textContent = p.title;
-  productSubtitle.textContent = p.subtitle;
-  productPrice.textContent = p.price;
-  detailTitle.textContent = p.title;
-  detailText.textContent = p.desc;
-  loadImage(p.img);
-  updateActiveThumb();
-
-  // micro-feedback: tiny pulse animation on selected
-  if(userInitiated){
-    const el = document.querySelector('.thumb.active');
-    if(el){
-      el.animate([{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:220,easing:'cubic-bezier(.2,.9,.2,1)'});
+    const particlesContainer = document.getElementById("particles");
+    if (particlesContainer) {
+      const totalParticles = 70;
+      for (let i = 0; i < totalParticles; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const size = Math.random() * 4 + 1.5;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.top = `${Math.random() * 100}vh`;
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.animationDuration = `${15 + Math.random() * 10}s`;
+        p.style.animationDelay = `${Math.random() * 15}s`;
+        particlesContainer.appendChild(p);
+      }
     }
-  }
+
+    function getEstadoCupon() {
+      const data = JSON.parse(localStorage.getItem("cuponData"));
+      return data && data.inicio ? data : null;
+    }
+
+    function guardarEstadoCupon(data) {
+      localStorage.setItem("cuponData", JSON.stringify(data));
+    }
+
+    function resetCupon() {
+      localStorage.removeItem("cuponData");
+      location.reload();
+    }
+
+function mostrarCupon() {
+  cupon.style.display = "block";
+  iniciarMovimientoSuaveCupon();
+
+  // Guardamos que ya se mostró para que no vuelva a aparecer
+  localStorage.setItem('cuponMostrado', 'true');
+
+  // Desaparece solo a los 5 segundos
+  setTimeout(() => {
+    cupon.style.display = "none";
+  }, 5000);
 }
 
-/* prev/next controls */
-document.getElementById('prevThumb').addEventListener('click', ()=>{
-  current = (current - 1 + products.length) % products.length;
-  selectProduct(current, true);
-});
-document.getElementById('nextThumb').addEventListener('click', ()=>{
-  current = (current + 1) % products.length;
-  selectProduct(current, true);
-});
+const cuponMostrado = localStorage.getItem('cuponMostrado');
+const cuponAtrapado = getEstadoCupon(); // función que vos ya tenés para saber si atrapó cupón
 
-/* initial render */
-selectProduct(0,false);
-
-/* acción botones */
-document.getElementById('btnComprar').addEventListener('click', ()=>{
-  const p = products[current];
-  alert(`Agregar al carrito: ${p.title} — ${p.price}\n(Implementá carrito / checkout real aquí)`);
-});
-
-document.getElementById('btnEncargar').addEventListener('click', ()=>{
-  const p = products[current];
-  const wa = document.getElementById('waLink').href;
-  window.open(wa + `?text=${encodeURIComponent('Hola! Quiero encargar: '+p.title)}`, '_blank');
-});
-
-
-/* keyboard navigation for thumbs (left/right) */
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'ArrowRight'){ current=(current+1)%products.length; selectProduct(current,true) }
-  if(e.key === 'ArrowLeft'){ current=(current-1+products.length)%products.length; selectProduct(current,true) }
-});
-
-/* small improvement: lazy load thumbnails images (if many) */
-document.querySelectorAll('.thumb img').forEach(img=>{
-  if(img.src.startsWith('data:')) return;
-  img.loading = 'lazy';
-});
-
-/* Optional: autoplay thumbnail scroll (soft animation) */
-let autoScroll = true;
-let scrollPos = 0;
-function autoScrollThumbs(){
-  if(!autoScroll) return;
-  scrollPos += 0.4;
-  thumbsContainer.scrollLeft = scrollPos;
-  if(scrollPos > thumbsContainer.scrollWidth - thumbsContainer.clientWidth - 10) scrollPos = 0;
-  requestAnimationFrame(autoScrollThumbs);
-}
-requestAnimationFrame(autoScrollThumbs);
-
-/* Improve accessibility: announce changes */
-const live = document.getElementById('detailBox');
-function announce(text){
-  live.setAttribute('aria-busy','true');
-  setTimeout(()=>{ live.setAttribute('aria-busy','false'); }, 300);
+if (!cuponMostrado && !cuponAtrapado) {
+  setTimeout(mostrarCupon, 3000);
+} else if (cuponAtrapado) {
+  iniciarContador();
 }
 
-/* When preview loads, announce */
-previewImage.addEventListener('load', ()=>{
-  announce('Imagen cargada: '+products[current].title);
-});
-  mainImg.onclick = () => {
-    modalImg.src = mainImg.src;
-    modal.classList.add('active');
-  };
-  modal.onclick = () => {
-    modal.classList.remove('active');
-  };
+
+    function mostrarModal() {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        modal.style.opacity = 1;
+      }, 50);
+    }
+
+    function ocultarModal() {
+      modal.style.opacity = 0;
+      setTimeout(() => {
+        modal.style.display = "none";
+      }, 300);
+    }
+
+    function iniciarContador() {
+      const estado = getEstadoCupon();
+      if (!estado) return;
+      function actualizarContador() {
+        const ahora = Date.now();
+        const diferencia = DURACION_CUPON_MS - (ahora - estado.inicio);
+        if (diferencia <= 0) {
+          contadorFlotante.style.display = "none";
+          return;
+        }
+        const horas = Math.floor(diferencia / 3600000);
+        const minutos = Math.floor((diferencia % 3600000) / 60000);
+        const segundos = Math.floor((diferencia % 60000) / 1000);
+        textoContador.textContent = `${horas}h ${minutos}m ${segundos}s`;
+      }
+      contadorFlotante.style.display = "block";
+      actualizarContador();
+      setInterval(actualizarContador, 1000);
+    }
+
+    cupon.addEventListener("click", () => {
+      cupon.style.display = "none";
+      mostrarModal();
+      guardarEstadoCupon({ inicio: Date.now() });
+      iniciarContador();
+    });
+
+    cerrarModalBtn.addEventListener("click", ocultarModal);
+
+    if (!getEstadoCupon()) {
+      setTimeout(mostrarCupon, 3000);
+    } else {
+      iniciarContador();
+    }
+
+    window.resetCupon = resetCupon;
+
+    // Animación fade-in de tarjetas
+    const fadeEls = document.querySelectorAll('.fade-in');
+    function handleScrollFade() {
+      const windowHeight = window.innerHeight;
+      fadeEls.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < windowHeight * 0.85) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', handleScrollFade);
+    window.addEventListener('load', handleScrollFade);
+
+    // Paleta de color
+    const selector = document.getElementById('palette-selector');
+    const buttons = selector ? selector.querySelectorAll('button') : [];
+    const tooltip = document.getElementById('color-tooltip');
+
+    function setTheme(color) {
+      document.documentElement.setAttribute('data-theme', color);
+      buttons.forEach(btn => {
+        const selected = btn.dataset.color === color;
+        btn.setAttribute('aria-selected', selected);
+        btn.tabIndex = selected ? 0 : -1;
+      });
+      showTooltip(color);
+    }
+
+    function showTooltip(colorName) {
+      if (!tooltip) return;
+      tooltip.textContent = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+      tooltip.classList.add('show');
+      clearTimeout(tooltip.hideTimeout);
+      tooltip.hideTimeout = setTimeout(() => {
+        tooltip.classList.remove('show');
+      }, 1500);
+    }
+
+    const temaGuardado = localStorage.getItem('selectedTheme');
+    if (temaGuardado) setTheme(temaGuardado);
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTheme(btn.dataset.color);
+        localStorage.setItem('selectedTheme', btn.dataset.color);
+      });
+      btn.addEventListener('keydown', e => {
+        let index = Array.from(buttons).indexOf(e.target);
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          let next = (index + 1) % buttons.length;
+          buttons[next].focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          let prev = (index - 1 + buttons.length) % buttons.length;
+          buttons[prev].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setTheme(e.target.dataset.color);
+          localStorage.setItem('selectedTheme', e.target.dataset.color);
+        }
+      });
+    });
+
+    // Función para movimiento suave del cupón
+    function iniciarMovimientoSuaveCupon() {
+      cupon.style.position = 'fixed';
+      let posX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let posY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      cupon.style.left = `${posX}px`;
+      cupon.style.top = `${posY}px`;
+
+      let targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+      let targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+      const speed = 100; // píxeles por segundo
+
+      function moveStep(timestamp) {
+        if (!cupon.lastTimestamp) cupon.lastTimestamp = timestamp;
+        const delta = (timestamp - cupon.lastTimestamp) / 1000;
+        cupon.lastTimestamp = timestamp;
+
+        const dx = targetX - posX;
+        const dy = targetY - posY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 1) {
+          targetX = Math.random() * (window.innerWidth - cupon.offsetWidth);
+          targetY = Math.random() * (window.innerHeight - cupon.offsetHeight);
+        } else {
+          const moveX = (dx / dist) * speed * delta;
+          const moveY = (dy / dist) * speed * delta;
+          posX += moveX;
+          posY += moveY;
+          cupon.style.left = `${posX}px`;
+          cupon.style.top = `${posY}px`;
+        }
+
+        requestAnimationFrame(moveStep);
+      }
+
+      requestAnimationFrame(moveStep);
+    }
+  });
+
+
 const toggleBtn = document.querySelector('.menu-toggle');
 const closeBtn = document.querySelector('.menu-close');
 const menu = document.querySelector('.menu');
@@ -715,7 +1112,7 @@ closeBtn.addEventListener('click', () => {
   menu.classList.remove('active');
 });
 
-
 </script>
+
 </body>
 </html>
