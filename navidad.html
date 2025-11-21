@@ -455,7 +455,28 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
   color: #99e6ff;
   text-shadow: 0 0 8px #99e6ff; /* glow más suave */
 }
+/* MODAL FULLSCREEN */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
 
+.modal.active {
+  display: flex;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255,69,0,0.6);
+  transition: transform 0.3s ease;
+}
 </style>
 </head>
 <body>
@@ -494,6 +515,14 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
     <div class="section-head">
       <h2 id="navidad-title">🎄 Colección Navidad
     </div>
+<!-- MODAL FULLSCREEN -->
+<div id="imgModal" class="modal">
+    <span class="modal-close" id="modalClose">&times;</span>
+
+    <button class="modal-arrow left" id="modalPrev">◀</button>
+    <img id="modalImg" class="modal-img" alt="Imagen ampliada">
+    <button class="modal-arrow right" id="modalNext">▶</button>
+</div>
 
     <div class="product-view">
 
@@ -516,17 +545,7 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
             </div>
           </div>
         </div>
-
-         <div class="botones-compra">
-            <a href="https://wa.me/5491151171205" class="btn encargar">Encargar por WhatsApp</a>
-
-            <a href="https://www.mercadopago.com.ar" class="btn pagar">
-                Pagar con Mercado Pago
-            </a>
-        </div>
-    
-      
-        <!-- Thumbnails carousel -->
+    <!-- Thumbnails carousel -->
         <div class="thumbs-wrap">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div style="font-weight:700">Variantes</div>
@@ -551,7 +570,16 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
           <h4 id="detailTitle">Seleccioná un producto</h4>
           <div id="detailText">Elegí una miniatura para ver descripción, precios y opciones de compra.</div>
         </div>
+         <div class="botones-compra">
+            <a href="https://wa.me/5491151171205" class="btn encargar">Encargar por WhatsApp</a>
 
+            <a href="https://www.mercadopago.com.ar" class="btn pagar">
+                Pagar con Mercado Pago
+            </a>
+        </div>
+    
+      
+      
       </aside>
     </div><!-- /product-view -->
   </section>
@@ -751,13 +779,44 @@ function announce(text){
 previewImage.addEventListener('load', ()=>{
   announce('Imagen cargada: '+products[current].title);
 });
-  mainImg.onclick = () => {
-    modalImg.src = mainImg.src;
-    modal.classList.add('active');
-  };
-  modal.onclick = () => {
-    modal.classList.remove('active');
-  };
+// ELEMENTOS DEL MODAL
+const modal = document.getElementById('imgModal');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
+
+let currentIndex = 0;
+
+// Abrir modal desde la imagen principal
+previewImage.addEventListener('click', () => {
+    modal.classList.add('show');
+    modalImg.src = products[currentIndex].img;
+});
+
+// Cerrar modal
+modalClose.addEventListener('click', () => {
+    modal.classList.remove('show');
+});
+
+// Cambiar a imagen anterior
+modalPrev.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + products.length) % products.length;
+    modalImg.src = products[currentIndex].img;
+    selectProduct(currentIndex);
+});
+
+// Cambiar a imagen siguiente
+modalNext.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % products.length;
+    modalImg.src = products[currentIndex].img;
+    selectProduct(currentIndex);
+});
+
+// Cerrar tocando fuera de la imagen
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('show');
+});
 
 
 </script>
