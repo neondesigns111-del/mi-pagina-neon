@@ -779,6 +779,31 @@ section.hero h1 {
   text-shadow: 0 0 8px #99e6ff; /* glow más suave */
 }
 
+@media (max-width: 768px) {
+  section.hero h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #bff9ff;
+
+    /* Glow sutil y profesional */
+    text-shadow:
+      0 0 3px rgba(0, 255, 255, 0.18),
+      0 0 8px rgba(0, 255, 255, 0.15);
+
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: heroFadeMobile 0.9s ease-out forwards;
+  }
+
+  @keyframes heroFadeMobile {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 
   </style>
 </head>
