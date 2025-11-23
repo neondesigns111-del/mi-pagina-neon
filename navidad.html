@@ -105,17 +105,23 @@ body {
 }
 
 /* imagen principal */
-.preview-img{
-  max-width:100%;
-  max-height:72vh;
-  width:100%;
-  object-fit:contain;
-  transform-origin:center;
+.preview-img {
+  width: 100%;
+  height: 380px;      /* contenedor fijo → no salta */
+  object-fit: contain; /* la imagen nunca se corta */
+  background: #00000015; /* pequeño fondo para que quede mejor */
+  border-radius: 10px;
+
+  /* tus efectos originales */
+  transform-origin: center;
   filter: drop-shadow(0 10px 40px rgba(56,240,255,0.06));
-  transition: transform 450ms cubic-bezier(.2,.9,.2,1), opacity 300ms ease, filter 400ms ease;
-  opacity:0;
+  transition: transform 450ms cubic-bezier(.2,.9,.2,1), 
+              opacity 300ms ease, 
+              filter 400ms ease;
+  opacity: 0;
   transform: scale(0.96) translateY(8px);
 }
+
 /* cuando cargue se ve */
 .preview-img.is-visible{
   opacity:1;
@@ -176,10 +182,17 @@ body {
   margin-top:14px;
   display:flex;flex-direction:column;gap:8px;
 }
-.thumbs{
-  display:flex;gap:10px;overflow:hidden;padding:6px 4px;
-  align-items:center;
+.thumbs {
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:6px 4px;
+    align-items:center;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
+
 .thumb{
   min-width:84px;height:84px;border-radius:8px;overflow:hidden;flex:0 0 auto;
   border:2px solid transparent;cursor:pointer;background:var(--card-bg);
@@ -477,6 +490,272 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
   box-shadow: 0 0 20px rgba(255,69,0,0.6);
   transition: transform 0.3s ease;
 }
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2.2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 5000;
+}
+.modal-close:hover {
+  color: var(--neon);
+}
+/* Flechas laterales de la imagen grande (sutiles y elegantes) */
+.big-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: 0.25s ease;
+    z-index: 20;
+}
+
+.big-arrow svg {
+    width: 18px;
+    height: 18px;
+    opacity: 0.75;
+    transition: 0.25s ease;
+}
+
+.big-arrow:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.big-arrow:hover svg {
+    opacity: 1;
+}
+
+/* izquierda y derecha */
+.big-arrow.left {
+    left: 10px;
+}
+.big-arrow.right {
+    right: 10px;
+}
+
+/* asegurar que el contenedor permita flechas */
+.preview-wrap {
+    position: relative;
+}
+/* MODAL FULLSCREEN PARA ZOOM */
+.zoom-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    backdrop-filter: blur(4px);
+}
+
+.zoom-modal.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+}
+
+/* Imagen ampliada */
+.zoom-img {
+    max-width: 92%;
+    max-height: 92%;
+    border-radius: 10px;
+    animation: zoomIn 0.3s ease;
+    box-shadow: 0 0 28px rgba(0,0,0,0.6);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.70); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+/* Botón cerrar */
+.zoom-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-size: 34px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 3001;
+    text-shadow: 0 0 10px black;
+}
+
+/* Flechas dentro del ZOOM */
+.zoom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 42px;
+    color: #fff;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.18);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.zoom-arrow.left { left: 20px; }
+.zoom-arrow.right { right: 20px; }
+
+.zoom-arrow:active {
+    transform: translateY(-50%) scale(0.92);
+}
+/* ANIMACIÓN PROFESIONAL PARA CAMBIO DE IMAGEN */
+.fade-zoom {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.fade-zoom.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ANIMACIÓN PROFESIONAL PARA CAMBIO DE IMAGEN */
+.smooth-change {
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s cubic-bezier(.2, .9, .2, 1);
+}
+
+.smooth-change.show {
+    opacity: 1;
+    transform: scale(1);
+}
+/* BOTÓN FLOTANTE PREMIUM */
+.help-bubble {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;  /* 🔥 SIEMPRE deja espacio fijo entre círculo y texto */
+
+    background: linear-gradient(135deg, #ff8a3d, #e63a3a);
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 40px;
+    cursor: pointer;
+
+    overflow: hidden;
+    transition: width 0.35s ease, padding 0.3s ease;
+
+    padding-left: 10px;  /* 🔥 EL SECRETO: SIEMPRE hay algo de padding */
+    padding-right: 10px;
+
+    z-index: 9999;
+}
+
+/* Círculo interno */
+.help-icon {
+    width: 34px;
+    height: 34px;
+
+    background: white;
+    color: #e63a3a;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Inter", "Poppins", system-ui;
+
+    flex-shrink: 0;
+
+    line-height: 1;   /* 🔥 CLAVE: evita que el signo quede descentrado */
+}
+
+/* Texto */
+.help-text {
+    opacity: 0;
+    white-space: nowrap;
+
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "Inter", "Poppins", system-ui;
+
+    color: white;
+
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.help-bubble.open {
+    width: 230px;        /* Ajustá si querés */
+    justify-content: flex-start;
+}
+
+
+.help-bubble.open .help-text {
+ font-size: 1.15rem;
+    font-weight: 650;
+    letter-spacing: 0.3px; /* más elegante */
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.thumb-controls {
+    display: none !important;
+}
+/* Cuando el zoom está abierto, oscurecer el botón flotante */
+#helpBubble.dark {
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    border-color: rgba(255,255,255,0.15);
+}
+
+#helpBubble.dark .bubble-icon {
+    color: #fff;
+}
+
+#helpBubble.dark .bubble-text {
+    color: #fff;
+}
+/* --- Ocultar scroll del carrusel en PC --- */
+@media (min-width: 601px) {
+    .thumbs {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE */
+    }
+    .thumbs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+}
+
 </style>
 </head>
 <body>
@@ -505,6 +784,10 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
   </nav>
 </header>
 
+<div class="help-bubble" id="helpBubble">
+    <div class="help-icon">?</div>
+    <div class="help-text">¿Cómo comprar?</div>
+</div>
 
 <main class="main">
   <section class="container" id="ex" aria-labelledby="navidad-title">
@@ -515,21 +798,57 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
     <div class="section-head">
       <h2 id="navidad-title">🎄 Colección Navidad
     </div>
-<!-- MODAL FULLSCREEN -->
-<div id="imgModal" class="modal">
-    <span class="modal-close" id="modalClose">&times;</span>
 
-    <button class="modal-arrow left" id="modalPrev">◀</button>
-    <img id="modalImg" class="modal-img" alt="Imagen ampliada">
-    <button class="modal-arrow right" id="modalNext">▶</button>
+    <div class="modal" id="modal">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <button class="modal-btn left" onclick="prevImage()">&#10094;</button>
+  <img id="modalImg" alt="Imagen ampliada" />
+  <button class="modal-btn right" onclick="nextImage()">&#10095;</button>
 </div>
+<!-- MODAL PARA ZOOM IN -->
+<div id="zoomModal" class="zoom-modal">
+
+    <span class="zoom-close" id="zoomClose">×</span>
+
+    <button id="zoomPrev" class="big-arrow left" style="z-index:4000;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M15 6l-6 6 6 6"/>
+        </svg>
+    </button>
+<img id="zoomImg" class="zoom-img smooth-change show" alt="">
+
+
+    <button id="zoomNext" class="big-arrow right" style="z-index:4000;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M9 6l6 6-6 6"/>
+        </svg>
+    </button>
+
+</div>
+
 
     <div class="product-view">
 
-      <!-- IMAGEN GRANDE -->
-      <div class="preview-wrap" aria-live="polite">
-        <img id="previewImage" class="preview-img" src="" alt="Producto seleccionado" />
-      </div>
+<div class="preview-wrap" aria-live="polite">
+    
+    <button id="bigPrev" class="big-arrow left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M15 6l-6 6 6 6"/>
+        </path>
+        </svg>
+    </button>
+
+<img id="previewImage" class="preview-img smooth-change show" alt="">
+
+
+    <button id="bigNext" class="big-arrow right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <path d="M9 6l6 6-6 6"/>
+        </svg>
+    </button>
+
+</div>
+
 
       <!-- COLUMNA DERECHA: info y acciones -->
       <aside class="info" aria-label="Detalles del producto">
@@ -591,61 +910,25 @@ a:focus,button:focus{outline:3px solid rgba(56,240,255,0.08);outline-offset:2px}
 </footer>
 
 <script>
+
 /* Datos de ejemplo: reemplazá src por tus imágenes reales */
 const products = [
-  {
-    id: 'gorro',
-    title: 'Gorro Navideño Neón',
-    subtitle: 'LED Neón — Impreso en 3D',
-    price: '$17.500',
-    img: 'image copy 3.png',
-    thumb: 'image copy 3.png',
-    desc: 'Gorro navideño estilo neón LED. Brillo fuerte, bajo consumo y base impresa en 3D.'
-  },
-
-  {
-    id: 'bola',
-    title: 'Bola Navideña Neón',
-    subtitle: 'Rojo + Verde — Diseño Premium',
-    price: '$18.000',
-    img: 'image copy 4.png',
-    thumb: 'image copy 4.png',
-    desc: 'Adorno navideño iluminado con neón en rojo y verde. Ideal para decorar paredes y vidrieras.'
-  },
-
-  {
-    id: 'media',
-    title: 'Media Navideña Neón',
-    subtitle: 'LED Neón — Detalles 3D',
-    price: '$19.000',
-    img: 'image copy 2.png',
-    thumb: 'image copy 2.png',
-    desc: 'Media navideña luminosa con contornos en 3D y luz neón. Perfecta para ambientar espacios festivos.'
-  },
-
-  {
-    id: 'copo',
-    title: 'Copo de Nieve Neón',
-    subtitle: 'Blanco frío — 30cm',
-    price: '$14.999',
-    img: 'image copy 5.png',
-    thumb: 'image copy 5.png',
-    desc: 'Copo de nieve LED neón con brillo blanco frío. Ligero, resistente y perfecto para colgar.'
-  },
-
-  {
-    id: 'arbol',
-    title: 'Arbolito Navideño Neón',
-    subtitle: 'Verde',
-    price: '$21.999',
-    img: 'image copy 6.png',
-    thumb: 'image copy 6.png',
-    desc: 'Árbol navideño iluminado con neón verde y estrella amarilla. Ideal para decorar interiores o vidrieras.'
-  }
+  { id:'gorro', title:'Gorro Navideño Neón', subtitle:'LED Neón — Impreso en 3D', price:'$17.500', img:'image copy 3.png', thumb:'image copy 3.png', desc:'Gorro navideño estilo neón LED. Brillo fuerte, bajo consumo y contorno impreso en 3D.' },
+  { id:'bola', title:'Bola Navideña Neón', subtitle:'Rojo + Verde — Diseño Premium', price:'$18.000', img:'image copy 4.png', thumb:'image copy 4.png', desc:'Adorno navideño iluminado con neón en rojo y verde. Ideal para decorar paredes y vidrieras.' },
+  { id:'media', title:'Media Navideña Neón', subtitle:'LED Neón — Detalles 3D', price:'$19.000', img:'image copy 2.png', thumb:'image copy 2.png', desc:'Media navideña luminosa con contornos en 3D y luz neón.' },
+  { id:'copo', title:'Copo de Nieve Neón', subtitle:'Blanco frío — 30cm', price:'$14.999', img:'image copy 5.png', thumb:'image copy 5.png', desc:'Copo LED blanco frío perfecto para decorar espacios.' },
+  { id:'arbol', title:'Arbolito Navideño Neón', subtitle:'Verde Tradicional', price:'$21.999', img:'image copy 6.png', thumb:'image copy 6.png', desc:'Árbol neón verde con base impresa en 3D.' }
 ];
 
+function animateImage(el) {
+    el.classList.remove("show");
+    setTimeout(() => el.classList.add("show"), 20);
+}
 
-    const toggleBtn = document.querySelector('.menu-toggle');
+/* --------------------------
+     MENU SUPERIOR
+---------------------------*/
+const toggleBtn = document.querySelector('.menu-toggle');
 const closeBtn = document.querySelector('.menu-close');
 const menu = document.querySelector('.menu');
 
@@ -656,169 +939,174 @@ toggleBtn.addEventListener('click', () => {
 closeBtn.addEventListener('click', () => {
   menu.classList.remove('active');
 });
-/* render thumbs */
-const thumbsContainer = document.getElementById('thumbs');
+
+
+/* --------------------------
+       RENDER MINIATURAS
+---------------------------*/
+const thumbsContainer = document.getElementById("thumbs");
 products.forEach((p, i) => {
-  const btn = document.createElement('button');
-  btn.className = 'thumb';
-  btn.setAttribute('role','option');
-  btn.setAttribute('aria-label', p.title);
-  btn.dataset.index = i;
-  btn.innerHTML = `<div class="thumb-inner"><img src="${p.thumb || placeholderDataURI(p.title,160,140)}" alt="${p.title}"></div>`;
-  btn.addEventListener('click', ()=> selectProduct(i, true));
-  thumbsContainer.appendChild(btn);
+  const b = document.createElement("button");
+  b.className = "thumb";
+  b.dataset.index = i;
+  b.innerHTML = `<div class="thumb-inner"><img src="${p.thumb}"></div>`;
+  b.onclick = () => selectProduct(i);
+  thumbsContainer.appendChild(b);
 });
 
-/* select initial */
+
+/* --------------------------
+         VARIABLES
+---------------------------*/
 let current = 0;
-const previewImage = document.getElementById('previewImage');
-const productTitle = document.getElementById('productTitle');
-const productSubtitle = document.getElementById('productSubtitle');
-const productPrice = document.getElementById('productPrice');
-const detailTitle = document.getElementById('detailTitle');
-const detailText = document.getElementById('detailText');
 
-function updateActiveThumb(){
-  document.querySelectorAll('.thumb').forEach((t, idx) => {
-    t.classList.toggle('active', idx===current);
-  });
-  // ensure visible: scroll thumbnail into view smoothly
-  const active = document.querySelector('.thumb.active');
-  if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-}
+const previewImage = document.getElementById("previewImage");
+const productTitle = document.getElementById("productTitle");
+const productSubtitle = document.getElementById("productSubtitle");
+const productPrice = document.getElementById("productPrice");
+const detailTitle = document.getElementById("detailTitle");
+const detailText = document.getElementById("detailText");
 
-function loadImage(src){
-  // animate in: remove class, set src, on load add class
-  previewImage.classList.remove('is-visible');
-  previewImage.src = src || placeholderDataURI('No Image',1200,900);
-  previewImage.alt = products[current].title;
-  previewImage.onload = ()=> {
-    requestAnimationFrame(()=> previewImage.classList.add('is-visible'));
-  };
-}
 
-/* main selection function */
-function selectProduct(index, userInitiated=false){
-  current = index;
-  const p = products[current];
+/* --------------------------
+        CARGAR PRODUCTO
+---------------------------*/
+function selectProduct(i) {
+  current = i;
+  const p = products[i];
+
+  previewImage.src = p.img;
+  animateImage(previewImage);
+
   productTitle.textContent = p.title;
   productSubtitle.textContent = p.subtitle;
   productPrice.textContent = p.price;
   detailTitle.textContent = p.title;
   detailText.textContent = p.desc;
-  loadImage(p.img);
-  updateActiveThumb();
 
-  // micro-feedback: tiny pulse animation on selected
-  if(userInitiated){
-    const el = document.querySelector('.thumb.active');
-    if(el){
-      el.animate([{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:220,easing:'cubic-bezier(.2,.9,.2,1)'});
-    }
+  updateThumbs();
+}
+
+function updateThumbs() {
+  const allThumbs = document.querySelectorAll(".thumb");
+
+  allThumbs.forEach((t, idx) => {
+    t.classList.toggle("active", idx === current);
+  });
+
+  // AUTO SCROLL al seleccionado
+  const activeThumb = allThumbs[current];
+  if (activeThumb) {
+    activeThumb.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest"
+    });
   }
 }
 
-/* prev/next controls */
-document.getElementById('prevThumb').addEventListener('click', ()=>{
+
+/* --------------------------
+      FLECHAS PREVIEW
+---------------------------*/
+document.getElementById("bigPrev").onclick = () => {
   current = (current - 1 + products.length) % products.length;
-  selectProduct(current, true);
-});
-document.getElementById('nextThumb').addEventListener('click', ()=>{
+  selectProduct(current);
+};
+
+document.getElementById("bigNext").onclick = () => {
   current = (current + 1) % products.length;
-  selectProduct(current, true);
+  selectProduct(current);
+};
+
+
+/* --------------------------
+         ZOOM FULLSCREEN
+---------------------------*/
+const zoomModal = document.getElementById("zoomModal");
+const zoomImg = document.getElementById("zoomImg");
+const zoomClose = document.getElementById("zoomClose");
+const zoomPrev = document.getElementById("zoomPrev");
+const zoomNext = document.getElementById("zoomNext");
+
+// 👉 Tu botón flotante
+const helpBubble = document.getElementById("helpBubble");
+
+/* Abrir zoom */
+previewImage.onclick = () => {
+  zoomImg.src = products[current].img;
+  zoomModal.classList.add("active");
+
+  // OSCURECER círculo de "¿Cómo comprar?"
+  if (helpBubble) helpBubble.classList.add("dark");
+};
+
+/* Cerrar zoom */
+zoomClose.onclick = () => {
+  zoomModal.classList.remove("active");
+  if (helpBubble) helpBubble.classList.remove("dark");
+};
+
+// Cerrar tocando fondo
+zoomModal.onclick = (e) => {
+  if (e.target === zoomModal) {
+    zoomModal.classList.remove("active");
+    if (helpBubble) helpBubble.classList.remove("dark");
+  }
+};
+
+
+/* --------- Cambiar imágenes en ZOOM ---------*/
+zoomPrev.onclick = () => {
+  current = (current - 1 + products.length) % products.length;
+  selectProduct(current);
+  zoomImg.src = products[current].img;
+  animateImage(zoomImg);
+};
+
+zoomNext.onclick = () => {
+  current = (current + 1) % products.length;
+  selectProduct(current);
+  zoomImg.src = products[current].img;
+  animateImage(zoomImg);
+};
+
+
+/* --------------------------
+        INICIALIZAR
+---------------------------*/
+selectProduct(0);
+
+
+/* --------------------------
+   BUBBLE "¿CÓMO COMPRAR?"
+---------------------------*/
+let autoOpened = false;
+
+// Abrir manual al pasar o tocar
+helpBubble.addEventListener("mouseenter", () => {
+  if (autoOpened) helpBubble.classList.add("open");
+});
+helpBubble.addEventListener("mouseleave", () => {
+  if (autoOpened) helpBubble.classList.remove("open");
+});
+helpBubble.addEventListener("click", () => {
+  window.location.href = "Pasos.html";
 });
 
-/* initial render */
-selectProduct(0,false);
+// Auto abrir → esperar 2s → abrir 7s → cerrar
+setTimeout(() => {
+  helpBubble.classList.add("open");
 
-/* acción botones */
-document.getElementById('btnComprar').addEventListener('click', ()=>{
-  const p = products[current];
-  alert(`Agregar al carrito: ${p.title} — ${p.price}\n(Implementá carrito / checkout real aquí)`);
-});
+  setTimeout(() => {
+    helpBubble.classList.remove("open");
+    autoOpened = true;
+  }, 7000);
 
-document.getElementById('btnEncargar').addEventListener('click', ()=>{
-  const p = products[current];
-  const wa = document.getElementById('waLink').href;
-  window.open(wa + `?text=${encodeURIComponent('Hola! Quiero encargar: '+p.title)}`, '_blank');
-});
-
-
-/* keyboard navigation for thumbs (left/right) */
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'ArrowRight'){ current=(current+1)%products.length; selectProduct(current,true) }
-  if(e.key === 'ArrowLeft'){ current=(current-1+products.length)%products.length; selectProduct(current,true) }
-});
-
-/* small improvement: lazy load thumbnails images (if many) */
-document.querySelectorAll('.thumb img').forEach(img=>{
-  if(img.src.startsWith('data:')) return;
-  img.loading = 'lazy';
-});
-
-/* Optional: autoplay thumbnail scroll (soft animation) */
-let autoScroll = true;
-let scrollPos = 0;
-function autoScrollThumbs(){
-  if(!autoScroll) return;
-  scrollPos += 0.4;
-  thumbsContainer.scrollLeft = scrollPos;
-  if(scrollPos > thumbsContainer.scrollWidth - thumbsContainer.clientWidth - 10) scrollPos = 0;
-  requestAnimationFrame(autoScrollThumbs);
-}
-requestAnimationFrame(autoScrollThumbs);
-
-/* Improve accessibility: announce changes */
-const live = document.getElementById('detailBox');
-function announce(text){
-  live.setAttribute('aria-busy','true');
-  setTimeout(()=>{ live.setAttribute('aria-busy','false'); }, 300);
-}
-
-/* When preview loads, announce */
-previewImage.addEventListener('load', ()=>{
-  announce('Imagen cargada: '+products[current].title);
-});
-// ELEMENTOS DEL MODAL
-const modal = document.getElementById('imgModal');
-const modalImg = document.getElementById('modalImg');
-const modalClose = document.getElementById('modalClose');
-const modalPrev = document.getElementById('modalPrev');
-const modalNext = document.getElementById('modalNext');
-
-let currentIndex = 0;
-
-// Abrir modal desde la imagen principal
-previewImage.addEventListener('click', () => {
-    modal.classList.add('show');
-    modalImg.src = products[currentIndex].img;
-});
-
-// Cerrar modal
-modalClose.addEventListener('click', () => {
-    modal.classList.remove('show');
-});
-
-// Cambiar a imagen anterior
-modalPrev.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + products.length) % products.length;
-    modalImg.src = products[currentIndex].img;
-    selectProduct(currentIndex);
-});
-
-// Cambiar a imagen siguiente
-modalNext.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % products.length;
-    modalImg.src = products[currentIndex].img;
-    selectProduct(currentIndex);
-});
-
-// Cerrar tocando fuera de la imagen
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('show');
-});
-
+}, 2000);
 
 </script>
+
 </body>
 </html>
+
